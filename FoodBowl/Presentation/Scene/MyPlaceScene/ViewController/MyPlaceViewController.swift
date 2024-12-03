@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyPlaceViewController: MapViewController {
+final class MyPlaceViewController: OriginalMapViewController {
     
     // MARK: - ui component
 

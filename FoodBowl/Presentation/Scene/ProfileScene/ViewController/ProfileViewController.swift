@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ProfileViewController: MapViewController {
+final class ProfileViewController: OriginalMapViewController {
     
     // MARK: - ui component
     

@@ -195,6 +195,15 @@
 		CBDA47D32CFEC06000BFB88A /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D22CFEC06000BFB88A /* SplashCoordinator.swift */; };
 		CBDA47D52CFEC20C00BFB88A /* SplashViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D42CFEC20C00BFB88A /* SplashViewModelType.swift */; };
 		CBDA47D72CFEC29B00BFB88A /* SignViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D62CFEC29B00BFB88A /* SignViewModelType.swift */; };
+		CBDA47DA2CFEC5D700BFB88A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D92CFEC5D700BFB88A /* MapView.swift */; };
+		CBDA47DC2CFEC5E500BFB88A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47DB2CFEC5E500BFB88A /* MapViewController.swift */; };
+		CBDA47DE2CFEC5EA00BFB88A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47DD2CFEC5EA00BFB88A /* MapViewModel.swift */; };
+		CBDA47E02CFEC5F100BFB88A /* MapViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47DF2CFEC5F100BFB88A /* MapViewModelType.swift */; };
+		CBDA47E22CFEC5F900BFB88A /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47E12CFEC5F900BFB88A /* MapCoordinator.swift */; };
+		CBDA47E52CFEC75200BFB88A /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47E42CFEC75200BFB88A /* MapRepository.swift */; };
+		CBDA47E82CFEC77000BFB88A /* MapUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47E72CFEC77000BFB88A /* MapUsecase.swift */; };
+		CBDA47EB2CFEC7A600BFB88A /* MapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47EA2CFEC7A600BFB88A /* MapRepositoryImpl.swift */; };
+		CBDA47EE2CFEC90200BFB88A /* MKMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47ED2CFEC90200BFB88A /* MKMapView+Extension.swift */; };
 		CBDDF1402A6ADA3800AE3C50 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */; };
 		CBDDF1422A6AF70500AE3C50 /* StoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */; };
 		CBDDF1452A6AFB5800AE3C50 /* PhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */; };
@@ -229,7 +238,7 @@
 		CBDF6EA62AD9255200EB2481 /* BlameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDF6EA52AD9255200EB2481 /* BlameViewController.swift */; };
 		CBE32D0E2ADE7648004CCCBE /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE32D0D2ADE7648004CCCBE /* CategoryType.swift */; };
 		CBE6190C296C635D005295AF /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE6190B296C635D005295AF /* FollowButton.swift */; };
-		CBE6190F296C6435005295AF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE6190E296C6435005295AF /* MapViewController.swift */; };
+		CBE6190F296C6435005295AF /* OriginalMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE6190E296C6435005295AF /* OriginalMapViewController.swift */; };
 		CBE61911296C6804005295AF /* OptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE61910296C6804005295AF /* OptionButton.swift */; };
 		CBE61913296C68D9005295AF /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE61912296C68D9005295AF /* PlusButton.swift */; };
 		CBEB005E2ADC2F8200F6EFED /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB005D2ADC2F8200F6EFED /* Double+Extension.swift */; };
@@ -427,6 +436,15 @@
 		CBDA47D22CFEC06000BFB88A /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
 		CBDA47D42CFEC20C00BFB88A /* SplashViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelType.swift; sourceTree = "<group>"; };
 		CBDA47D62CFEC29B00BFB88A /* SignViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModelType.swift; sourceTree = "<group>"; };
+		CBDA47D92CFEC5D700BFB88A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CBDA47DB2CFEC5E500BFB88A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CBDA47DD2CFEC5EA00BFB88A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		CBDA47DF2CFEC5F100BFB88A /* MapViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelType.swift; sourceTree = "<group>"; };
+		CBDA47E12CFEC5F900BFB88A /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
+		CBDA47E42CFEC75200BFB88A /* MapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
+		CBDA47E72CFEC77000BFB88A /* MapUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUsecase.swift; sourceTree = "<group>"; };
+		CBDA47EA2CFEC7A600BFB88A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
+		CBDA47ED2CFEC90200BFB88A /* MKMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extension.swift"; sourceTree = "<group>"; };
 		CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHeaderView.swift; sourceTree = "<group>"; };
 		CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
@@ -460,7 +478,7 @@
 		CBDF6EA52AD9255200EB2481 /* BlameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlameViewController.swift; sourceTree = "<group>"; };
 		CBE32D0D2ADE7648004CCCBE /* CategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryType.swift; sourceTree = "<group>"; };
 		CBE6190B296C635D005295AF /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
-		CBE6190E296C6435005295AF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CBE6190E296C6435005295AF /* OriginalMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalMapViewController.swift; sourceTree = "<group>"; };
 		CBE61910296C6804005295AF /* OptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButton.swift; sourceTree = "<group>"; };
 		CBE61912296C68D9005295AF /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		CBEB005D2ADC2F8200F6EFED /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
@@ -600,6 +618,7 @@
 			children = (
 				CB07CE0D2B6BB37A001658E2 /* SplashScene */,
 				CBDF112E2B5EAC15007DA3E1 /* SignScene */,
+				CBDA47E32CFEC74700BFB88A /* MapScene */,
 				CBDF11302B5EAC2D007DA3E1 /* FriendScene */,
 				CBDF11312B5EAC38007DA3E1 /* FindScene */,
 				CBDF11332B5EAC6A007DA3E1 /* UnivScene */,
@@ -619,6 +638,7 @@
 			children = (
 				CB07CE0E2B6BB3A2001658E2 /* SplashScene */,
 				CBDF113D2B5EAD9C007DA3E1 /* SignScene */,
+				CBDA47E92CFEC79A00BFB88A /* MapScene */,
 				CBDF113E2B5EADA4007DA3E1 /* FriendScene */,
 				CBDF11452B5EADF5007DA3E1 /* FindScene */,
 				CBDF113F2B5EADAA007DA3E1 /* MyPlaceScene */,
@@ -692,6 +712,7 @@
 			children = (
 				CB07CE032B6BB24D001658E2 /* SplashScene */,
 				CB981C28297A5A2900AF0167 /* SignScene */,
+				CBDA47D82CFEC59E00BFB88A /* MapScene */,
 				CBE6190D296C6423005295AF /* FriendScene */,
 				CB49256E2AB44D4400B66B68 /* FindScene */,
 				CBCD0F7D2A66DA0B00A51B32 /* MyPlaceScene */,
@@ -1089,6 +1110,7 @@
 			children = (
 				CB07CE0F2B6BB3B4001658E2 /* SplashScene */,
 				CB9332702AFCCCF100B7F87A /* SignScene */,
+				CBDA47E62CFEC76600BFB88A /* MapScene */,
 				CBDF11322B5EAC56007DA3E1 /* FriendScene */,
 				CB8306732B599CAE00632789 /* FindScene */,
 				CBDF11152B5EA750007DA3E1 /* MyPlaceScene */,
@@ -1194,6 +1216,7 @@
 			isa = PBXGroup;
 			children = (
 				CB617A2E2AE23CF1000F7FFC /* Combine */,
+				CBDA47EC2CFEC8F200BFB88A /* Map */,
 				CB617A2F2AE23CF8000F7FFC /* UI */,
 				CB617A302AE23CFF000F7FFC /* Type */,
 				CB617A332AE23D89000F7FFC /* Moya */,
@@ -1362,6 +1385,50 @@
 				CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		CBDA47D82CFEC59E00BFB88A /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA47D92CFEC5D700BFB88A /* MapView.swift */,
+				CBDA47DB2CFEC5E500BFB88A /* MapViewController.swift */,
+				CBDA47DD2CFEC5EA00BFB88A /* MapViewModel.swift */,
+				CBDA47DF2CFEC5F100BFB88A /* MapViewModelType.swift */,
+				CBDA47E12CFEC5F900BFB88A /* MapCoordinator.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
+		CBDA47E32CFEC74700BFB88A /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA47E42CFEC75200BFB88A /* MapRepository.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
+		CBDA47E62CFEC76600BFB88A /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA47E72CFEC77000BFB88A /* MapUsecase.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
+		CBDA47E92CFEC79A00BFB88A /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA47EA2CFEC7A600BFB88A /* MapRepositoryImpl.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
+		CBDA47EC2CFEC8F200BFB88A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA47ED2CFEC90200BFB88A /* MKMapView+Extension.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		CBDDF13A2A6AD75700AE3C50 /* View */ = {
@@ -1672,7 +1739,7 @@
 			isa = PBXGroup;
 			children = (
 				CBADC2CE2955A41500E56C93 /* TabBarController.swift */,
-				CBE6190E296C6435005295AF /* MapViewController.swift */,
+				CBE6190E296C6435005295AF /* OriginalMapViewController.swift */,
 				CB2A44A72ADFC866004A4126 /* ImageViewController.swift */,
 				CBB582812973007D00808B0B /* ShowWebViewController.swift */,
 			);
@@ -1802,6 +1869,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDA47E82CFEC77000BFB88A /* MapUsecase.swift in Sources */,
 				CB1579092AACCFCB00007183 /* CreateReviewRequestDTO.swift in Sources */,
 				CBEB00602ADC30AC00F6EFED /* Int+Extension.swift in Sources */,
 				CB73E00E2AB5F6BF005B6BF1 /* SearchStoreViewController.swift in Sources */,
@@ -1854,12 +1922,14 @@
 				CBF9264F2B411F4E005E251B /* BlameView.swift in Sources */,
 				CB8A2D9B297844720018AC6E /* Marker.swift in Sources */,
 				CB9B926B2B821540001184BE /* RecommendViewController.swift in Sources */,
+				CBDA47EB2CFEC7A600BFB88A /* MapRepositoryImpl.swift in Sources */,
 				CBDDF1452A6AFB5800AE3C50 /* PhotoListView.swift in Sources */,
 				CB51C8D52AD7E896002D0BA5 /* StoreDTO.swift in Sources */,
 				CB617A362AE2474A000F7FFC /* BaseViewModelType.swift in Sources */,
 				CB8306632B5962A700632789 /* FriendViewModel.swift in Sources */,
 				CB20BAD32AE39F11007535C8 /* Optionable.swift in Sources */,
 				CBDE38FB2970774800DDE49A /* CloseButton.swift in Sources */,
+				CBDA47DC2CFEC5E500BFB88A /* MapViewController.swift in Sources */,
 				CB2E4F81297702B800FD2566 /* UserInfoCollectionViewCell.swift in Sources */,
 				CBCD0F7C2A66D9BC00A51B32 /* FriendViewController.swift in Sources */,
 				CBD1B5F82982D9E100B0AD51 /* ForwardButton.swift in Sources */,
@@ -1913,7 +1983,7 @@
 				CB1566D9298D72FF0056B7D9 /* LocationManager.swift in Sources */,
 				CB91E2AC2B56DDE5008A0E8E /* StoreDetailRepositoryImpl.swift in Sources */,
 				CBADEF402B5D64870026FACA /* UpdateProfileViewModel.swift in Sources */,
-				CBE6190F296C6435005295AF /* MapViewController.swift in Sources */,
+				CBE6190F296C6435005295AF /* OriginalMapViewController.swift in Sources */,
 				CBBA9F192AB5681900BE37AE /* UnivTitleButton.swift in Sources */,
 				CBD8D4712B4645F400445C98 /* BlameRepository.swift in Sources */,
 				CB84CB062B60357100F4591A /* HorizontalScrollView.swift in Sources */,
@@ -1927,6 +1997,7 @@
 				CB5BFB172B3EF76E00B35062 /* ErrorDTO.swift in Sources */,
 				CBADC2A129559BC900E56C93 /* BackButton.swift in Sources */,
 				CB5BFB3B2B3F0CF300B35062 /* GetReviewsRequestDTO.swift in Sources */,
+				CBDA47E52CFEC75200BFB88A /* MapRepository.swift in Sources */,
 				CB40C6FA2A83E916003E3F06 /* MoyaProvider+Extension.swift in Sources */,
 				CBC73106295550A100C7F198 /* SceneDelegate.swift in Sources */,
 				CB07CE082B6BB2B9001658E2 /* SplashView.swift in Sources */,
@@ -1942,6 +2013,7 @@
 				CBF926462B3FED74005E251B /* UpdateProfileImageDTO.swift in Sources */,
 				CBC747B52A83DBE300F171F5 /* KeychainManager.swift in Sources */,
 				CBADC28329559BC900E56C93 /* ImageLiteral.swift in Sources */,
+				CBDA47E22CFEC5F900BFB88A /* MapCoordinator.swift in Sources */,
 				CBD1B5F12982B0A300B0AD51 /* SettingViewController.swift in Sources */,
 				CBDECABE2A6B07DE00259350 /* BookmarkButton.swift in Sources */,
 				CB5BFB132B3EEA5800B35062 /* SplashRepositoryImpl.swift in Sources */,
@@ -1963,6 +2035,8 @@
 				CB8306722B5999D500632789 /* ReviewByFeedDTO.swift in Sources */,
 				CBA7F182297DB319006088A0 /* SignViewController.swift in Sources */,
 				CBADC2E02955B92D00E56C93 /* CompleteButton.swift in Sources */,
+				CBDA47DA2CFEC5D700BFB88A /* MapView.swift in Sources */,
+				CBDA47DE2CFEC5EA00BFB88A /* MapViewModel.swift in Sources */,
 				CB617A532AE27FC0000F7FFC /* Publisher+Async.swift in Sources */,
 				CB40C6FE2A83EEF8003E3F06 /* SignRequestDTO.swift in Sources */,
 				CB4A78A62B5831570002136F /* CreateReviewRepositoryImpl.swift in Sources */,
@@ -2000,6 +2074,7 @@
 				CBEB005E2ADC2F8200F6EFED /* Double+Extension.swift in Sources */,
 				CB538EE42B79D3160044AA41 /* PhotoesSelectView.swift in Sources */,
 				CBB94BF62ADD0A4E00F44245 /* StoreDetailViewModel.swift in Sources */,
+				CBDA47EE2CFEC90200BFB88A /* MKMapView+Extension.swift in Sources */,
 				CBDF111D2B5EA86A007DA3E1 /* MyPlaceRepositoryImpl.swift in Sources */,
 				CBDF11252B5EAA12007DA3E1 /* SearchPlaceRepository.swift in Sources */,
 				CBADC2AD2955A0FF00E56C93 /* ProfileViewController.swift in Sources */,
@@ -2024,6 +2099,7 @@
 				CBDF112D2B5EABE7007DA3E1 /* ProfileRepository.swift in Sources */,
 				CB91E2A82B56D8C9008A0E8E /* Reviews.swift in Sources */,
 				CBB582822973007D00808B0B /* ShowWebViewController.swift in Sources */,
+				CBDA47E02CFEC5F100BFB88A /* MapViewModelType.swift in Sources */,
 				CB1579102AACD98600007183 /* CreateReviewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

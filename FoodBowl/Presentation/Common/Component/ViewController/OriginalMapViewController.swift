@@ -1,5 +1,5 @@
 //
-//  MapViewController.swift
+//  OriginalMapViewController.swift
 //  FoodBowl
 //
 //  Created by COBY_PRO on 2023/01/10.
@@ -13,7 +13,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MapViewController: UIViewController, Navigationable, Optionable, Helperable {
+class OriginalMapViewController: UIViewController, Navigationable, Optionable, Helperable {
     
     enum Section: CaseIterable {
         case main
@@ -266,7 +266,7 @@ class MapViewController: UIViewController, Navigationable, Optionable, Helperabl
 }
 
 // MARK: - Markers
-extension MapViewController {
+extension OriginalMapViewController {
     func setupMarkers(_ stores: [Store]) {
         self.mapView.removeAnnotations(self.markers)
 
@@ -291,7 +291,7 @@ extension MapViewController {
 }
 
 // MARK: - DataSource
-extension MapViewController {
+extension OriginalMapViewController {
     private func configureDataSource() {
         self.dataSource = self.feedCollectionViewDataSource()
         self.configureSnapshot()
@@ -319,7 +319,7 @@ extension MapViewController {
 }
 
 // MARK: - Snapshot
-extension MapViewController {
+extension OriginalMapViewController {
     private func configureSnapshot() {
         self.snapshot = NSDiffableDataSourceSnapshot<Section, Review>()
         self.snapshot.appendSections([.main])
@@ -370,7 +370,7 @@ extension MapViewController {
     }
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension OriginalMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard view is ClusterAnnotationView else { return }
 
@@ -404,7 +404,7 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 // MARK: - Control Modal
-extension MapViewController {
+extension OriginalMapViewController {
     @objc
     func handlePan(_ gesture: UIPanGestureRecognizer) {
         guard gesture.view != nil else { return }

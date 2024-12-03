@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class FriendViewController: MapViewController {
+final class FriendViewController: OriginalMapViewController {
     
     // MARK: - ui component
 
