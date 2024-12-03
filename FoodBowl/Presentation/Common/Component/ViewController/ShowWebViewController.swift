@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
-import WebKit
+@preconcurrency import WebKit
 
 final class ShowWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     

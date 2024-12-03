@@ -19,12 +19,12 @@ final class SplashViewController: UIViewController {
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any SplashViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any SplashViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -74,38 +74,14 @@ final class SplashViewController: UIViewController {
                 case .success(let isLogin):
                     switch isLogin {
                     case true:
-                        self?.presentTapBarController()
+                        self?.viewModel.presentTabViewController()
                     case false:
-                        self?.presentSignViewController()
+                        self?.viewModel.presentSignViewController()
                     }
                 case .failure:
                     self?.makeAlert(title: "인터넷 연결을 확인해주세요.")
                 }
             })
             .store(in: &self.cancellable)
-    }
-}
-
-// MARK: - Helper
-extension SplashViewController {
-    private func presentSignViewController() {
-        let repository = SignRepositoryImpl()
-        let usecase = SignUsecaseImpl(repository: repository)
-        let viewModel = SignViewModel(usecase: usecase)
-        let viewController = SignViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.modalTransitionStyle = .crossDissolve
-        
-        self.present(viewController, animated: true)
-    }
-    
-    private func presentTapBarController() {
-        let tabbarViewController = UINavigationController(rootViewController: TabBarController())
-        tabbarViewController.modalPresentationStyle = .fullScreen
-        tabbarViewController.modalTransitionStyle = .crossDissolve
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.present(tabbarViewController, animated: true)
-        }
     }
 }

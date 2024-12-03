@@ -15,17 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
+        self.window = UIWindow(windowScene: windowScene)
 
         LocationManager.shared.checkLocationService()
         
-        let repository = SplashRepositoryImpl()
-        let usecase = SplashUsecaseImpl(repository: repository)
-        let viewModel = SplashViewModel(usecase: usecase)
-        let viewController = SplashViewController(viewModel: viewModel)
-        
-        window?.rootViewController = UINavigationController(rootViewController: viewController)
-        window?.makeKeyAndVisible()
+        self.window?.rootViewController = self.splashViewController
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_: UIScene) {
@@ -58,11 +53,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
-    func moveToSignViewController() {
+    
+    private var splashViewController: UINavigationController {
+        let navigationController = UINavigationController()
+        let repository = SplashRepositoryImpl()
+        let usecase = SplashUsecaseImpl(repository: repository)
+        let coordinator = SplashCoordinator(navigationController: navigationController)
+        let viewModel = SplashViewModel(usecase: usecase, coordinator: coordinator)
+        let viewController = SplashViewController(viewModel: viewModel)
+        navigationController.viewControllers = [viewController]
+        return navigationController
+    }
+    
+    private var signViewController: UINavigationController {
+        let navigationController = UINavigationController()
         let repository = SignRepositoryImpl()
         let usecase = SignUsecaseImpl(repository: repository)
-        let viewModel = SignViewModel(usecase: usecase)
+        let coordinator = SignCoordinator(navigationController: navigationController)
+        let viewModel = SignViewModel(usecase: usecase, coordinator: coordinator)
         let viewController = SignViewController(viewModel: viewModel)
-        window?.rootViewController = UINavigationController(rootViewController: viewController)
+        navigationController.viewControllers = [viewController]
+        return navigationController
+    }
+    
+    func moveToSignViewController() {
+        self.window?.rootViewController = self.signViewController
+    }
+    
+    func moveToTabViewController() {
+        self.window?.rootViewController = TabBarController()
     }
 }

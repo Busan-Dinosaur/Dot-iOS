@@ -191,6 +191,10 @@
 		CBD641A32AB824A2009A05D8 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD641A22AB824A2009A05D8 /* SearchPlaceViewController.swift */; };
 		CBD8D4712B4645F400445C98 /* BlameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD8D4702B4645F400445C98 /* BlameRepository.swift */; };
 		CBD8D4732B4646B900445C98 /* BlameRepositroyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD8D4722B4646B900445C98 /* BlameRepositroyImpl.swift */; };
+		CBDA47D12CFEBB8600BFB88A /* SignCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D02CFEBB8600BFB88A /* SignCoordinator.swift */; };
+		CBDA47D32CFEC06000BFB88A /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D22CFEC06000BFB88A /* SplashCoordinator.swift */; };
+		CBDA47D52CFEC20C00BFB88A /* SplashViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D42CFEC20C00BFB88A /* SplashViewModelType.swift */; };
+		CBDA47D72CFEC29B00BFB88A /* SignViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47D62CFEC29B00BFB88A /* SignViewModelType.swift */; };
 		CBDDF1402A6ADA3800AE3C50 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */; };
 		CBDDF1422A6AF70500AE3C50 /* StoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */; };
 		CBDDF1452A6AFB5800AE3C50 /* PhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */; };
@@ -419,6 +423,10 @@
 		CBD641A22AB824A2009A05D8 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		CBD8D4702B4645F400445C98 /* BlameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlameRepository.swift; sourceTree = "<group>"; };
 		CBD8D4722B4646B900445C98 /* BlameRepositroyImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlameRepositroyImpl.swift; sourceTree = "<group>"; };
+		CBDA47D02CFEBB8600BFB88A /* SignCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignCoordinator.swift; sourceTree = "<group>"; };
+		CBDA47D22CFEC06000BFB88A /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
+		CBDA47D42CFEC20C00BFB88A /* SplashViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelType.swift; sourceTree = "<group>"; };
+		CBDA47D62CFEC29B00BFB88A /* SignViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModelType.swift; sourceTree = "<group>"; };
 		CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHeaderView.swift; sourceTree = "<group>"; };
 		CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
@@ -489,35 +497,13 @@
 		CB07CE032B6BB24D001658E2 /* SplashScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB07CE042B6BB28F001658E2 /* View */,
-				CB07CE052B6BB294001658E2 /* ViewController */,
-				CB07CE062B6BB29A001658E2 /* ViewModel */,
+				CB07CE072B6BB2B9001658E2 /* SplashView.swift */,
+				CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */,
+				CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */,
+				CBDA47D42CFEC20C00BFB88A /* SplashViewModelType.swift */,
+				CBDA47D22CFEC06000BFB88A /* SplashCoordinator.swift */,
 			);
 			path = SplashScene;
-			sourceTree = "<group>";
-		};
-		CB07CE042B6BB28F001658E2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CB07CE072B6BB2B9001658E2 /* SplashView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CB07CE052B6BB294001658E2 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CB07CE062B6BB29A001658E2 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CB07CE0D2B6BB37A001658E2 /* SplashScene */ = {
@@ -576,22 +562,6 @@
 				CBDE390629719CB400DDE49A /* SelectedStoreView.swift */,
 			);
 			path = UIComponent;
-			sourceTree = "<group>";
-		};
-		CB40C6F52A83E7F4003E3F06 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CB617A452AE25B1C000F7FFC /* SignView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CB40C6F62A83E804003E3F06 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CB40C6F72A83E812003E3F06 /* SignViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CB49256D2AB44D0E00B66B68 /* Cell */ = {
@@ -1141,14 +1111,6 @@
 			path = SignScene;
 			sourceTree = "<group>";
 		};
-		CB9332712AFCD94700B7F87A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CBA7F181297DB319006088A0 /* SignViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		CB9332742AFCDCA100B7F87A /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -1161,9 +1123,11 @@
 		CB981C28297A5A2900AF0167 /* SignScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB40C6F52A83E7F4003E3F06 /* View */,
-				CB9332712AFCD94700B7F87A /* ViewController */,
-				CB40C6F62A83E804003E3F06 /* ViewModel */,
+				CB617A452AE25B1C000F7FFC /* SignView.swift */,
+				CBA7F181297DB319006088A0 /* SignViewController.swift */,
+				CB40C6F72A83E812003E3F06 /* SignViewModel.swift */,
+				CBDA47D62CFEC29B00BFB88A /* SignViewModelType.swift */,
+				CBDA47D02CFEBB8600BFB88A /* SignCoordinator.swift */,
 			);
 			path = SignScene;
 			sourceTree = "<group>";
@@ -1873,6 +1837,7 @@
 				CBFB52552977B9240049E8BA /* StoreDetailViewController.swift in Sources */,
 				CB5BFB1D2B3F025F00B35062 /* SignRepositoryImpl.swift in Sources */,
 				CBBB97EE2AB0828600272CCE /* UpdateReviewViewController.swift in Sources */,
+				CBDA47D72CFEC29B00BFB88A /* SignViewModelType.swift in Sources */,
 				CB91E2AE2B56E86B008A0E8E /* Store.swift in Sources */,
 				CB7F3325298A51560000A6B4 /* UserDefaultStorage.swift in Sources */,
 				CBC747BA2A83DD6400F171F5 /* Configurations.swift in Sources */,
@@ -1914,6 +1879,7 @@
 				CB15790D2AACD45400007183 /* CategoryDTO.swift in Sources */,
 				CB84CB032B60300C00F4591A /* ReviewDetailRepositoryImpl.swift in Sources */,
 				CBDECAC62A6B2B5900259350 /* MapButton.swift in Sources */,
+				CBDA47D12CFEBB8600BFB88A /* SignCoordinator.swift in Sources */,
 				CB4A789D2B581F8B0002136F /* CreateReviewView.swift in Sources */,
 				CBDF110D2B5E9CD8007DA3E1 /* MyPlaceViewModel.swift in Sources */,
 				CB617A5C2AE29FBA000F7FFC /* StoreDetailView.swift in Sources */,
@@ -2020,6 +1986,7 @@
 				CB9B92752B8218E3001184BE /* RecommendRepository.swift in Sources */,
 				CB8306682B59748700632789 /* FindView.swift in Sources */,
 				CBDE390729719CB400DDE49A /* SelectedStoreView.swift in Sources */,
+				CBDA47D32CFEC06000BFB88A /* SplashCoordinator.swift in Sources */,
 				CB6D2F332B7282840049CF79 /* AppStoreReviewManager.swift in Sources */,
 				CBADC29129559BC900E56C93 /* UICollectionView+Extension.swift in Sources */,
 				CBD641A32AB824A2009A05D8 /* SearchPlaceViewController.swift in Sources */,
@@ -2027,6 +1994,7 @@
 				CB78A80D2B5D0AFA007EC9C1 /* FollowRepositoryImpl.swift in Sources */,
 				CB16FD4E2B347C31006D18D6 /* FollowingViewModel.swift in Sources */,
 				CB78A8102B5D0CBD007EC9C1 /* FollowUsecase.swift in Sources */,
+				CBDA47D52CFEC20C00BFB88A /* SplashViewModelType.swift in Sources */,
 				CBDF11502B5EEE6B007DA3E1 /* UpdateReviewView.swift in Sources */,
 				CBADC2D82955AC5900E56C93 /* FeedCollectionViewCell.swift in Sources */,
 				CBEB005E2ADC2F8200F6EFED /* Double+Extension.swift in Sources */,

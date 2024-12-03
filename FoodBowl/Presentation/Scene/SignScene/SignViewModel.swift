@@ -9,11 +9,12 @@ import AuthenticationServices
 import Combine
 import Foundation
 
-final class SignViewModel: NSObject, BaseViewModelType {
+final class SignViewModel: NSObject, SignViewModelType {
     
     // MARK: - property
     
     private let usecase: SignUsecase
+    private let coordinator: SignCoordinator?
     private var cancellable: Set<AnyCancellable> = Set()
     
     private let isLoginSubject: PassthroughSubject<Result<Bool, Error>, Never> = PassthroughSubject()
@@ -40,8 +41,12 @@ final class SignViewModel: NSObject, BaseViewModelType {
     
     // MARK: - init
     
-    init(usecase: SignUsecase) {
+    init(
+        usecase: SignUsecase,
+        coordinator: SignCoordinator?
+    ) {
         self.usecase = usecase
+        self.coordinator = coordinator
     }
     
     // MARK: - func
@@ -105,5 +110,11 @@ extension SignViewModel: ASAuthorizationControllerDelegate {
         
         let signDTO = SignRequestDTO(appleToken: tokenToString)
         self.dispatchLogin(login: signDTO)
+    }
+}
+
+extension SignViewModel {
+    func presentTabViewController() {
+        self.coordinator?.presentTabViewController()
     }
 }

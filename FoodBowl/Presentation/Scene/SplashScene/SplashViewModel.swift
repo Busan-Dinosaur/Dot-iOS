@@ -8,11 +8,12 @@
 import Combine
 import Foundation
 
-final class SplashViewModel: NSObject, BaseViewModelType {
+final class SplashViewModel: NSObject, SplashViewModelType {
     
     // MARK: - property
     
     private let usecase: SplashUsecase
+    private let coordinator: SplashCoordinator?
     private var cancellable: Set<AnyCancellable> = Set()
     
     private let isLoginSubject: PassthroughSubject<Result<Bool,  Error>, Never> = PassthroughSubject()
@@ -40,8 +41,12 @@ final class SplashViewModel: NSObject, BaseViewModelType {
     
     // MARK: - init
     
-    init(usecase: SplashUsecase) {
+    init(
+        usecase: SplashUsecase,
+        coordinator: SplashCoordinator?
+    ) {
         self.usecase = usecase
+        self.coordinator = coordinator
     }
 
     // MARK: - network
@@ -75,5 +80,15 @@ final class SplashViewModel: NSObject, BaseViewModelType {
                 self.isLoginSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension SplashViewModel {
+    func presentSignViewController() {
+        self.coordinator?.presentSignViewController()
+    }
+    
+    func presentTabViewController() {
+        self.coordinator?.presentTabViewController()
     }
 }

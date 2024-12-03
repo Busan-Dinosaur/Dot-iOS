@@ -20,12 +20,12 @@ final class SignViewController: UIViewController {
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any SignViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any SignViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -73,7 +73,7 @@ final class SignViewController: UIViewController {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.presentTapBarController()
+                    self?.viewModel.presentTabViewController()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -82,15 +82,5 @@ final class SignViewController: UIViewController {
                 }
             })
             .store(in: &self.cancellable)
-    }
-}
-
-// MARK: - Helper
-extension SignViewController {
-    private func presentTapBarController() {
-        let tabbarViewController = UINavigationController(rootViewController: TabBarController())
-        tabbarViewController.modalPresentationStyle = .fullScreen
-        tabbarViewController.modalTransitionStyle = .crossDissolve
-        self.present(tabbarViewController, animated: true)
     }
 }
