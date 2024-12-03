@@ -11,11 +11,19 @@ import UIKit
 import SnapKit
 import Then
 
-final class MapViewController: UIViewController {
+final class MapViewController: UIViewController, Navigationable {
     
     // MARK: - ui component
     
     private let mapView: MapView = MapView()
+    
+    private let titleLabel = PaddingLabel().then {
+        $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
+        $0.textColor = .mainTextColor
+        $0.text = "푸드볼"
+        $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+        $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
+    }
     
     // MARK: - property
     
@@ -46,24 +54,52 @@ final class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavigation()
         self.bindViewModel()
     }
 
     // MARK: - func
     
+    private func configureNavigation() {
+        let titleLabel = makeBarButtonItem(with: self.titleLabel)
+        self.navigationItem.leftBarButtonItem = titleLabel
+    }
+    
+    // MARK: - func - bind
+    
     private func bindViewModel() {
         let output = self.transformedOutput()
+        self.configureNavigation()
         self.bindOutputToViewModel(output)
     }
     
     private func transformedOutput() -> MapViewModel.Output? {
         guard let viewModel = self.viewModel as? MapViewModel else { return nil }
         let input = MapViewModel.Input(
+            viewDidLoad: self.viewDidLoadPublisher,
+            setCategory: self.mapView.categoryListView.setCategoryPublisher.eraseToAnyPublisher(),
+            customLocation: self.mapView.locationPublisher.eraseToAnyPublisher()
         )
         return viewModel.transform(from: input)
     }
     
     private func bindOutputToViewModel(_ output: MapViewModel.Output?) {
         guard let output else { return }
+        
+        output.stores
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case .success(let stores):
+                    print(stores)
+//                    self?.setupMarkers(stores)
+                case .failure(let error):
+                    self?.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
+            })
+            .store(in: &self.cancellable)
     }
 }

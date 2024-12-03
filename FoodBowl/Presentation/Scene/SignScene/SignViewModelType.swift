@@ -8,5 +8,6 @@
 import Foundation
 
 protocol SignViewModelType: BaseViewModelType {
+    func presentMapViewController()
     func presentTabViewController()
 }

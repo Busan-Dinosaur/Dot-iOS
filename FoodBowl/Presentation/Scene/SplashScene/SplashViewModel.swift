@@ -84,8 +84,13 @@ final class SplashViewModel: NSObject, SplashViewModelType {
 }
 
 extension SplashViewModel {
+    
     func presentSignViewController() {
         self.coordinator?.presentSignViewController()
+    }
+    
+    func presentMapViewController() {
+        self.coordinator?.presentMapViewController()
     }
     
     func presentTabViewController() {

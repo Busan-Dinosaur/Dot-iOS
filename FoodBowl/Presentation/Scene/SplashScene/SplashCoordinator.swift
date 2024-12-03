@@ -21,6 +21,11 @@ final class SplashCoordinator: NSObject {
         sceneDelegate.moveToSignViewController()
     }
     
+    func presentMapViewController() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        sceneDelegate.moveToMapViewController()
+    }
+    
     func presentTabViewController() {
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         sceneDelegate.moveToTabViewController()

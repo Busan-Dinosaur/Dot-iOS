@@ -74,7 +74,7 @@ final class SplashViewController: UIViewController {
                 case .success(let isLogin):
                     switch isLogin {
                     case true:
-                        self?.viewModel.presentTabViewController()
+                        self?.viewModel.presentMapViewController()
                     case false:
                         self?.viewModel.presentSignViewController()
                     }

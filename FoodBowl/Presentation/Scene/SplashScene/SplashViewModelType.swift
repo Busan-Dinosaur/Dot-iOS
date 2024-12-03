@@ -9,5 +9,6 @@ import Foundation
 
 protocol SplashViewModelType: BaseViewModelType {
     func presentSignViewController()
+    func presentMapViewController()
     func presentTabViewController()
 }

@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         LocationManager.shared.checkLocationService()
         
-//        self.window?.rootViewController = self.splashViewController
-        self.window?.rootViewController = self.mapViewController
+        self.window?.rootViewController = self.splashViewController
+//        self.window?.rootViewController = self.mapViewController
         self.window?.makeKeyAndVisible()
     }
 
@@ -79,8 +79,8 @@ extension SceneDelegate {
     
     private var mapViewController: UINavigationController {
         let navigationController = UINavigationController()
-        let repository = MapRepositoryImpl()
-        let usecase = MapUsecaseImpl(repository: repository)
+        let repository = MyPlaceRepositoryImpl()
+        let usecase = MyPlaceUsecaseImpl(repository: repository)
         let coordinator = MapCoordinator(navigationController: navigationController)
         let viewModel = MapViewModel(usecase: usecase, coordinator: coordinator)
         let viewController = MapViewController(viewModel: viewModel)
@@ -90,6 +90,10 @@ extension SceneDelegate {
     
     func moveToSignViewController() {
         self.window?.rootViewController = self.signViewController
+    }
+    
+    func moveToMapViewController() {
+        self.window?.rootViewController = self.mapViewController
     }
     
     func moveToTabViewController() {

@@ -114,6 +114,10 @@ extension SignViewModel: ASAuthorizationControllerDelegate {
 }
 
 extension SignViewModel {
+    func presentMapViewController() {
+        self.coordinator?.presentMapViewController()
+    }
+    
     func presentTabViewController() {
         self.coordinator?.presentTabViewController()
     }

@@ -10,10 +10,19 @@ import MapKit
 extension MKMapView {
     /// 기본 지도 설정
     func configureDefaultSettings() {
-        self.mapType = .standard // 지도 타입
-        self.showsUserLocation = true // 사용자 위치 표시
-        self.isZoomEnabled = true // 줌 활성화
-        self.isScrollEnabled = true // 스크롤 활성화
+        self.mapType = MKMapType.standard
+        self.showsUserLocation = true
+        self.setUserTrackingMode(.follow, animated: true)
+        self.isZoomEnabled = true
+        self.showsCompass = false
+        self.register(
+            MapItemAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
+        )
+        self.register(
+            ClusterAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier
+        )
     }
     
     /// 특정 좌표로 초기 위치 설정

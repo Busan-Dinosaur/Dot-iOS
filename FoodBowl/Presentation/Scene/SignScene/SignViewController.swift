@@ -73,7 +73,7 @@ final class SignViewController: UIViewController {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.viewModel.presentTabViewController()
+                    self?.viewModel.presentMapViewController()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
