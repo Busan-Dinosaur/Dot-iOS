@@ -17,8 +17,8 @@ final class MapView: UIView, BaseViewType {
     // MARK: - ui component
     
     let categoryListView = CategoryListView()
-    
-    private let mapView = MKMapView()
+
+    let mapView = MKMapView()
     
     lazy var trackingButton = MKUserTrackingButton(mapView: mapView).then {
         $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
@@ -96,6 +96,7 @@ final class MapView: UIView, BaseViewType {
 }
 
 extension MapView: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard view is ClusterAnnotationView else { return }
 

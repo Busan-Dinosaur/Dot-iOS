@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import MapKit
 
 import SnapKit
 import Then
@@ -29,6 +30,8 @@ final class MapViewController: UIViewController, Navigationable {
     
     private let viewModel: any MapViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
+    
+    private var markers: [Marker] = []
     
     // MARK: - init
     
@@ -91,8 +94,7 @@ final class MapViewController: UIViewController, Navigationable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let stores):
-                    print(stores)
-//                    self?.setupMarkers(stores)
+                    self?.setupMarkers(stores)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -101,5 +103,28 @@ final class MapViewController: UIViewController, Navigationable {
                 }
             })
             .store(in: &self.cancellable)
+    }
+}
+
+extension MapViewController {
+    func setupMarkers(_ stores: [Store]) {
+        self.mapView.mapView.removeAnnotations(self.markers)
+
+        self.markers = stores.map { store in
+            Marker(
+                title: store.name,
+                subtitle: "\(store.reviewCount)개의 후기",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: store.y,
+                    longitude: store.x
+                ),
+                glyphImage: CategoryType(rawValue: store.category)?.icon,
+                handler: { [weak self] in
+//                    self?.presentStoreDetailViewController(id: store.id)
+                }
+            )
+        }
+
+        self.mapView.mapView.addAnnotations(self.markers)
     }
 }
