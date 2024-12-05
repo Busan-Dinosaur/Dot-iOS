@@ -14,6 +14,10 @@ import Then
 
 final class MapViewController: UIViewController, Navigationable {
     
+    enum Section: CaseIterable {
+        case main
+    }
+    
     // MARK: - ui component
     
     private let mapView: MapView = MapView()
@@ -26,12 +30,21 @@ final class MapViewController: UIViewController, Navigationable {
         $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
     }
     
+    private lazy var emptyView = EmptyView(message: "해당 지역에 후기가 없어요.").then {
+        $0.findButtonTapAction = { [weak self] _ in
+//            self?.presentRecommendViewController()
+        }
+    }
+    
     // MARK: - property
     
     private let viewModel: any MapViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     private var markers: [Marker] = []
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Review>!
+    private var snapshot: NSDiffableDataSourceSnapshot<Section, Review>!
     
     // MARK: - init
     
@@ -58,6 +71,7 @@ final class MapViewController: UIViewController, Navigationable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavigation()
+        self.configureDataSource()
         self.bindViewModel()
     }
 
@@ -81,7 +95,9 @@ final class MapViewController: UIViewController, Navigationable {
         let input = MapViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
             setCategory: self.mapView.categoryListView.setCategoryPublisher.eraseToAnyPublisher(),
-            customLocation: self.mapView.locationPublisher.eraseToAnyPublisher()
+            customLocation: self.mapView.locationPublisher.eraseToAnyPublisher(),
+            bookmarkButtonDidTap: self.mapView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            scrolledToBottom: self.mapView.feedListView.collectionView().scrolledToBottomPublisher.eraseToAnyPublisher()
         )
         return viewModel.transform(from: input)
     }
@@ -103,6 +119,77 @@ final class MapViewController: UIViewController, Navigationable {
                 }
             })
             .store(in: &self.cancellable)
+        
+        output.reviews
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case .success(let reviews):
+                    self?.loadReviews(reviews)
+                    self?.mapView.feedListView.refreshControl().endRefreshing()
+                case .failure(let error):
+                    self?.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
+            })
+            .store(in: &self.cancellable)
+        
+        output.moreReviews
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case .success(let reviews):
+                    self?.loadMoreReviews(reviews)
+                case .failure(let error):
+                    self?.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
+            })
+            .store(in: &self.cancellable)
+        
+        output.isBookmarked
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case .success(let storeId):
+                    self?.updateBookmark(storeId)
+                case .failure(let error):
+                    self?.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
+            })
+            .store(in: &self.cancellable)
+    }
+    
+    private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
+        cell.userButtonTapAction = { [weak self] _ in
+//            self?.presentProfileViewController(id: item.member.id)
+        }
+        
+        cell.optionButtonTapAction = { [weak self] _ in
+//            self?.presentReviewOptionAlert(
+//                reviewId: item.comment.id,
+//                isMyReview: item.member.isMyProfile
+//            )
+        }
+        
+        cell.storeButtonTapAction = { [weak self] _ in
+//            self?.presentStoreDetailViewController(id: item.store.id)
+        }
+        
+        cell.bookmarkButtonTapAction = { [weak self] _ in
+//            self?.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
+        }
+        
+        cell.cellTapAction = { [weak self] _ in
+//            self?.presentReviewDetailViewController(id: item.comment.id)
+        }
     }
 }
 
@@ -128,3 +215,85 @@ extension MapViewController {
         self.mapView.mapView.addAnnotations(self.markers)
     }
 }
+
+extension MapViewController {
+    
+    private func configureDataSource() {
+        self.dataSource = self.feedCollectionViewDataSource()
+        self.configureSnapshot()
+    }
+
+    private func feedCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Review> {
+        let reviewCellRegistration = UICollectionView.CellRegistration<FeedCollectionViewCell, Review> {
+            [weak self] cell, indexPath, item in
+            guard let self = self else { return }
+            cell.configureCell(item)
+            self.bindCell(cell, with: item)
+        }
+
+        return UICollectionViewDiffableDataSource(
+            collectionView: self.mapView.feedListView.collectionView(),
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: reviewCellRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            }
+        )
+    }
+}
+
+// MARK: - Snapshot
+extension MapViewController {
+    
+    private func configureSnapshot() {
+        self.snapshot = NSDiffableDataSourceSnapshot<Section, Review>()
+        self.snapshot.appendSections([.main])
+        self.dataSource.apply(self.snapshot, animatingDifferences: true)
+    }
+
+    func loadReviews(_ items: [Review]) {
+        let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
+        self.snapshot.deleteItems(previousReviewsData)
+        self.snapshot.appendItems(items, toSection: .main)
+        self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
+            if self.snapshot.numberOfItems == 0 {
+                self.mapView.feedListView.collectionView().backgroundView = self.emptyView
+            } else {
+                self.mapView.feedListView.collectionView().backgroundView = nil
+            }
+        }
+    }
+    
+    func loadMoreReviews(_ items: [Review]) {
+        self.snapshot.appendItems(items, toSection: .main)
+        self.dataSource.applySnapshotUsingReloadData(self.snapshot)
+    }
+    
+    func updateBookmark(_ storeId: Int) {
+        let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
+        let items = previousReviewsData
+            .map { customItem in
+                var updatedItem = customItem
+                if customItem.store.id == storeId {
+                    updatedItem.store.isBookmarked.toggle()
+                }
+                return updatedItem
+            }
+        self.snapshot.deleteItems(previousReviewsData)
+        self.snapshot.appendItems(items)
+        self.dataSource.applySnapshotUsingReloadData(self.snapshot)
+    }
+    
+    func deleteReview(_ reviewId: Int) {
+        for item in snapshot.itemIdentifiers {
+            if item.comment.id == reviewId {
+                self.snapshot.deleteItems([item])
+                self.dataSource.apply(self.snapshot)
+                return
+            }
+        }
+    }
+}
+

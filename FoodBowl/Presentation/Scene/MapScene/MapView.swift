@@ -37,20 +37,21 @@ final class MapView: UIView, BaseViewType {
         $0.layer.masksToBounds = true
     }
     
-    private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
-        
-    lazy var modalMaxHeight: CGFloat = UIScreen.main.bounds.height - SizeLiteral.topAreaPadding - 100 // 100말고 nav높이 가져와야함
+    var feedListView = FeedListView()
     
-    private lazy var modalView = ModalView(states: [150, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
+    private lazy var modalView = ModalView(states: [100, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
         $0.setContentView(self.feedListView)
     }
-    
-    private lazy var feedListView = FeedListView()
     
     // MARK: - property
     
     let locationPublisher = PassthroughSubject<CustomLocationRequestDTO, Never>()
     let bookmarkToggleButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
+    let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
+    
+    private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
+        
+    lazy var modalMaxHeight: CGFloat = UIScreen.main.bounds.height - SizeLiteral.topAreaPadding - 100 // 100말고 nav높이 가져와야함
 
     // MARK: - init
     
