@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB045F4B2D016EE200B64B26 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB045F4A2D016EE200B64B26 /* ModalView.swift */; };
 		CB07CE082B6BB2B9001658E2 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE072B6BB2B9001658E2 /* SplashView.swift */; };
 		CB07CE0A2B6BB2C1001658E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */; };
 		CB07CE0C2B6BB30C001658E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */; };
@@ -253,6 +254,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB045F4A2D016EE200B64B26 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		CB07CE072B6BB2B9001658E2 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -900,6 +902,7 @@
 				CB63B75F2A698909000AD9C2 /* CategoryListView.swift */,
 				CB5AF8A829854AA0003D16D4 /* MapAnnotation.swift */,
 				CBC19D492B6FA2FB009CB3AB /* EmptyView.swift */,
+				CB045F4A2D016EE200B64B26 /* ModalView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -1870,6 +1873,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBDA47E82CFEC77000BFB88A /* MapUsecase.swift in Sources */,
+				CB045F4B2D016EE200B64B26 /* ModalView.swift in Sources */,
 				CB1579092AACCFCB00007183 /* CreateReviewRequestDTO.swift in Sources */,
 				CBEB00602ADC30AC00F6EFED /* Int+Extension.swift in Sources */,
 				CB73E00E2AB5F6BF005B6BF1 /* SearchStoreViewController.swift in Sources */,
