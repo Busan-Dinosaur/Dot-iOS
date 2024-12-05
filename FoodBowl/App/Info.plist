@@ -14,10 +14,12 @@
 		<dict>
 			<key>cobyserver.iptime.org</key>
 			<dict>
-				<key>NSIncluedsSubdomains</key>
-				<string></string>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
 			</dict>
 		</dict>
 	</dict>

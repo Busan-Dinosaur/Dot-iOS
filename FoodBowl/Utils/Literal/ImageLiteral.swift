@@ -48,6 +48,9 @@ enum ImageLiteral {
     static var etc: UIImage { .load(name: "etc") }
     
     static var next: UIImage { .load(name: "next") }
+    
+    // SVG
+    static var refresh: UIImage { .load(name: "refresh") }
 }
 
 extension UIImage {

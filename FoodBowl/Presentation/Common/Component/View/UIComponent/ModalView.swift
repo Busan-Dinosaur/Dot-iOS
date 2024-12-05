@@ -24,7 +24,6 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
     }
 
     private let containerView = UIView()
-    private weak var scrollView: UIScrollView?
 
     init(states: [CGFloat]) {
         super.init(frame: .zero)
@@ -77,11 +76,6 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-
-        // If the content view is a UIScrollView, keep a reference to it
-        if let scrollView = view as? UIScrollView {
-            self.scrollView = scrollView
-        }
     }
 
     private func setupDragGesture() {
@@ -98,17 +92,31 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
 
         switch gesture.state {
         case .changed:
-            if let scrollView = self.scrollView {
+            if let scrollView = self.containerView.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView {
                 let isAtTop = scrollView.contentOffset.y <= 0
-                let isAtBottom = scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.bounds.height
 
-                if (isAtTop && velocity.y > 0) || (isAtBottom && velocity.y < 0) {
-                    self.isDraggingModal = true
-                    scrollView.contentOffset = .zero // Freeze scrollView while dragging modal
+                if self.currentStateIndex == self.states.count - 1 {
+                    // 모달이 가장 큰 상태일 때만 스크롤 가능
+                    scrollView.isScrollEnabled = true
+
+                    if isAtTop && velocity.y > 0 {
+                        // 스크롤이 최상단에 도달했고 아래로 드래그 중일 때 모달 드래그 활성화
+                        self.isDraggingModal = true
+                        scrollView.contentOffset = .zero
+                    } else if velocity.y < 0 {
+                        // 위로 스크롤 허용
+                        self.isDraggingModal = false
+                    } else {
+                        self.isDraggingModal = false
+                    }
                 } else {
-                    self.isDraggingModal = false
+                    // 다른 상태에서는 스크롤 비활성화
+                    self.isDraggingModal = true
+                    scrollView.isScrollEnabled = false
+                    scrollView.contentOffset = .zero
                 }
             } else {
+                // 스크롤뷰가 없는 경우 모달 드래그 활성화
                 self.isDraggingModal = true
             }
 

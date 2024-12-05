@@ -113,6 +113,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 switch result {
                 case .success(let stores):
                     self?.setupMarkers(stores)
+                    self?.mapView.feedListView.updateStoreCount(to: stores.count)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",

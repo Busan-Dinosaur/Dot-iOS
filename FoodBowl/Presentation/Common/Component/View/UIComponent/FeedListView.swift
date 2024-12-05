@@ -24,12 +24,19 @@ final class FeedListView: UIView, BaseViewType {
     }
     
     // MARK: - ui component
+    
+    private let storeCountLabel = UILabel().then {
+        $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .regular)
+        $0.textColor = .subTextColor
+        $0.text = "0개의 맛집"
+    }
 
     private lazy var listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout()).then {
         $0.showsVerticalScrollIndicator = false
         $0.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.className)
         $0.backgroundColor = .mainBackgroundColor
     }
+    
     private var refresh = UIRefreshControl()
     
     // MARK: - property
@@ -59,15 +66,26 @@ final class FeedListView: UIView, BaseViewType {
         return self.refresh
     }
     
+    func updateStoreCount(to count: Int) {
+        self.storeCountLabel.text = "\(count)개의 맛집"
+    }
+    
     // MARK: - base func
     
     func setupLayout() {
         self.addSubviews(
+            self.storeCountLabel,
             self.listCollectionView
         )
 
+        self.storeCountLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(SizeLiteral.verticalPadding)
+            $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
+        }
+
         self.listCollectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(self.storeCountLabel.snp.bottom).offset(SizeLiteral.verticalPadding)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 
