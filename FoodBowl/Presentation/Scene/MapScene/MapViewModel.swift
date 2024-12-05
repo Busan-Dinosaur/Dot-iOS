@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class MapViewModel: NSObject, MapViewModelType {
+final class MapViewModel: NSObject {
     
     // MARK: - property
     
@@ -168,5 +168,23 @@ final class MapViewModel: NSObject, MapViewModelType {
                 self.isBookmarkedSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension MapViewModel: MapViewModelType {
+    func presentRecommendViewController() {
+        self.coordinator?.presentRecommendViewController()
+    }
+    
+    func presentProfileViewController(id: Int) {
+        self.coordinator?.presentProfileViewController(id: id)
+    }
+    
+    func presentStoreDetailViewController(id: Int) {
+        self.coordinator?.presentStoreDetailViewController(id: id)
+    }
+    
+    func presentReviewDetailViewController(id: Int) {
+        self.coordinator?.presentReviewDetailViewController(id: id)
     }
 }

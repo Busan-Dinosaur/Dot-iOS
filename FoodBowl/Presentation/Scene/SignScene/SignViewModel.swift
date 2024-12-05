@@ -9,7 +9,7 @@ import AuthenticationServices
 import Combine
 import Foundation
 
-final class SignViewModel: NSObject, SignViewModelType {
+final class SignViewModel: NSObject {
     
     // MARK: - property
     
@@ -113,7 +113,7 @@ extension SignViewModel: ASAuthorizationControllerDelegate {
     }
 }
 
-extension SignViewModel {
+extension SignViewModel: SignViewModelType {
     func presentMapViewController() {
         self.coordinator?.presentMapViewController()
     }

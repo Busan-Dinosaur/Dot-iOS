@@ -472,7 +472,6 @@ extension OriginalMapViewController {
     private func setModalMinState() {
         self.grabbarView.showResult()
         self.feedListView.collectionView().isHidden = true
-        self.feedListView.borderLineView.isHidden = true
         self.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.maxY)
     }
 
@@ -480,7 +479,6 @@ extension OriginalMapViewController {
         self.grabbarView.layer.cornerRadius = 15
         self.grabbarView.showContent()
         self.feedListView.collectionView().isHidden = false
-        self.feedListView.borderLineView.isHidden = false
         self.tabBarController?.tabBar.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.maxY - self.tabBarHeight)
     }
 

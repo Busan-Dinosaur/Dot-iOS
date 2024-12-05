@@ -12,7 +12,7 @@ import MapKit
 import SnapKit
 import Then
 
-final class MapViewController: UIViewController, Navigationable {
+final class MapViewController: UIViewController, Navigationable, Optionable {
     
     enum Section: CaseIterable {
         case main
@@ -32,7 +32,9 @@ final class MapViewController: UIViewController, Navigationable {
     
     private lazy var emptyView = EmptyView(message: "해당 지역에 후기가 없어요.").then {
         $0.findButtonTapAction = { [weak self] _ in
-//            self?.presentRecommendViewController()
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.presentRecommendViewController()
+            }
         }
     }
     
@@ -169,18 +171,24 @@ final class MapViewController: UIViewController, Navigationable {
     
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
         cell.userButtonTapAction = { [weak self] _ in
-//            self?.presentProfileViewController(id: item.member.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.presentProfileViewController(id: item.member.id)
+            }
         }
         
         cell.optionButtonTapAction = { [weak self] _ in
-//            self?.presentReviewOptionAlert(
-//                reviewId: item.comment.id,
-//                isMyReview: item.member.isMyProfile
-//            )
+            DispatchQueue.main.async { [weak self] in
+                self?.presentReviewOptionAlert(
+                    reviewId: item.comment.id,
+                    isMyReview: item.member.isMyProfile
+                )
+            }
         }
         
         cell.storeButtonTapAction = { [weak self] _ in
-//            self?.presentStoreDetailViewController(id: item.store.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.presentStoreDetailViewController(id: item.store.id)
+            }
         }
         
         cell.bookmarkButtonTapAction = { [weak self] _ in
@@ -188,7 +196,9 @@ final class MapViewController: UIViewController, Navigationable {
         }
         
         cell.cellTapAction = { [weak self] _ in
-//            self?.presentReviewDetailViewController(id: item.comment.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.presentReviewDetailViewController(id: item.comment.id)
+            }
         }
     }
 }
@@ -207,7 +217,9 @@ extension MapViewController {
                 ),
                 glyphImage: CategoryType(rawValue: store.category)?.icon,
                 handler: { [weak self] in
-//                    self?.presentStoreDetailViewController(id: store.id)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.viewModel.presentStoreDetailViewController(id: store.id)
+                    }
                 }
             )
         }

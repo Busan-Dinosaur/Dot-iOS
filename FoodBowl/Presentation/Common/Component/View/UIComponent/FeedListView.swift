@@ -24,15 +24,11 @@ final class FeedListView: UIView, BaseViewType {
     }
     
     // MARK: - ui component
-    
-    let borderLineView = UIView().then {
-        $0.backgroundColor = .grey002.withAlphaComponent(0.5)
-    }
+
     private lazy var listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout()).then {
         $0.showsVerticalScrollIndicator = false
         $0.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.className)
         $0.backgroundColor = .mainBackgroundColor
-        $0.backgroundView = EmptyView(message: "해당 지역에 후기가 없어요.", isFind: false)
     }
     private var refresh = UIRefreshControl()
     
@@ -67,18 +63,11 @@ final class FeedListView: UIView, BaseViewType {
     
     func setupLayout() {
         self.addSubviews(
-            self.borderLineView,
             self.listCollectionView
         )
 
-        self.borderLineView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(1)
-        }
-
         self.listCollectionView.snp.makeConstraints {
-            $0.top.equalTo(self.borderLineView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
 
@@ -94,7 +83,7 @@ final class FeedListView: UIView, BaseViewType {
         }
         self.refresh.addAction(refreshAction, for: .valueChanged)
         self.refresh.tintColor = .grey002
-        self.listCollectionView.refreshControl = self.refresh
+//        self.listCollectionView.refreshControl = self.refresh
     }
 }
 

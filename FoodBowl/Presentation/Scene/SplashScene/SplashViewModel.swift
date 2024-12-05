@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class SplashViewModel: NSObject, SplashViewModelType {
+final class SplashViewModel: NSObject {
     
     // MARK: - property
     
@@ -83,7 +83,7 @@ final class SplashViewModel: NSObject, SplashViewModelType {
     }
 }
 
-extension SplashViewModel {
+extension SplashViewModel: SplashViewModelType {
     
     func presentSignViewController() {
         self.coordinator?.presentSignViewController()
