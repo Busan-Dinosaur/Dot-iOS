@@ -92,35 +92,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
 
         switch gesture.state {
         case .changed:
-            if let scrollView = self.containerView.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView {
-                let isAtTop = scrollView.contentOffset.y <= 0
-
-                if self.currentStateIndex == self.states.count - 1 {
-                    // 모달이 가장 큰 상태일 때만 스크롤 가능
-                    scrollView.isScrollEnabled = true
-
-                    if isAtTop && velocity.y > 0 {
-                        // 스크롤이 최상단에 도달했고 아래로 드래그 중일 때 모달 드래그 활성화
-                        self.isDraggingModal = true
-                        scrollView.contentOffset = .zero
-                    } else if velocity.y < 0 {
-                        // 위로 스크롤 허용
-                        self.isDraggingModal = false
-                    } else {
-                        self.isDraggingModal = false
-                    }
-                } else {
-                    // 다른 상태에서는 스크롤 비활성화
-                    self.isDraggingModal = true
-                    scrollView.isScrollEnabled = false
-                    scrollView.contentOffset = .zero
-                }
-            } else {
-                // 스크롤뷰가 없는 경우 모달 드래그 활성화
-                self.isDraggingModal = true
-            }
-
-            if self.isDraggingModal, let currentTopConstraint = self.snapTopConstraint {
+            if let currentTopConstraint = self.snapTopConstraint {
                 let newTopConstant = currentTopConstraint.layoutConstraints.first!.constant + translation.y
                 if newTopConstant <= -self.states[0] && newTopConstant >= -self.states[self.states.count - 1] {
                     currentTopConstraint.update(offset: newTopConstant)
@@ -128,7 +100,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
                 }
             }
         case .ended:
-            if self.isDraggingModal, let currentTopConstraint = self.snapTopConstraint {
+            if let currentTopConstraint = self.snapTopConstraint {
                 let targetStateIndex = self.closestStateIndex(to: currentTopConstraint.layoutConstraints.first!.constant)
                 self.currentStateIndex = targetStateIndex
                 let targetConstant = -self.states[targetStateIndex]
@@ -164,6 +136,6 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
 
     // UIGestureRecognizerDelegate method to allow simultaneous gestures
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return false
     }
 }

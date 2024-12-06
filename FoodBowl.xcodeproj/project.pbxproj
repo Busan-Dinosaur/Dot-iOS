@@ -898,10 +898,10 @@
 				CBA4C7DA2AB4840100FC9DD8 /* PaddingLabel.swift */,
 				CB2A44A52ADFC62D004A4126 /* PanZoomImageView.swift */,
 				CBF617612A6FD94900452B7B /* GrabbarView.swift */,
-				CBDECAC72A6B2F0700259350 /* FeedListView.swift */,
 				CB63B75F2A698909000AD9C2 /* CategoryListView.swift */,
 				CB5AF8A829854AA0003D16D4 /* MapAnnotation.swift */,
 				CBC19D492B6FA2FB009CB3AB /* EmptyView.swift */,
+				CBDECAC72A6B2F0700259350 /* FeedListView.swift */,
 				CB045F4A2D016EE200B64B26 /* ModalView.swift */,
 			);
 			path = UIComponent;

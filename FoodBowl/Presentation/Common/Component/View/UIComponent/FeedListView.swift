@@ -30,9 +30,12 @@ final class FeedListView: UIView, BaseViewType {
         $0.textColor = .subTextColor
         $0.text = "0개의 맛집"
     }
+    
+    private let borderView = UIView().then {
+        $0.backgroundColor = .grey002.withAlphaComponent(0.5)
+    }
 
     private lazy var listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout()).then {
-        $0.showsVerticalScrollIndicator = false
         $0.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.className)
         $0.backgroundColor = .mainBackgroundColor
     }
@@ -75,6 +78,7 @@ final class FeedListView: UIView, BaseViewType {
     func setupLayout() {
         self.addSubviews(
             self.storeCountLabel,
+            self.borderView,
             self.listCollectionView
         )
 
@@ -82,9 +86,15 @@ final class FeedListView: UIView, BaseViewType {
             $0.top.equalToSuperview().offset(SizeLiteral.verticalPadding)
             $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
         }
+        
+        self.borderView.snp.makeConstraints {
+            $0.top.equalTo(self.storeCountLabel.snp.bottom).offset(SizeLiteral.verticalPadding)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
 
         self.listCollectionView.snp.makeConstraints {
-            $0.top.equalTo(self.storeCountLabel.snp.bottom).offset(SizeLiteral.verticalPadding)
+            $0.top.equalTo(self.borderView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
