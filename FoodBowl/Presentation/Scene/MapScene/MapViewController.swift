@@ -91,6 +91,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
             viewDidLoad: self.viewDidLoadPublisher,
             setCategory: self.mapView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
             customLocation: self.mapView.locationPublisher.eraseToAnyPublisher(),
+            bookmarkToggleButtonDidTap: self.mapView.bookmarkToggleButtonDidTapPublisher.eraseToAnyPublisher(),
             bookmarkButtonDidTap: self.mapView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.mapView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
             refreshControl: self.mapView.feedView().refreshPublisher.eraseToAnyPublisher()

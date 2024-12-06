@@ -12,7 +12,7 @@ final class MapViewModel: NSObject {
     
     // MARK: - property
     
-    private let usecase: MyPlaceUsecase
+    private let usecase: MapUsecase
     private let coordinator: MapCoordinator?
     private var cancellable: Set<AnyCancellable> = Set()
     
@@ -33,6 +33,7 @@ final class MapViewModel: NSObject {
         let viewDidLoad: AnyPublisher<Void, Never>
         let setCategory: AnyPublisher<CategoryType?, Never>
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
+        let bookmarkToggleButtonDidTap: AnyPublisher<Bool, Never>
         let bookmarkButtonDidTap: AnyPublisher<(Int, Bool), Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
         let refreshControl: AnyPublisher<Void, Never>
@@ -76,6 +77,18 @@ final class MapViewModel: NSObject {
             })
             .store(in: &self.cancellable)
         
+        input.bookmarkToggleButtonDidTap
+            .removeDuplicates()
+            .sink(receiveValue: { [weak self] isBookmark in
+                guard let self = self else { return }
+                self.currentpageSize = self.pageSize
+                self.lastReviewId = nil
+                self.isBookmark = !isBookmark
+                self.isBookmark ? self.getReviewsByBookmark() : self.getReviewsByFollowing()
+                self.isBookmark ? self.getStoresByBookmark() : self.getStoresByFollowing()
+            })
+            .store(in: &self.cancellable)
+        
         input.bookmarkButtonDidTap
             .sink(receiveValue: { [weak self] storeId, isBookmark in
                 guard let self = self else { return }
@@ -110,7 +123,7 @@ final class MapViewModel: NSObject {
     // MARK: - init
     
     init(
-        usecase: MyPlaceUsecase,
+        usecase: MapUsecase,
         coordinator: MapCoordinator?
     ) {
         self.usecase = usecase
@@ -125,7 +138,53 @@ final class MapViewModel: NSObject {
                 guard let location = self.location else { return }
                 if self.currentpageSize < self.pageSize { return }
                 
-                let reviews = try await self.usecase.getReviewsBySchool(request: GetReviewsRequestDTO(
+                let reviews = try await self.usecase.getReviewsByBound(request: GetReviewsRequestDTO(
+                    location: location,
+                    lastReviewId: lastReviewId,
+                    pageSize: self.pageSize,
+                    category: self.category?.rawValue
+                ))
+                
+                self.lastReviewId = reviews.page.lastId
+                self.currentpageSize = reviews.page.size
+                
+                lastReviewId == nil ? self.reviewsSubject.send(.success(reviews.reviews)) : self.moreReviewsSubject.send(.success(reviews.reviews))
+            } catch(let error) {
+                self.reviewsSubject.send(.failure(error))
+            }
+        }
+    }
+    
+    private func getReviewsByFollowing(lastReviewId: Int? = nil) {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                if self.currentpageSize < self.pageSize { return }
+                
+                let reviews = try await self.usecase.getReviewsByFollowing(request: GetReviewsRequestDTO(
+                    location: location,
+                    lastReviewId: lastReviewId,
+                    pageSize: self.pageSize,
+                    category: self.category?.rawValue
+                ))
+                
+                self.lastReviewId = reviews.page.lastId
+                self.currentpageSize = reviews.page.size
+                
+                lastReviewId == nil ? self.reviewsSubject.send(.success(reviews.reviews)) : self.moreReviewsSubject.send(.success(reviews.reviews))
+            } catch(let error) {
+                self.reviewsSubject.send(.failure(error))
+            }
+        }
+    }
+    
+    private func getReviewsByBookmark(lastReviewId: Int? = nil) {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                if self.currentpageSize < self.pageSize { return }
+                
+                let reviews = try await self.usecase.getReviewsByFollowing(request: GetReviewsRequestDTO(
                     location: location,
                     lastReviewId: lastReviewId,
                     pageSize: self.pageSize,
@@ -147,6 +206,40 @@ final class MapViewModel: NSObject {
             do {
                 guard let location = self.location else { return }
                 var stores = try await self.usecase.getStoresByBound(request: location)
+                
+                if let category = self.category?.rawValue {
+                    stores = stores.filter { $0.category == category }
+                }
+                
+                self.storesSubject.send(.success(stores))
+            } catch(let error) {
+                self.storesSubject.send(.failure(error))
+            }
+        }
+    }
+    
+    private func getStoresByFollowing() {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                var stores = try await self.usecase.getStoresByFollowing(request: location)
+                
+                if let category = self.category?.rawValue {
+                    stores = stores.filter { $0.category == category }
+                }
+                
+                self.storesSubject.send(.success(stores))
+            } catch(let error) {
+                self.storesSubject.send(.failure(error))
+            }
+        }
+    }
+    
+    private func getStoresByBookmark() {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                var stores = try await self.usecase.getStoresByBookmark(request: location)
                 
                 if let category = self.category?.rawValue {
                     stores = stores.filter { $0.category == category }

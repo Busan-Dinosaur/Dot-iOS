@@ -8,4 +8,12 @@
 import Foundation
 
 protocol MapRepository {
+    func getReviewsByBound(request: GetReviewsRequestDTO) async throws -> ReviewDTO
+    func getReviewsByFollowing(request: GetReviewsRequestDTO) async throws -> ReviewDTO
+    func getReviewsByBookmark(request: GetReviewsRequestDTO) async throws -> ReviewDTO
+    func getStoresByBound(request: CustomLocationRequestDTO) async throws -> StoreDTO
+    func getStoresByFollowing(request: CustomLocationRequestDTO) async throws -> StoreDTO
+    func getStoresByBookmark(request: CustomLocationRequestDTO) async throws -> StoreDTO
+    func createBookmark(storeId: Int) async throws
+    func removeBookmark(storeId: Int) async throws
 }

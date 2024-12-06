@@ -77,8 +77,8 @@ extension SceneDelegate {
     
     private var mapViewController: UINavigationController {
         let navigationController = UINavigationController()
-        let repository = MyPlaceRepositoryImpl()
-        let usecase = MyPlaceUsecaseImpl(repository: repository)
+        let repository = MapRepositoryImpl()
+        let usecase = MapUsecaseImpl(repository: repository)
         let coordinator = MapCoordinator(navigationController: navigationController)
         let viewModel = MapViewModel(usecase: usecase, coordinator: coordinator)
         let viewController = MapViewController(viewModel: viewModel)
