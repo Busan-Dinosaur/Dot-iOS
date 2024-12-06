@@ -16,11 +16,10 @@ final class MapView: UIView, BaseViewType {
     
     // MARK: - ui component
     
-    let categoryListView = CategoryListView()
-
-    let mapView = MKMapView()
+    private let categoryListView = CategoryListView()
+    private let mkMapView = MKMapView()
     
-    lazy var trackingButton = MKUserTrackingButton(mapView: mapView).then {
+    private lazy var trackingButton = MKUserTrackingButton(mapView: mkMapView).then {
         $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
         $0.layer.borderColor = UIColor.grey002.cgColor
         $0.layer.borderWidth = 1
@@ -29,7 +28,7 @@ final class MapView: UIView, BaseViewType {
         $0.tintColor = UIColor.mainColor
     }
     
-    let bookmarkButton = BookmarkMapButton().then {
+    private let bookmarkButton = BookmarkMapButton().then {
         $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
         $0.layer.borderColor = UIColor.grey002.cgColor
         $0.layer.borderWidth = 1
@@ -37,7 +36,7 @@ final class MapView: UIView, BaseViewType {
         $0.layer.masksToBounds = true
     }
     
-    var feedListView = FeedListView()
+    private let feedListView = FeedListView()
     
     private lazy var modalView = ModalView(states: [100, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
         $0.setContentView(self.feedListView)
@@ -69,7 +68,7 @@ final class MapView: UIView, BaseViewType {
     func setupLayout() {
         self.addSubviews(
             self.categoryListView,
-            self.mapView,
+            self.mkMapView,
             self.trackingButton,
             self.bookmarkButton
         )
@@ -79,7 +78,7 @@ final class MapView: UIView, BaseViewType {
             $0.leading.trailing.equalToSuperview()
         }
         
-        self.mapView.snp.makeConstraints {
+        self.mkMapView.snp.makeConstraints {
             $0.top.equalTo(self.categoryListView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
@@ -101,8 +100,22 @@ final class MapView: UIView, BaseViewType {
     
     func configureUI() {
         self.backgroundColor = .mainBackgroundColor
-        self.mapView.configureDefaultSettings()
-        self.mapView.delegate = self
+        self.mkMapView.configureDefaultSettings()
+        self.mkMapView.delegate = self
+    }
+    
+    // MARK: - func
+    
+    func categoryView() -> CategoryListView {
+        self.categoryListView
+    }
+    
+    func mapView() -> MKMapView {
+        self.mkMapView
+    }
+    
+    func feedView() -> FeedListView {
+        self.feedListView
     }
 }
 

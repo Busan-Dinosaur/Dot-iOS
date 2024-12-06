@@ -96,11 +96,11 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
         guard let viewModel = self.viewModel as? MapViewModel else { return nil }
         let input = MapViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
-            setCategory: self.mapView.categoryListView.setCategoryPublisher.eraseToAnyPublisher(),
+            setCategory: self.mapView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
             customLocation: self.mapView.locationPublisher.eraseToAnyPublisher(),
             bookmarkButtonDidTap: self.mapView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
-            scrolledToBottom: self.mapView.feedListView.collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
-            refreshControl: self.mapView.feedListView.refreshPublisher.eraseToAnyPublisher()
+            scrolledToBottom: self.mapView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
+            refreshControl: self.mapView.feedView().refreshPublisher.eraseToAnyPublisher()
         )
         return viewModel.transform(from: input)
     }
@@ -114,7 +114,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 switch result {
                 case .success(let stores):
                     self?.setupMarkers(stores)
-                    self?.mapView.feedListView.updateStoreCount(to: stores.count)
+                    self?.mapView.feedView().updateStoreCount(to: stores.count)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -130,7 +130,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 switch result {
                 case .success(let reviews):
                     self?.loadReviews(reviews)
-                    self?.mapView.feedListView.refreshControl().endRefreshing()
+                    self?.mapView.feedView().refreshControl().endRefreshing()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -207,7 +207,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
 
 extension MapViewController {
     func setupMarkers(_ stores: [Store]) {
-        self.mapView.mapView.removeAnnotations(self.markers)
+        self.mapView.mapView().removeAnnotations(self.markers)
 
         self.markers = stores.map { store in
             Marker(
@@ -226,7 +226,7 @@ extension MapViewController {
             )
         }
 
-        self.mapView.mapView.addAnnotations(self.markers)
+        self.mapView.mapView().addAnnotations(self.markers)
     }
 }
 
@@ -246,7 +246,7 @@ extension MapViewController {
         }
 
         return UICollectionViewDiffableDataSource(
-            collectionView: self.mapView.feedListView.collectionView(),
+            collectionView: self.mapView.feedView().collectionView(),
             cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: reviewCellRegistration,
@@ -273,9 +273,9 @@ extension MapViewController {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-                self.mapView.feedListView.collectionView().backgroundView = self.emptyView
+                self.mapView.feedView().collectionView().backgroundView = self.emptyView
             } else {
-                self.mapView.feedListView.collectionView().backgroundView = nil
+                self.mapView.feedView().collectionView().backgroundView = nil
             }
         }
     }
