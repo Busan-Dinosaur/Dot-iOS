@@ -83,7 +83,7 @@ final class FeedListView: UIView, BaseViewType {
         )
 
         self.storeCountLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(SizeLiteral.verticalPadding)
+            $0.top.equalToSuperview().offset(8)
             $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
         }
         

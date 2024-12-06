@@ -16,8 +16,8 @@ final class MapView: UIView, BaseViewType {
     
     // MARK: - ui component
     
-    private let titleView = TitleView(title: "푸드볼")
     let categoryListView = CategoryListView()
+
     let mapView = MKMapView()
     
     lazy var trackingButton = MKUserTrackingButton(mapView: mapView).then {
@@ -50,7 +50,7 @@ final class MapView: UIView, BaseViewType {
     let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
-    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 90
+    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 40
 
     // MARK: - init
     
@@ -68,20 +68,14 @@ final class MapView: UIView, BaseViewType {
     
     func setupLayout() {
         self.addSubviews(
-            self.titleView,
             self.categoryListView,
             self.mapView,
             self.trackingButton,
             self.bookmarkButton
         )
         
-        self.titleView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
         self.categoryListView.snp.makeConstraints {
-            $0.top.equalTo(self.titleView.snp.bottom)
+            $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
         
