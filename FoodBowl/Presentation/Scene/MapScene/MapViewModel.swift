@@ -19,6 +19,7 @@ final class MapViewModel: NSObject {
     private let storesSubject: PassthroughSubject<Result<[Store], Error>, Never> = PassthroughSubject()
     private let reviewsSubject: PassthroughSubject<Result<[Review], Error>, Never> = PassthroughSubject()
     private let moreReviewsSubject: PassthroughSubject<Result<[Review], Error>, Never> = PassthroughSubject()
+    private let refreshControlSubject: PassthroughSubject<Void, Error> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
     private var category: CategoryType?
@@ -34,6 +35,7 @@ final class MapViewModel: NSObject {
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
         let bookmarkButtonDidTap: AnyPublisher<(Int, Bool), Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
+        let refreshControl: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -85,6 +87,15 @@ final class MapViewModel: NSObject {
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.getReviewsByBound(lastReviewId: self.lastReviewId)
+            })
+            .store(in: &self.cancellable)
+        
+        input.refreshControl
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.currentpageSize = self.pageSize
+                self.lastReviewId = nil
+                self.getReviewsByBound()
             })
             .store(in: &self.cancellable)
         

@@ -15,7 +15,7 @@ final class FeedListView: UIView, BaseViewType {
     
     private enum ConstantSize {
         static let sectionContentInset: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(
-            top: 0,
+            top: SizeLiteral.verticalPadding,
             leading: 0,
             bottom: SizeLiteral.verticalPadding,
             trailing: 0
@@ -111,7 +111,7 @@ final class FeedListView: UIView, BaseViewType {
         }
         self.refresh.addAction(refreshAction, for: .valueChanged)
         self.refresh.tintColor = .grey002
-//        self.listCollectionView.refreshControl = self.refresh
+        self.listCollectionView.refreshControl = self.refresh
     }
 }
 
