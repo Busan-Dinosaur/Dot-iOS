@@ -31,8 +31,10 @@ final class PhotoesSelectCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = CreateReviewRepositoryImpl()
         let usecase = CreateReviewUsecaseImpl(repository: repository)
+        let coordinator = CreateReviewCoordinator(navigationController: navigationController)
         let viewModel = CreateReviewViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             reviewImages: reviewImages,
             location: location
         )

@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class CreateReviewViewController: UIViewController, Navigationable, Keyboardable, Helperable {
+final class CreateReviewViewController: UIViewController, Navigationable, Keyboardable {
     
     // MARK: - ui component
     
@@ -19,7 +19,7 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any CreateReviewViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     let setStorePublisher = PassthroughSubject<Store, Never>()
@@ -28,7 +28,7 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
     
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any CreateReviewViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,7 +86,9 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
                         title: "후기",
                         message: "후기가 등록되었어요.",
                         okAction: { _ in
-                            self?.dismiss(animated: true)
+                            DispatchQueue.main.async { [weak self] in
+                                self?.viewModel.dismiss()
+                            }
                         }
                     )
                 case .failure(let error):
@@ -111,7 +113,9 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
                     okTitle: "네",
                     cancelTitle: "아니요",
                     okAction: { _ in
-                        self?.dismiss(animated: true)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.viewModel.dismiss()
+                        }
                     }
                 )
             })
@@ -120,7 +124,7 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
         self.createReviewView.searchBarButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.presentSearchStoreViewController(location: viewModel.location)
+                self?.viewModel.presentSearchStoreViewController(location: viewModel.location)
             })
             .store(in: &self.cancellable)
         
@@ -134,7 +138,7 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
         self.createReviewView.showStorePublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
-                self?.presentShowWebViewController(url: url)
+                self?.viewModel.presentShowWebViewController(url: url)
             })
             .store(in: &self.cancellable)
     }

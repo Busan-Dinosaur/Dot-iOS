@@ -9,7 +9,7 @@ import Combine
 import UIKit
 import MapKit
 
-final class CreateReviewViewModel: NSObject, BaseViewModelType {
+final class CreateReviewViewModel: NSObject {
     
     // MARK: - property
     
@@ -20,6 +20,7 @@ final class CreateReviewViewModel: NSObject, BaseViewModelType {
     private var store: Store?
     
     private let usecase: CreateReviewUsecase
+    private let coordinator: CreateReviewCoordinator?
     private var cancellable: Set<AnyCancellable> = Set()
     
     private let isCompletedSubject: PassthroughSubject<Result<Void, Error>, Never> = PassthroughSubject()
@@ -59,10 +60,12 @@ final class CreateReviewViewModel: NSObject, BaseViewModelType {
     
     init(
         usecase: CreateReviewUsecase,
+        coordinator: CreateReviewCoordinator,
         reviewImages: [UIImage],
         location: CLLocationCoordinate2D?
     ) {
         self.usecase = usecase
+        self.coordinator = coordinator
         self.reviewImages = reviewImages
         self.location = location
     }
@@ -94,5 +97,20 @@ final class CreateReviewViewModel: NSObject, BaseViewModelType {
                 self.isCompletedSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension CreateReviewViewModel: CreateReviewViewModelType {
+    
+    func dismiss() {
+        self.coordinator?.dismiss()
+    }
+    
+    func presentSearchStoreViewController(location: CLLocationCoordinate2D?) {
+        self.coordinator?.presentSearchStoreViewController(location: location)
+    }
+    
+    func presentShowWebViewController(url: String) {
+        self.coordinator?.presentShowWebViewController(url: url)
     }
 }

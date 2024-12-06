@@ -186,6 +186,7 @@
 		CBD036322ABA163F00E1AE9A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CBD036312ABA163F00E1AE9A /* Kingfisher */; };
 		CBD062DE2D03120300127A0D /* PhotoesSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062DD2D03120300127A0D /* PhotoesSelectViewModel.swift */; };
 		CBD062E02D03120A00127A0D /* PhotoesSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062DF2D03120A00127A0D /* PhotoesSelectCoordinator.swift */; };
+		CBD062E22D03156B00127A0D /* CreateReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062E12D03156B00127A0D /* CreateReviewCoordinator.swift */; };
 		CBD1B5EF2982A5AD00B0AD51 /* UpdateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */; };
 		CBD1B5F12982B0A300B0AD51 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */; };
 		CBD1B5F42982D39B00B0AD51 /* SettingItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */; };
@@ -427,6 +428,7 @@
 		CBCD0F7E2A66DA1600A51B32 /* MyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceViewController.swift; sourceTree = "<group>"; };
 		CBD062DD2D03120300127A0D /* PhotoesSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoesSelectViewModel.swift; sourceTree = "<group>"; };
 		CBD062DF2D03120A00127A0D /* PhotoesSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoesSelectCoordinator.swift; sourceTree = "<group>"; };
+		CBD062E12D03156B00127A0D /* CreateReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewCoordinator.swift; sourceTree = "<group>"; };
 		CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileViewController.swift; sourceTree = "<group>"; };
 		CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -1376,6 +1378,7 @@
 				CB4A789C2B581F8B0002136F /* CreateReviewView.swift */,
 				CB5DD4322AB5A175009FCB43 /* CreateReviewViewController.swift */,
 				CB15790F2AACD98600007183 /* CreateReviewViewModel.swift */,
+				CBD062E12D03156B00127A0D /* CreateReviewCoordinator.swift */,
 			);
 			path = CreateReviewScene;
 			sourceTree = "<group>";
@@ -1971,6 +1974,7 @@
 				CBE61913296C68D9005295AF /* PlusButton.swift in Sources */,
 				CB07CE192B6BBAD1001658E2 /* SettingRepository.swift in Sources */,
 				CB83066A2B59778C00632789 /* Members.swift in Sources */,
+				CBD062E22D03156B00127A0D /* CreateReviewCoordinator.swift in Sources */,
 				CB1A7C5E295618A900C6431D /* SettingButton.swift in Sources */,
 				CB9B926D2B821548001184BE /* RecommendViewModel.swift in Sources */,
 				CB84CB082B60359300F4591A /* BaseScrollView.swift in Sources */,

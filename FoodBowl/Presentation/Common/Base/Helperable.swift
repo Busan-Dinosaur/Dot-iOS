@@ -88,18 +88,18 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentCreateReviewViewController(reviewImages: [UIImage], location: CLLocationCoordinate2D?) {
-        let repository = CreateReviewRepositoryImpl()
-        let usecase = CreateReviewUsecaseImpl(repository: repository)
-        let viewModel = CreateReviewViewModel(
-            usecase: usecase,
-            reviewImages: reviewImages,
-            location: location
-        )
-        let viewController = CreateReviewViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = CreateReviewRepositoryImpl()
+//        let usecase = CreateReviewUsecaseImpl(repository: repository)
+//        let viewModel = CreateReviewViewModel(
+//            usecase: usecase,
+//            reviewImages: reviewImages,
+//            location: location
+//        )
+//        let viewController = CreateReviewViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentUpdateReviewViewController(id: Int) {

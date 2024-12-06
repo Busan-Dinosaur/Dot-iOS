@@ -28,7 +28,7 @@ final class PhotoesSelectView: UIView, BaseViewType {
     
     private let newFeedGuideLabel = PaddingLabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
-        $0.text = "후기 작성"
+        $0.text = "후기 등록"
         $0.textColor = .mainTextColor
         $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
         $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
