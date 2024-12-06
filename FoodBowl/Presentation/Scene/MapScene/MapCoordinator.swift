@@ -7,6 +7,15 @@
 
 import UIKit
 
+protocol MapViewModelType: BaseViewModelType {
+    func presentPhotoesSelectViewController()
+    func presentSettingViewController()
+    func presentRecommendViewController()
+    func presentProfileViewController(id: Int)
+    func presentStoreDetailViewController(id: Int)
+    func presentReviewDetailViewController(id: Int)
+}
+
 final class MapCoordinator: NSObject {
     
     private weak var navigationController: UINavigationController?
@@ -18,12 +27,21 @@ final class MapCoordinator: NSObject {
     
     func presentPhotoesSelectViewController() {
         guard let navigationController = self.navigationController else { return }
+        let coordinator = PhotoesSelectCoordinator(navigationController: navigationController)
+        let viewModel = PhotoesSelectViewModel(coordinator: coordinator)
+        let viewController = PhotoesSelectViewController(viewModel: viewModel)
         
-        let viewController = PhotoesSelectViewController()
-        let modalNavigationController = UINavigationController(rootViewController: viewController)
-        modalNavigationController.modalPresentationStyle = .fullScreen
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentSettingViewController() {
+        guard let navigationController = self.navigationController else { return }
+        let repository = SettingRepositoryImpl()
+        let usecase = SettingUsecaseImpl(repository: repository)
+        let viewModel = SettingViewModel(usecase: usecase)
+        let viewController = SettingViewController(viewModel: viewModel)
         
-        navigationController.present(modalNavigationController, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     func presentRecommendViewController() {

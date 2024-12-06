@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol SignViewModelType: BaseViewModelType {
+    func presentMapViewController()
+    func presentTabViewController()
+}
+
 final class SignCoordinator: NSObject {
     
     private weak var navigationController: UINavigationController?

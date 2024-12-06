@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol SplashViewModelType: BaseViewModelType {
+    func presentSignViewController()
+    func presentMapViewController()
+    func presentTabViewController()
+}
+
 final class SplashCoordinator: NSObject {
     
     private weak var navigationController: UINavigationController?

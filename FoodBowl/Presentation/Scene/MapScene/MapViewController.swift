@@ -204,6 +204,13 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 self?.viewModel.presentPhotoesSelectViewController()
             })
             .store(in: &self.cancellable)
+        
+        self.mapView.settingButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.viewModel.presentSettingViewController()
+            })
+            .store(in: &self.cancellable)
     }
 }
 

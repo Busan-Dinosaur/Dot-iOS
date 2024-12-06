@@ -12,7 +12,7 @@ import MapKit
 import SnapKit
 import Then
 
-final class PhotoesSelectViewController: UIViewController, PhotoPickerable, Helperable {
+final class PhotoesSelectViewController: UIViewController, PhotoPickerable {
     
     // MARK: - ui component
     
@@ -20,12 +20,23 @@ final class PhotoesSelectViewController: UIViewController, PhotoPickerable, Help
     
     // MARK: - property
     
+    private let viewModel: any PhotoesSelectViewModelType
+    private var cancellable: Set<AnyCancellable> = Set()
+    
     private var reviewImages = [UIImage]()
     private var location: CLLocationCoordinate2D? = nil
     
-    private var cancellable: Set<AnyCancellable> = Set()
-    
     // MARK: - init
+    
+    init(viewModel: any PhotoesSelectViewModelType) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         print("\(#file) is dead")
@@ -54,7 +65,9 @@ final class PhotoesSelectViewController: UIViewController, PhotoPickerable, Help
                     okTitle: "네",
                     cancelTitle: "아니요",
                     okAction: { _ in
-                        self?.dismiss(animated: true)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.viewModel.dismiss()
+                        }
                     }
                 )
             })
@@ -72,11 +85,23 @@ final class PhotoesSelectViewController: UIViewController, PhotoPickerable, Help
                         okTitle: "네",
                         cancelTitle: "아니요",
                         okAction: { _ in
-                            self.presentCreateReviewViewController(reviewImages: self.reviewImages, location: self.location)
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                self.viewModel.presentCreateReviewViewController(
+                                    reviewImages: self.reviewImages,
+                                    location: self.location
+                                )
+                            }
                         }
                     )
                 } else {
-                    self.presentCreateReviewViewController(reviewImages: self.reviewImages, location: self.location)
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        self.viewModel.presentCreateReviewViewController(
+                            reviewImages: self.reviewImages,
+                            location: self.location
+                        )
+                    }
                 }
             })
             .store(in: &self.cancellable)

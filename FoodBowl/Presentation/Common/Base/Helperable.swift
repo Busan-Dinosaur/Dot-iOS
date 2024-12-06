@@ -78,13 +78,13 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentPhotoesSelectViewController() {
-        let viewController = PhotoesSelectViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.present(navigationController, animated: true)
-        }
+//        let viewController = PhotoesSelectViewController()
+//        let navigationController = UINavigationController(rootViewController: viewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.present(navigationController, animated: true)
+//        }
     }
     
     func presentCreateReviewViewController(reviewImages: [UIImage], location: CLLocationCoordinate2D?) {
