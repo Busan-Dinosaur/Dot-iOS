@@ -23,7 +23,7 @@ final class SignView: UIView, BaseViewType {
         type: .signIn,
         style: .white
     ).then {
-        $0.cornerRadius = 30
+        $0.cornerRadius = 8
     }
     
     // MARK: - property
@@ -66,6 +66,6 @@ final class SignView: UIView, BaseViewType {
     }
     
     func configureUI() {
-        self.backgroundColor = .mainPink
+        self.backgroundColor = .mainColor
     }
 }

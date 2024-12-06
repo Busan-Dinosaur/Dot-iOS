@@ -46,6 +46,6 @@ final class SplashView: UIView, BaseViewType {
     }
     
     func configureUI() {
-        self.backgroundColor = .mainPink
+        self.backgroundColor = .mainColor
     }
 }

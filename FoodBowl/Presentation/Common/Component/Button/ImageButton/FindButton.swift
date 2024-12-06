@@ -14,13 +14,13 @@ final class FindButton: UIButton {
     
     // MARK: - property
     private let label = UILabel().then {
-        $0.textColor = .mainPink
+        $0.textColor = .mainColor
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .regular)
         $0.text = "추천 친구 찾아보기"
     }
     private let nextView = UIImageView().then {
         $0.image = ImageLiteral.next.withRenderingMode(.alwaysTemplate)
-        $0.tintColor = .mainPink
+        $0.tintColor = .mainColor
     }
 
     // MARK: - init

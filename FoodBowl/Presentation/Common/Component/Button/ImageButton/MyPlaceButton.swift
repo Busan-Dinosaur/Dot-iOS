@@ -17,13 +17,13 @@ final class MyPlaceButton: UIButton {
                     for: .normal
                 )
                 tintColor = .mainBackgroundColor
-                backgroundColor = .mainPink
+                backgroundColor = .mainColor
             } else {
                 setImage(
                     ImageLiteral.place.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate),
                     for: .normal
                 )
-                tintColor = .mainPink
+                tintColor = .mainColor
                 backgroundColor = .mainBackgroundColor
             }
         }

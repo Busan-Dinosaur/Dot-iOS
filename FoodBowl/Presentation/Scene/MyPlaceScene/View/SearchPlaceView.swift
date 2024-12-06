@@ -21,7 +21,7 @@ final class SearchPlaceView: UIView, BaseViewType {
     }
     private let closeButton = UIButton().then {
         $0.setTitle("닫기", for: .normal)
-        $0.setTitleColor(.mainPink, for: .normal)
+        $0.setTitleColor(.mainColor, for: .normal)
         $0.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
     }
     let listTableView = UITableView().then {

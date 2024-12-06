@@ -44,7 +44,7 @@ class OriginalMapViewController: UIViewController, Navigationable, Optionable, H
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
-        $0.tintColor = UIColor.mainPink
+        $0.tintColor = UIColor.mainColor
     }
     let bookmarkButton = BookmarkMapButton().then {
         $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor

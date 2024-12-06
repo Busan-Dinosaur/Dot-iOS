@@ -40,8 +40,8 @@ extension UIColor {
         }
     }
     
-    static var mainPink: UIColor {
-        return UIColor(hex: "#E95A84")
+    static var mainColor: UIColor {
+        return UIColor(hex: "#FF4F00")
     }
 
     static var mainBlue: UIColor {

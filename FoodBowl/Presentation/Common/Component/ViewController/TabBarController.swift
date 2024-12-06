@@ -32,7 +32,7 @@ final class TabBarController: UITabBarController {
             .resize(to: CGSize(width: 20, height: 20))
         vc4.tabBarItem.title = "프로필"
 
-        tabBar.tintColor = .mainPink
+        tabBar.tintColor = .mainColor
         tabBar.backgroundColor = .mainBackgroundColor
         setViewControllers([vc1, vc2, vc3, vc4], animated: true)
 

@@ -21,7 +21,7 @@ final class SearchStoreView: UIView, BaseViewType {
     }
     private let cancelButton = UIButton().then {
         $0.setTitle("취소", for: .normal)
-        $0.setTitleColor(.mainPink, for: .normal)
+        $0.setTitleColor(.mainColor, for: .normal)
         $0.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
     }
     private let listTableView = UITableView().then {
