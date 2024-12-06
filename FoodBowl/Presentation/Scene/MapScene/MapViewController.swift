@@ -21,15 +21,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     // MARK: - ui component
     
     private let mapView: MapView = MapView()
-    
-    private let titleLabel = PaddingLabel().then {
-        $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
-        $0.textColor = .mainTextColor
-        $0.text = "푸드볼"
-        $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
-        $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
-    }
-    
+
     private lazy var emptyView = EmptyView(message: "해당 지역에 후기가 없어요.").then {
         $0.findButtonTapAction = { [weak self] _ in
             DispatchQueue.main.async { [weak self] in
@@ -80,8 +72,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     // MARK: - func
     
     private func configureNavigation() {
-        let titleLabel = makeBarButtonItem(with: self.titleLabel)
-        self.navigationItem.leftBarButtonItem = titleLabel
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     // MARK: - func - bind

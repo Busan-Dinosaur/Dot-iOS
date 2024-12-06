@@ -19,8 +19,8 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
     private var isDraggingModal = false
 
     private let grabBar = UIView().then {
-        $0.backgroundColor = UIColor.lightGray
-        $0.layer.cornerRadius = 3
+        $0.backgroundColor = UIColor.grey002
+        $0.layer.cornerRadius = 4
     }
 
     private let containerView = UIView()
@@ -105,6 +105,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
                 self.currentStateIndex = targetStateIndex
                 let targetConstant = -self.states[targetStateIndex]
                 self.animate(to: targetConstant)
+                self.updateCornerRadius(for: targetStateIndex)
                 self.didChangeState?(self.currentStateIndex)
             }
         default:
@@ -132,6 +133,16 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
             self.snapTopConstraint?.update(offset: targetConstant)
             self.superview?.layoutIfNeeded()
         })
+    }
+
+    private func updateCornerRadius(for stateIndex: Int) {
+        if stateIndex == self.states.count - 1 {
+            // 최대 크기일 때
+            self.layer.cornerRadius = 0
+        } else {
+            // 다른 상태일 때
+            self.layer.cornerRadius = 12
+        }
     }
 
     // UIGestureRecognizerDelegate method to allow simultaneous gestures

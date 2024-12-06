@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB045F4B2D016EE200B64B26 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB045F4A2D016EE200B64B26 /* ModalView.swift */; };
+		CB05937D2D02B3D00099C3C8 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB05937C2D02B3D00099C3C8 /* TitleView.swift */; };
 		CB07CE082B6BB2B9001658E2 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE072B6BB2B9001658E2 /* SplashView.swift */; };
 		CB07CE0A2B6BB2C1001658E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */; };
 		CB07CE0C2B6BB30C001658E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */; };
@@ -255,6 +256,7 @@
 
 /* Begin PBXFileReference section */
 		CB045F4A2D016EE200B64B26 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		CB05937C2D02B3D00099C3C8 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		CB07CE072B6BB2B9001658E2 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		CB07CE092B6BB2C1001658E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		CB07CE0B2B6BB30C001658E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -894,6 +896,7 @@
 		CB73E0122AB5FF1E005B6BF1 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				CB05937C2D02B3D00099C3C8 /* TitleView.swift */,
 				CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */,
 				CBA4C7DA2AB4840100FC9DD8 /* PaddingLabel.swift */,
 				CB2A44A52ADFC62D004A4126 /* PanZoomImageView.swift */,
@@ -2037,6 +2040,7 @@
 				CB07CE0C2B6BB30C001658E2 /* SplashViewModel.swift in Sources */,
 				CBADC29429559BC900E56C93 /* Notification+Extension.swift in Sources */,
 				CB8306722B5999D500632789 /* ReviewByFeedDTO.swift in Sources */,
+				CB05937D2D02B3D00099C3C8 /* TitleView.swift in Sources */,
 				CBA7F182297DB319006088A0 /* SignViewController.swift in Sources */,
 				CBADC2E02955B92D00E56C93 /* CompleteButton.swift in Sources */,
 				CBDA47DA2CFEC5D700BFB88A /* MapView.swift in Sources */,

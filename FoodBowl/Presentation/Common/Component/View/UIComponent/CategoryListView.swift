@@ -63,6 +63,9 @@ final class CategoryListView: UIView, BaseViewType {
 
         self.listCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        self.snp.makeConstraints {
             $0.height.equalTo(40)
         }
     }
