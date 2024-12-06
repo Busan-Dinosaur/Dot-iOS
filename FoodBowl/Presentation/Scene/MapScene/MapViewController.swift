@@ -25,7 +25,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     private let titleLabel = PaddingLabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
         $0.textColor = .mainTextColor
-        $0.text = "푸드볼"
+        $0.text = "Dot"
         $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
         $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
     }
@@ -194,7 +194,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
         }
         
         cell.bookmarkButtonTapAction = { [weak self] _ in
-//            self?.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
+            self?.mapView.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
         }
         
         cell.cellTapAction = { [weak self] _ in

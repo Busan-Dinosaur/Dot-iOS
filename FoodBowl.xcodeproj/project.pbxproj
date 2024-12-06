@@ -2254,7 +2254,7 @@
 				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBowl/App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "푸드볼";
+				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "음식 사진을 찍기 위해, 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "맛집 겸색을 위해, 사용자의 위치가 필요합니다.";
@@ -2297,7 +2297,7 @@
 				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoodBowl/App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "푸드볼";
+				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "음식 사진을 찍기 위해, 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "맛집 겸색을 위해, 사용자의 위치가 필요합니다.";
