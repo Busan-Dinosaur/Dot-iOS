@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MapViewModelType: BaseViewModelType {
+    func presentPhotoesSelectViewController()
     func presentRecommendViewController()
     func presentProfileViewController(id: Int)
     func presentStoreDetailViewController(id: Int)

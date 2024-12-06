@@ -183,6 +183,10 @@ final class MapViewModel: NSObject {
 }
 
 extension MapViewModel: MapViewModelType {
+    func presentPhotoesSelectViewController() {
+        self.coordinator?.presentPhotoesSelectViewController()
+    }
+    
     func presentRecommendViewController() {
         self.coordinator?.presentRecommendViewController()
     }

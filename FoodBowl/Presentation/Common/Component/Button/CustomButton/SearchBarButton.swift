@@ -51,6 +51,10 @@ final class SearchBarButton: UIButton, BaseViewType {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(self.searchIconView.snp.trailing).offset(10)
         }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(40)
+        }
     }
 
     func configureUI() {
@@ -58,5 +62,9 @@ final class SearchBarButton: UIButton, BaseViewType {
         self.layer.cornerRadius = 20
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.grey002.cgColor
+    }
+    
+    func setPlaceholder(title: String) {
+        self.placeholderLabel.text = title
     }
 }

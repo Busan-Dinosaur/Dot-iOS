@@ -16,6 +16,16 @@ final class MapCoordinator: NSObject {
         super.init()
     }
     
+    func presentPhotoesSelectViewController() {
+        guard let navigationController = self.navigationController else { return }
+        
+        let viewController = PhotoesSelectViewController()
+        let modalNavigationController = UINavigationController(rootViewController: viewController)
+        modalNavigationController.modalPresentationStyle = .fullScreen
+        
+        navigationController.present(modalNavigationController, animated: true)
+    }
+    
     func presentRecommendViewController() {
         guard let navigationController = self.navigationController else { return }
         let repository = RecommendRepositoryImpl()

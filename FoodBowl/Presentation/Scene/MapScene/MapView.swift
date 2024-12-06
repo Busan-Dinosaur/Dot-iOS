@@ -16,6 +16,12 @@ final class MapView: UIView, BaseViewType {
     
     // MARK: - ui component
     
+    private let searchBarButton = SearchBarButton().then {
+        $0.setPlaceholder(title: "검색")
+    }
+    private let plusButton = PlusButton()
+    private let settingButton = SettingButton()
+    
     private let categoryListView = CategoryListView()
     private let mkMapView = MKMapView()
     
@@ -44,12 +50,21 @@ final class MapView: UIView, BaseViewType {
     
     // MARK: - property
     
+    var searchBarButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.searchBarButton.buttonTapPublisher
+    }
+    var plusButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.plusButton.buttonTapPublisher
+    }
+    var settingButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.settingButton.buttonTapPublisher
+    }
     let locationPublisher = PassthroughSubject<CustomLocationRequestDTO, Never>()
     let bookmarkToggleButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
     let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
-    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 40
+    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48
 
     // MARK: - init
     
@@ -74,7 +89,7 @@ final class MapView: UIView, BaseViewType {
         )
         
         self.categoryListView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(8)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -105,6 +120,15 @@ final class MapView: UIView, BaseViewType {
     }
     
     // MARK: - func
+    
+    func configureNavigationBarItem(_ navigationController: UINavigationController) {
+        let navigationItem = navigationController.topViewController?.navigationItem
+        let searchBarButton = navigationController.makeBarButtonItem(with: self.searchBarButton)
+        let plusButton = navigationController.makeBarButtonItem(with: self.plusButton)
+        let settingButton = navigationController.makeBarButtonItem(with: self.settingButton)
+        navigationItem?.leftBarButtonItem = searchBarButton
+        navigationItem?.rightBarButtonItems = [settingButton, plusButton]
+    }
     
     func categoryView() -> CategoryListView {
         self.categoryListView
