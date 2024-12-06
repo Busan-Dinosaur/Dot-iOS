@@ -187,6 +187,7 @@
 		CBD062DE2D03120300127A0D /* PhotoesSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062DD2D03120300127A0D /* PhotoesSelectViewModel.swift */; };
 		CBD062E02D03120A00127A0D /* PhotoesSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062DF2D03120A00127A0D /* PhotoesSelectCoordinator.swift */; };
 		CBD062E22D03156B00127A0D /* CreateReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062E12D03156B00127A0D /* CreateReviewCoordinator.swift */; };
+		CBD062E42D031BA700127A0D /* UpdateReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD062E32D031BA700127A0D /* UpdateReviewCoordinator.swift */; };
 		CBD1B5EF2982A5AD00B0AD51 /* UpdateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */; };
 		CBD1B5F12982B0A300B0AD51 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */; };
 		CBD1B5F42982D39B00B0AD51 /* SettingItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */; };
@@ -429,6 +430,7 @@
 		CBD062DD2D03120300127A0D /* PhotoesSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoesSelectViewModel.swift; sourceTree = "<group>"; };
 		CBD062DF2D03120A00127A0D /* PhotoesSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoesSelectCoordinator.swift; sourceTree = "<group>"; };
 		CBD062E12D03156B00127A0D /* CreateReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewCoordinator.swift; sourceTree = "<group>"; };
+		CBD062E32D031BA700127A0D /* UpdateReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateReviewCoordinator.swift; sourceTree = "<group>"; };
 		CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileViewController.swift; sourceTree = "<group>"; };
 		CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -566,14 +568,6 @@
 			path = UIComponent;
 			sourceTree = "<group>";
 		};
-		CB1A7C66295767F000C6431D /* UIComponent */ = {
-			isa = PBXGroup;
-			children = (
-				CBDE390629719CB400DDE49A /* SelectedStoreView.swift */,
-			);
-			path = UIComponent;
-			sourceTree = "<group>";
-		};
 		CB49256D2AB44D0E00B66B68 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,15 +700,15 @@
 				CB981C28297A5A2900AF0167 /* SignScene */,
 				CBDA47D82CFEC59E00BFB88A /* MapScene */,
 				CBADC2B02955A13800E56C93 /* CreateReviewScene */,
+				CB73E00F2AB5FEA9005B6BF1 /* UpdateReviewScene */,
+				CB9B92642B8214D0001184BE /* RecommendScene */,
+				CBDF6EA42AD9253A00EB2481 /* BlameScene */,
+				CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */,
+				CB84CAF12B602F8600F4591A /* ReviewDetailScene */,
+				CBADC2A52955A07B00E56C93 /* ProfileScene */,
 				CBE6190D296C6423005295AF /* FriendScene */,
 				CB49256E2AB44D4400B66B68 /* FindScene */,
 				CBCD0F7D2A66DA0B00A51B32 /* MyPlaceScene */,
-				CBADC2A52955A07B00E56C93 /* ProfileScene */,
-				CB84CAF12B602F8600F4591A /* ReviewDetailScene */,
-				CB73E00F2AB5FEA9005B6BF1 /* UpdateReviewScene */,
-				CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */,
-				CBDF6EA42AD9253A00EB2481 /* BlameScene */,
-				CB9B92642B8214D0001184BE /* RecommendScene */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -856,9 +850,10 @@
 		CB73E00F2AB5FEA9005B6BF1 /* UpdateReviewScene */ = {
 			isa = PBXGroup;
 			children = (
-				CBDF114E2B5EEE50007DA3E1 /* View */,
-				CB73E0132AB5FF8A005B6BF1 /* ViewController */,
-				CBBB97EF2AB0831B00272CCE /* ViewModel */,
+				CBDF114F2B5EEE6B007DA3E1 /* UpdateReviewView.swift */,
+				CBBB97ED2AB0828600272CCE /* UpdateReviewViewController.swift */,
+				CBBB97F02AB0832F00272CCE /* UpdateReviewViewModel.swift */,
+				CBD062E32D031BA700127A0D /* UpdateReviewCoordinator.swift */,
 			);
 			path = UpdateReviewScene;
 			sourceTree = "<group>";
@@ -866,9 +861,10 @@
 		CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */ = {
 			isa = PBXGroup;
 			children = (
-				CBDF6EA72AD9256300EB2481 /* View */,
-				CB9332662AFCCAEF00B7F87A /* ViewController */,
-				CBB94BF42ADD0A3D00F44245 /* ViewModel */,
+				CB73E0112AB5FEDF005B6BF1 /* UIComponent */,
+				CB617A5B2AE29FBA000F7FFC /* StoreDetailView.swift */,
+				CBFB52542977B9240049E8BA /* StoreDetailViewController.swift */,
+				CBB94BF52ADD0A4D00F44245 /* StoreDetailViewModel.swift */,
 			);
 			path = StoreDetailScene;
 			sourceTree = "<group>";
@@ -890,19 +886,12 @@
 				CBF617612A6FD94900452B7B /* GrabbarView.swift */,
 				CB63B75F2A698909000AD9C2 /* CategoryListView.swift */,
 				CB5AF8A829854AA0003D16D4 /* MapAnnotation.swift */,
+				CBDE390629719CB400DDE49A /* SelectedStoreView.swift */,
 				CBC19D492B6FA2FB009CB3AB /* EmptyView.swift */,
 				CBDECAC72A6B2F0700259350 /* FeedListView.swift */,
 				CB045F4A2D016EE200B64B26 /* ModalView.swift */,
 			);
 			path = UIComponent;
-			sourceTree = "<group>";
-		};
-		CB73E0132AB5FF8A005B6BF1 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CBBB97ED2AB0828600272CCE /* UpdateReviewViewController.swift */,
-			);
-			name = ViewController;
 			sourceTree = "<group>";
 		};
 		CB73E5712B341B290026E4D7 /* ViewModel */ = {
@@ -977,36 +966,12 @@
 		CB84CAF12B602F8600F4591A /* ReviewDetailScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB84CAF42B602F9E00F4591A /* View */,
-				CB84CAF32B602F9700F4591A /* ViewController */,
-				CB84CAF22B602F9100F4591A /* ViewModel */,
-			);
-			path = ReviewDetailScene;
-			sourceTree = "<group>";
-		};
-		CB84CAF22B602F9100F4591A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CB84CAF92B602FBE00F4591A /* ReviewDetailViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CB84CAF32B602F9700F4591A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CB84CAF72B602FB400F4591A /* ReviewDetailViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CB84CAF42B602F9E00F4591A /* View */ = {
-			isa = PBXGroup;
-			children = (
 				CB84CB042B60356900F4591A /* UIComponent */,
 				CB84CAF52B602FAC00F4591A /* ReviewDetailView.swift */,
+				CB84CAF72B602FB400F4591A /* ReviewDetailViewController.swift */,
+				CB84CAF92B602FBE00F4591A /* ReviewDetailViewModel.swift */,
 			);
-			path = View;
+			path = ReviewDetailScene;
 			sourceTree = "<group>";
 		};
 		CB84CAFB2B602FCD00F4591A /* ReviewDetailScene */ = {
@@ -1049,14 +1014,6 @@
 				CB91E2A32B56D7B2008A0E8E /* StoreDetailUsecase.swift */,
 			);
 			path = StoreDetailScene;
-			sourceTree = "<group>";
-		};
-		CB9332662AFCCAEF00B7F87A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CBFB52542977B9240049E8BA /* StoreDetailViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		CB9332672AFCCB5A00B7F87A /* ViewController */ = {
@@ -1139,26 +1096,10 @@
 		CB9B92642B8214D0001184BE /* RecommendScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB9B92672B821517001184BE /* ViewController */,
-				CB9B92662B821514001184BE /* ViewModel */,
-			);
-			path = RecommendScene;
-			sourceTree = "<group>";
-		};
-		CB9B92662B821514001184BE /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
+				CB9B926A2B821540001184BE /* RecommendViewController.swift */,
 				CB9B926C2B821548001184BE /* RecommendViewModel.swift */,
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CB9B92672B821517001184BE /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CB9B926A2B821540001184BE /* RecommendViewController.swift */,
-			);
-			path = ViewController;
+			path = RecommendScene;
 			sourceTree = "<group>";
 		};
 		CB9B92702B821889001184BE /* RecommendScene */ = {
@@ -1257,22 +1198,6 @@
 				CBD062DC2D03111000127A0D /* SearchStoreScene */,
 			);
 			path = CreateReviewScene;
-			sourceTree = "<group>";
-		};
-		CBB94BF42ADD0A3D00F44245 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CBB94BF52ADD0A4D00F44245 /* StoreDetailViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CBBB97EF2AB0831B00272CCE /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CBBB97F02AB0832F00272CCE /* UpdateReviewViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CBC730F7295550A100C7F198 = {
@@ -1374,7 +1299,6 @@
 		CBD062DB2D0310EE00127A0D /* CreateReviewScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB1A7C66295767F000C6431D /* UIComponent */,
 				CB4A789C2B581F8B0002136F /* CreateReviewView.swift */,
 				CB5DD4322AB5A175009FCB43 /* CreateReviewViewController.swift */,
 				CB15790F2AACD98600007183 /* CreateReviewViewModel.swift */,
@@ -1703,39 +1627,14 @@
 			path = FindScene;
 			sourceTree = "<group>";
 		};
-		CBDF114E2B5EEE50007DA3E1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CBDF114F2B5EEE6B007DA3E1 /* UpdateReviewView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		CBDF6EA42AD9253A00EB2481 /* BlameScene */ = {
 			isa = PBXGroup;
 			children = (
-				CBF9264A2B411F2D005E251B /* View */,
-				CBDF6EA82AD9257F00EB2481 /* ViewController */,
-				CBF9264B2B411F33005E251B /* ViewModel */,
+				CBF9264E2B411F4E005E251B /* BlameView.swift */,
+				CBDF6EA52AD9255200EB2481 /* BlameViewController.swift */,
+				CBF9264C2B411F45005E251B /* BlameViewModel.swift */,
 			);
 			path = BlameScene;
-			sourceTree = "<group>";
-		};
-		CBDF6EA72AD9256300EB2481 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CB73E0112AB5FEDF005B6BF1 /* UIComponent */,
-				CB617A5B2AE29FBA000F7FFC /* StoreDetailView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CBDF6EA82AD9257F00EB2481 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CBDF6EA52AD9255200EB2481 /* BlameViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		CBE3C4D72B5C1DDF00F71A01 /* ViewController */ = {
@@ -1764,22 +1663,6 @@
 				CBF926482B411C46005E251B /* BlameUsecase.swift */,
 			);
 			path = BlameScene;
-			sourceTree = "<group>";
-		};
-		CBF9264A2B411F2D005E251B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CBF9264E2B411F4E005E251B /* BlameView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CBF9264B2B411F33005E251B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CBF9264C2B411F45005E251B /* BlameViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2047,6 +1930,7 @@
 				CB4A78A62B5831570002136F /* CreateReviewRepositoryImpl.swift in Sources */,
 				CB617A382AE247E4000F7FFC /* BaseViewType.swift in Sources */,
 				CBDF6EA62AD9255200EB2481 /* BlameViewController.swift in Sources */,
+				CBD062E42D031BA700127A0D /* UpdateReviewCoordinator.swift in Sources */,
 				CB40C6F82A83E812003E3F06 /* SignViewModel.swift in Sources */,
 				CB07CE172B6BBABD001658E2 /* SettingViewModel.swift in Sources */,
 				CBA4C7DB2AB4840100FC9DD8 /* PaddingLabel.swift in Sources */,

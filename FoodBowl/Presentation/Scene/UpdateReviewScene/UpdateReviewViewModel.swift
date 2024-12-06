@@ -8,13 +8,14 @@
 import Combine
 import Foundation
 
-final class UpdateReviewViewModel: BaseViewModelType {
+final class UpdateReviewViewModel {
     
     // MARK: - property
     
     private let reviewId: Int
     
     private let usecase: UpdateReviewUsecase
+    private let coordinator: UpdateReviewCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let reviewSubject: PassthroughSubject<Result<Review, Error>, Never> = PassthroughSubject()
@@ -34,9 +35,11 @@ final class UpdateReviewViewModel: BaseViewModelType {
 
     init(
         usecase: UpdateReviewUsecase,
+        coordinator: UpdateReviewCoordinator,
         reviewId: Int
     ) {
         self.usecase = usecase
+        self.coordinator = coordinator
         self.reviewId = reviewId
     }
     
@@ -99,5 +102,16 @@ final class UpdateReviewViewModel: BaseViewModelType {
                 self.isCompletedSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension UpdateReviewViewModel: UpdateReviewViewModelType {
+    
+    func dismiss() {
+        self.coordinator?.dismiss()
+    }
+    
+    func presentShowWebViewController(url: String) {
+        self.coordinator?.presentShowWebViewController(url: url)
     }
 }

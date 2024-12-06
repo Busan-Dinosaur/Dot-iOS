@@ -103,19 +103,19 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentUpdateReviewViewController(id: Int) {
-        let repository = UpdateReviewRepositoryImpl()
-        let usecase = UpdateReviewUsecaseImpl(repository: repository)
-        let viewModel = UpdateReviewViewModel(
-            usecase: usecase,
-            reviewId: id
-        )
-        let viewController = UpdateReviewViewController(viewModel: viewModel)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.present(navigationController, animated: true)
-        }
+//        let repository = UpdateReviewRepositoryImpl()
+//        let usecase = UpdateReviewUsecaseImpl(repository: repository)
+//        let viewModel = UpdateReviewViewModel(
+//            usecase: usecase,
+//            reviewId: id
+//        )
+//        let viewController = UpdateReviewViewController(viewModel: viewModel)
+//        let navigationController = UINavigationController(rootViewController: viewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.present(navigationController, animated: true)
+//        }
     }
     
     func presentSearchStoreViewController(location: CLLocationCoordinate2D?) {
