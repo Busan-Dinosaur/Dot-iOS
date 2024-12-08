@@ -212,6 +212,15 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 self?.viewModel.presentSettingViewController()
             })
             .store(in: &self.cancellable)
+        
+        self.mapView.switchButton.switchButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                let nextType = self.mapView.switchButton.currentSwitchType.nextType
+                self.mapView.switchButton.currentSwitchType = nextType
+            })
+            .store(in: &self.cancellable)
     }
 }
 

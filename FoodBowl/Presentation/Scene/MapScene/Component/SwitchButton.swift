@@ -5,11 +5,16 @@
 //  Created by Coby on 12/8/24.
 //
 
+import Combine
 import UIKit
 
 final class SwitchButton: UIButton {
     
     // MARK: - property
+    
+    var switchButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.buttonTapPublisher
+    }
     
     var currentSwitchType: SwitchType = .all {
         didSet {
@@ -22,7 +27,6 @@ final class SwitchButton: UIButton {
     override init(frame _: CGRect) {
         super.init(frame: .init(origin: .zero, size: .init(width: 30, height: 30)))
         self.configureUI()
-        self.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
 
     @available(*, unavailable)
@@ -42,9 +46,5 @@ final class SwitchButton: UIButton {
     private func updateIcon() {
         let icon = self.currentSwitchType.icon.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate)
         self.setImage(icon, for: .normal)
-    }
-
-    @objc private func didTapButton() {
-        self.currentSwitchType = self.currentSwitchType.nextType
     }
 }

@@ -24,7 +24,7 @@ final class MapView: UIView, BaseViewType {
     private let categoryListView = CategoryListView()
     
     private let mkMapView = MKMapView()
-    private let switchButton = SwitchButton()
+    let switchButton = SwitchButton()
     
     private let feedListView = FeedListView()
     private lazy var modalView = ModalView(states: [100, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
