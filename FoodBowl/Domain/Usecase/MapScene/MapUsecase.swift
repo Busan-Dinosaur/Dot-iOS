@@ -11,9 +11,11 @@ protocol MapUsecase {
     func getReviewsByBound(request: GetReviewsRequestDTO) async throws -> Reviews
     func getReviewsByFollowing(request: GetReviewsRequestDTO) async throws -> Reviews
     func getReviewsByBookmark(request: GetReviewsRequestDTO) async throws -> Reviews
+    func getReviewsByMember(request: GetReviewsByMemberRequestDTO) async throws -> Reviews
     func getStoresByBound(request: CustomLocationRequestDTO) async throws -> [Store]
     func getStoresByFollowing(request: CustomLocationRequestDTO) async throws -> [Store]
     func getStoresByBookmark(request: CustomLocationRequestDTO) async throws -> [Store]
+    func getStoresByMember(request: GetStoresByMemberRequestDTO) async throws -> [Store]
     func createBookmark(storeId: Int) async throws
     func removeBookmark(storeId: Int) async throws
 }
@@ -59,6 +61,15 @@ final class MapUsecaseImpl: MapUsecase {
         }
     }
     
+    func getReviewsByMember(request: GetReviewsByMemberRequestDTO) async throws -> Reviews {
+        do {
+            let reviewDTO = try await self.repository.getReviewsByMember(request: request)
+            return reviewDTO.toReviews()
+        } catch(let error) {
+            throw error
+        }
+    }
+    
     func getStoresByBound(request: CustomLocationRequestDTO) async throws -> [Store] {
         do {
             let storeDTO = try await self.repository.getStoresByBound(request: request)
@@ -80,6 +91,15 @@ final class MapUsecaseImpl: MapUsecase {
     func getStoresByBookmark(request: CustomLocationRequestDTO) async throws -> [Store] {
         do {
             let storeDTO = try await self.repository.getStoresByBookmark(request: request)
+            return storeDTO.stores.map { $0.toStore() }
+        } catch(let error) {
+            throw error
+        }
+    }
+    
+    func getStoresByMember(request: GetStoresByMemberRequestDTO) async throws -> [Store] {
+        do {
+            let storeDTO = try await self.repository.getStoresByMember(request: request)
             return storeDTO.stores.map { $0.toStore() }
         } catch(let error) {
             throw error

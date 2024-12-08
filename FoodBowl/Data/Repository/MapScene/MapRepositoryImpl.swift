@@ -28,6 +28,11 @@ final class MapRepositoryImpl: MapRepository {
         return try response.decode()
     }
     
+    func getReviewsByMember(request: GetReviewsByMemberRequestDTO) async throws -> ReviewDTO {
+        let response = await provider.request(.getReviewsByMember(request: request))
+        return try response.decode()
+    }
+    
     func getStoresByBound(request: CustomLocationRequestDTO) async throws -> StoreDTO {
         let response = await provider.request(.getStoresByBound(request: request))
         return try response.decode()
@@ -40,6 +45,11 @@ final class MapRepositoryImpl: MapRepository {
     
     func getStoresByBookmark(request: CustomLocationRequestDTO) async throws -> StoreDTO {
         let response = await provider.request(.getStoresByBookmark(request: request))
+        return try response.decode()
+    }
+    
+    func getStoresByMember(request: GetStoresByMemberRequestDTO) async throws -> StoreDTO {
+        let response = await provider.request(.getStoresByMember(request: request))
         return try response.decode()
     }
     

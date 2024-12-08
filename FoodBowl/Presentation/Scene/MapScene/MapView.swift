@@ -25,6 +25,14 @@ final class MapView: UIView, BaseViewType {
     
     private let mkMapView = MKMapView()
     let switchButton = SwitchButton()
+    private lazy var trackingButton = MKUserTrackingButton(mapView: self.mkMapView).then {
+        $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
+        $0.layer.borderColor = UIColor.grey002.cgColor
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
+        $0.tintColor = UIColor.mainColor
+    }
     
     private let feedListView = FeedListView()
     private lazy var modalView = ModalView(states: [100, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
@@ -67,7 +75,8 @@ final class MapView: UIView, BaseViewType {
         self.addSubviews(
             self.categoryListView,
             self.mkMapView,
-            self.switchButton
+            self.switchButton,
+            self.trackingButton
         )
         
         self.categoryListView.snp.makeConstraints {
@@ -83,6 +92,12 @@ final class MapView: UIView, BaseViewType {
         self.switchButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(10)
             $0.top.equalTo(self.categoryListView.snp.bottom).offset(20)
+            $0.height.width.equalTo(40)
+        }
+        
+        self.trackingButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(10)
+            $0.top.equalTo(self.switchButton.snp.bottom).offset(8)
             $0.height.width.equalTo(40)
         }
 

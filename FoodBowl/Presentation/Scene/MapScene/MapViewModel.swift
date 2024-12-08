@@ -133,8 +133,8 @@ final class MapViewModel: NSObject {
             self.getReviewsByFollowing()
             self.getStoresByFollowing()
         case .person:
-            self.getReviewsByFollowing()
-            self.getStoresByFollowing()
+            self.getReviewsByMember()
+            self.getStoresByMember()
         case .bookmark:
             self.getReviewsByBookmark()
             self.getStoresByBookmark()
@@ -148,7 +148,7 @@ final class MapViewModel: NSObject {
         case .friends:
             self.getReviewsByFollowing(lastReviewId: lastReviewId)
         case .person:
-            self.getReviewsByFollowing(lastReviewId: lastReviewId)
+            self.getReviewsByMember(lastReviewId: lastReviewId)
         case .bookmark:
             self.getReviewsByBookmark(lastReviewId: lastReviewId)
         }
@@ -223,6 +223,30 @@ final class MapViewModel: NSObject {
         }
     }
     
+    private func getReviewsByMember(lastReviewId: Int? = nil) {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                if self.currentpageSize < self.pageSize { return }
+                
+                let reviews = try await self.usecase.getReviewsByMember(request: GetReviewsByMemberRequestDTO(
+                    location: location,
+                    lastReviewId: lastReviewId,
+                    pageSize: self.pageSize,
+                    category: self.category?.rawValue,
+                    memberId: UserDefaultStorage.id
+                ))
+                
+                self.lastReviewId = reviews.page.lastId
+                self.currentpageSize = reviews.page.size
+                
+                lastReviewId == nil ? self.reviewsSubject.send(.success(reviews.reviews)) : self.moreReviewsSubject.send(.success(reviews.reviews))
+            } catch(let error) {
+                self.reviewsSubject.send(.failure(error))
+            }
+        }
+    }
+    
     private func getStoresByBound() {
         Task {
             do {
@@ -262,6 +286,26 @@ final class MapViewModel: NSObject {
             do {
                 guard let location = self.location else { return }
                 var stores = try await self.usecase.getStoresByBookmark(request: location)
+                
+                if let category = self.category?.rawValue {
+                    stores = stores.filter { $0.category == category }
+                }
+                
+                self.storesSubject.send(.success(stores))
+            } catch(let error) {
+                self.storesSubject.send(.failure(error))
+            }
+        }
+    }
+    
+    private func getStoresByMember() {
+        Task {
+            do {
+                guard let location = self.location else { return }
+                var stores = try await self.usecase.getStoresByMember(request: GetStoresByMemberRequestDTO(
+                    location: location,
+                    memberId: UserDefaultStorage.id
+                ))
                 
                 if let category = self.category?.rawValue {
                     stores = stores.filter { $0.category == category }
