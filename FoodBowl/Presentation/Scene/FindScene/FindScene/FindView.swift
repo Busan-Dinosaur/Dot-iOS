@@ -72,7 +72,6 @@ final class FindView: UIView, BaseViewType {
         let navigationItem = navigationController.topViewController?.navigationItem
         navigationItem?.searchController = self.searchController
         navigationItem?.hidesSearchBarWhenScrolling = false
-        navigationItem?.title = "둘러보기"
     }
     
     func collectionView() -> UICollectionView {

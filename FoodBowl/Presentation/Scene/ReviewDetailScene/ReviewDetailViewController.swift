@@ -55,7 +55,6 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
 
     private func bindViewModel() {
         let output = self.transformedOutput()
-        self.configureNavigation()
         self.bindOutputToViewModel(output)
     }
     
@@ -132,12 +131,5 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
                 self.presentStoreDetailViewController(id: viewModel.storeId)
             })
             .store(in: &self.cancellable)
-    }
-    
-    // MARK: - func
-    
-    private func configureNavigation() {
-        guard let navigationController = self.navigationController else { return }
-        self.reviewDetailView.configureNavigationBarTitle(navigationController)
     }
 }

@@ -65,7 +65,6 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
 
     private func bindViewModel() {
         let output = self.transformedOutput()
-        self.configureNavigation()
         self.bindOutputToViewModel(output)
     }
     
@@ -178,16 +177,6 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
                 self?.presentReviewDetailViewController(id: item.comment.id)
             }
         }
-    }
-    
-    // MARK: - func
-    
-    private func configureNavigation() {
-        guard let viewModel = self.viewModel as? StoreDetailViewModel else { return }
-        guard let navigationController = self.navigationController else { return }
-        self.storeDetailView.reviewToggleButton.isSelected = viewModel.isFriend
-        self.storeDetailView.configureNavigationBarItem(navigationController)
-        self.storeDetailView.configureNavigationBarTitle(navigationController)
     }
 }
 

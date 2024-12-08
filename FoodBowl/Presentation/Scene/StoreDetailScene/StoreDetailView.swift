@@ -55,17 +55,6 @@ final class StoreDetailView: UIView, BaseViewType {
     
     // MARK: - func
     
-    func configureNavigationBarItem(_ navigationController: UINavigationController) {        
-        let navigationItem = navigationController.topViewController?.navigationItem
-        let reviewToggleButton = navigationController.makeBarButtonItem(with: reviewToggleButton)
-        navigationItem?.rightBarButtonItem = reviewToggleButton
-    }
-    
-    func configureNavigationBarTitle(_ navigationController: UINavigationController) {
-        let navigationItem = navigationController.topViewController?.navigationItem
-        navigationItem?.title = reviewToggleButton.isSelected ? "친구들의 후기" : "모두의 후기"
-    }
-    
     func collectionView() -> UICollectionView {
         return self.listCollectionView
     }

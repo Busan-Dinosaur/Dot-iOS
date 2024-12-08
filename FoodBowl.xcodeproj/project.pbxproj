@@ -31,6 +31,14 @@
 		CB20B9E22D057C0100BC06F9 /* FriendsFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9E12D057C0100BC06F9 /* FriendsFilterButton.swift */; };
 		CB20B9E52D05804F00BC06F9 /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9E42D05804F00BC06F9 /* SwitchButton.swift */; };
 		CB20B9E72D0580E300BC06F9 /* SwitchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9E62D0580E300BC06F9 /* SwitchType.swift */; };
+		CB20B9EF2D05D18000BC06F9 /* MemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9EE2D05D18000BC06F9 /* MemberView.swift */; };
+		CB20B9F12D05D18800BC06F9 /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9F02D05D18800BC06F9 /* MemberViewController.swift */; };
+		CB20B9F32D05D18D00BC06F9 /* MemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9F22D05D18D00BC06F9 /* MemberViewModel.swift */; };
+		CB20B9F52D05D19600BC06F9 /* MemberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9F42D05D19600BC06F9 /* MemberCoordinator.swift */; };
+		CB20B9F72D05D1DD00BC06F9 /* MemberProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9F62D05D1DD00BC06F9 /* MemberProfileView.swift */; };
+		CB20B9FA2D05D51F00BC06F9 /* MemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9F92D05D51F00BC06F9 /* MemberRepository.swift */; };
+		CB20B9FD2D05D58A00BC06F9 /* MemberUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9FC2D05D58A00BC06F9 /* MemberUsecase.swift */; };
+		CB20BA002D05D5FE00BC06F9 /* MemberRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20B9FF2D05D5FE00BC06F9 /* MemberRepositoryImpl.swift */; };
 		CB20BAD32AE39F11007535C8 /* Optionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20BAD22AE39F11007535C8 /* Optionable.swift */; };
 		CB2A44A62ADFC62D004A4126 /* PanZoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A44A52ADFC62D004A4126 /* PanZoomImageView.swift */; };
 		CB2A44A82ADFC866004A4126 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A44A72ADFC866004A4126 /* ImageViewController.swift */; };
@@ -282,6 +290,14 @@
 		CB20B9E12D057C0100BC06F9 /* FriendsFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFilterButton.swift; sourceTree = "<group>"; };
 		CB20B9E42D05804F00BC06F9 /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		CB20B9E62D0580E300BC06F9 /* SwitchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchType.swift; sourceTree = "<group>"; };
+		CB20B9EE2D05D18000BC06F9 /* MemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberView.swift; sourceTree = "<group>"; };
+		CB20B9F02D05D18800BC06F9 /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewController.swift; sourceTree = "<group>"; };
+		CB20B9F22D05D18D00BC06F9 /* MemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberViewModel.swift; sourceTree = "<group>"; };
+		CB20B9F42D05D19600BC06F9 /* MemberCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCoordinator.swift; sourceTree = "<group>"; };
+		CB20B9F62D05D1DD00BC06F9 /* MemberProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberProfileView.swift; sourceTree = "<group>"; };
+		CB20B9F92D05D51F00BC06F9 /* MemberRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepository.swift; sourceTree = "<group>"; };
+		CB20B9FC2D05D58A00BC06F9 /* MemberUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberUsecase.swift; sourceTree = "<group>"; };
+		CB20B9FF2D05D5FE00BC06F9 /* MemberRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepositoryImpl.swift; sourceTree = "<group>"; };
 		CB20BAD22AE39F11007535C8 /* Optionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optionable.swift; sourceTree = "<group>"; };
 		CB2A44A52ADFC62D004A4126 /* PanZoomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanZoomImageView.swift; sourceTree = "<group>"; };
 		CB2A44A72ADFC866004A4126 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -594,6 +610,50 @@
 			path = FindResultScene;
 			sourceTree = "<group>";
 		};
+		CB20B9EC2D05D15900BC06F9 /* MemberScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB20B9ED2D05D17400BC06F9 /* Component */,
+				CB20B9EE2D05D18000BC06F9 /* MemberView.swift */,
+				CB20B9F02D05D18800BC06F9 /* MemberViewController.swift */,
+				CB20B9F22D05D18D00BC06F9 /* MemberViewModel.swift */,
+				CB20B9F42D05D19600BC06F9 /* MemberCoordinator.swift */,
+			);
+			path = MemberScene;
+			sourceTree = "<group>";
+		};
+		CB20B9ED2D05D17400BC06F9 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				CB20B9F62D05D1DD00BC06F9 /* MemberProfileView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		CB20B9F82D05D50E00BC06F9 /* MemberScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB20B9F92D05D51F00BC06F9 /* MemberRepository.swift */,
+			);
+			path = MemberScene;
+			sourceTree = "<group>";
+		};
+		CB20B9FB2D05D57700BC06F9 /* MemberScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB20B9FC2D05D58A00BC06F9 /* MemberUsecase.swift */,
+			);
+			path = MemberScene;
+			sourceTree = "<group>";
+		};
+		CB20B9FE2D05D5E500BC06F9 /* MemberScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB20B9FF2D05D5FE00BC06F9 /* MemberRepositoryImpl.swift */,
+			);
+			path = MemberScene;
+			sourceTree = "<group>";
+		};
 		CB49256D2AB44D0E00B66B68 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,6 +690,7 @@
 				CB07CE0D2B6BB37A001658E2 /* SplashScene */,
 				CBDF112E2B5EAC15007DA3E1 /* SignScene */,
 				CBDA47E32CFEC74700BFB88A /* MapScene */,
+				CB20B9F82D05D50E00BC06F9 /* MemberScene */,
 				CBDF11302B5EAC2D007DA3E1 /* FriendScene */,
 				CBDF11312B5EAC38007DA3E1 /* FindScene */,
 				CBDF11332B5EAC6A007DA3E1 /* UnivScene */,
@@ -650,6 +711,7 @@
 				CB07CE0E2B6BB3A2001658E2 /* SplashScene */,
 				CBDF113D2B5EAD9C007DA3E1 /* SignScene */,
 				CBDA47E92CFEC79A00BFB88A /* MapScene */,
+				CB20B9FE2D05D5E500BC06F9 /* MemberScene */,
 				CBDF113E2B5EADA4007DA3E1 /* FriendScene */,
 				CBDF11452B5EADF5007DA3E1 /* FindScene */,
 				CBDF113F2B5EADAA007DA3E1 /* MyPlaceScene */,
@@ -724,6 +786,7 @@
 				CB07CE032B6BB24D001658E2 /* SplashScene */,
 				CB981C28297A5A2900AF0167 /* SignScene */,
 				CBDA47D82CFEC59E00BFB88A /* MapScene */,
+				CB20B9EC2D05D15900BC06F9 /* MemberScene */,
 				CB49256E2AB44D4400B66B68 /* FindScene */,
 				CBADC2B02955A13800E56C93 /* CreateReviewScene */,
 				CB73E00F2AB5FEA9005B6BF1 /* UpdateReviewScene */,
@@ -731,8 +794,8 @@
 				CBDF6EA42AD9253A00EB2481 /* BlameScene */,
 				CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */,
 				CB84CAF12B602F8600F4591A /* ReviewDetailScene */,
-				CBADC2A52955A07B00E56C93 /* ProfileScene */,
 				CBE6190D296C6423005295AF /* FriendScene */,
+				CBADC2A52955A07B00E56C93 /* ProfileScene */,
 				CBCD0F7D2A66DA0B00A51B32 /* MyPlaceScene */,
 			);
 			path = Scene;
@@ -1057,6 +1120,7 @@
 				CB07CE0F2B6BB3B4001658E2 /* SplashScene */,
 				CB9332702AFCCCF100B7F87A /* SignScene */,
 				CBDA47E62CFEC76600BFB88A /* MapScene */,
+				CB20B9FB2D05D57700BC06F9 /* MemberScene */,
 				CBDF11322B5EAC56007DA3E1 /* FriendScene */,
 				CB8306732B599CAE00632789 /* FindScene */,
 				CBDF11152B5EA750007DA3E1 /* MyPlaceScene */,
@@ -1791,6 +1855,7 @@
 				CB07CE1B2B6BBB1D001658E2 /* SettingUsecase.swift in Sources */,
 				CBDF11472B5EB0A7007DA3E1 /* FriendRepositoryImpl.swift in Sources */,
 				CB84CAEE2B602E9100F4591A /* UpdateReviewRepositoryImpl.swift in Sources */,
+				CB20B9FD2D05D58A00BC06F9 /* MemberUsecase.swift in Sources */,
 				CB1A7C6129561BCF00C6431D /* ProfileHeaderView.swift in Sources */,
 				CB9B92782B8219F7001184BE /* RecommendUsecase.swift in Sources */,
 				CB9332632AFCC26800B7F87A /* PhotoPickerable.swift in Sources */,
@@ -1805,6 +1870,7 @@
 				CB91E2AE2B56E86B008A0E8E /* Store.swift in Sources */,
 				CB7F3325298A51560000A6B4 /* UserDefaultStorage.swift in Sources */,
 				CBC747BA2A83DD6400F171F5 /* Configurations.swift in Sources */,
+				CB20B9F12D05D18800BC06F9 /* MemberViewController.swift in Sources */,
 				CB4A78AE2B5848320002136F /* SearchStoreView.swift in Sources */,
 				CB617A4F2AE27F88000F7FFC /* UIViewController+Combine.swift in Sources */,
 				CB9B92722B8218A2001184BE /* RecommendRepositoryImpl.swift in Sources */,
@@ -1817,6 +1883,7 @@
 				CB51C8D12AD7E763002D0BA5 /* SearchStoreRequestDTO.swift in Sources */,
 				CBF9264F2B411F4E005E251B /* BlameView.swift in Sources */,
 				CB8A2D9B297844720018AC6E /* Marker.swift in Sources */,
+				CB20B9F52D05D19600BC06F9 /* MemberCoordinator.swift in Sources */,
 				CB9B926B2B821540001184BE /* RecommendViewController.swift in Sources */,
 				CBDA47EB2CFEC7A600BFB88A /* MapRepositoryImpl.swift in Sources */,
 				CBDDF1452A6AFB5800AE3C50 /* PhotoListView.swift in Sources */,
@@ -1831,6 +1898,7 @@
 				CBD1B5F82982D9E100B0AD51 /* ForwardButton.swift in Sources */,
 				CBADEF3E2B5D5CB00026FACA /* UpdateProfileRepository.swift in Sources */,
 				CB2A44A82ADFC866004A4126 /* ImageViewController.swift in Sources */,
+				CB20B9F32D05D18D00BC06F9 /* MemberViewModel.swift in Sources */,
 				CB2E4F892977393700FD2566 /* FollowInfoButton.swift in Sources */,
 				CB20B9E22D057C0100BC06F9 /* FriendsFilterButton.swift in Sources */,
 				CB91E2AA2B56DA7B008A0E8E /* ReviewByStoreDTO.swift in Sources */,
@@ -1864,6 +1932,7 @@
 				CB617A512AE27F96000F7FFC /* UIScrollView+Combine.swift in Sources */,
 				CB4A78A12B5830000002136F /* CreateReviewRepository.swift in Sources */,
 				CB78A8092B5CFFC0007EC9C1 /* FindResultView.swift in Sources */,
+				CB20B9EF2D05D18000BC06F9 /* MemberView.swift in Sources */,
 				CB5BFB0C2B3EE37500B35062 /* SplashRepository.swift in Sources */,
 				CBE61913296C68D9005295AF /* PlusButton.swift in Sources */,
 				CB07CE192B6BBAD1001658E2 /* SettingRepository.swift in Sources */,
@@ -1897,6 +1966,7 @@
 				CB5BFB3B2B3F0CF300B35062 /* GetReviewsRequestDTO.swift in Sources */,
 				CBDA47E52CFEC75200BFB88A /* MapRepository.swift in Sources */,
 				CB40C6FA2A83E916003E3F06 /* MoyaProvider+Extension.swift in Sources */,
+				CB20B9FA2D05D51F00BC06F9 /* MemberRepository.swift in Sources */,
 				CBC73106295550A100C7F198 /* SceneDelegate.swift in Sources */,
 				CB07CE082B6BB2B9001658E2 /* SplashView.swift in Sources */,
 				CBDE39022971947B00DDE49A /* StoreTableViewCell.swift in Sources */,
@@ -1938,6 +2008,7 @@
 				CBDA47DE2CFEC5EA00BFB88A /* MapViewModel.swift in Sources */,
 				CB617A532AE27FC0000F7FFC /* Publisher+Async.swift in Sources */,
 				CB40C6FE2A83EEF8003E3F06 /* SignRequestDTO.swift in Sources */,
+				CB20B9F72D05D1DD00BC06F9 /* MemberProfileView.swift in Sources */,
 				CB4A78A62B5831570002136F /* CreateReviewRepositoryImpl.swift in Sources */,
 				CB617A382AE247E4000F7FFC /* BaseViewType.swift in Sources */,
 				CBDF6EA62AD9255200EB2481 /* BlameViewController.swift in Sources */,
@@ -1963,6 +2034,7 @@
 				CBDE390729719CB400DDE49A /* SelectedStoreView.swift in Sources */,
 				CBDA47D32CFEC06000BFB88A /* SplashCoordinator.swift in Sources */,
 				CB6D2F332B7282840049CF79 /* AppStoreReviewManager.swift in Sources */,
+				CB20BA002D05D5FE00BC06F9 /* MemberRepositoryImpl.swift in Sources */,
 				CBADC29129559BC900E56C93 /* UICollectionView+Extension.swift in Sources */,
 				CBD641A32AB824A2009A05D8 /* SearchPlaceViewController.swift in Sources */,
 				CB617A5E2AE2A386000F7FFC /* SizeLiteral.swift in Sources */,
