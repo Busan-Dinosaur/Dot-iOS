@@ -8,18 +8,26 @@
 import UIKit
 
 enum ImageLiteral {
+    
     static var logo: UIImage { .load(name: "logo") }
     
+    static var all: UIImage { .load(name: "all") }
+    static var allFill: UIImage { .load(name: "all_fill") }
+    
     static var friends: UIImage { .load(name: "friends") }
+    static var friendsFill: UIImage { .load(name: "friends_fill") }
+    
+    static var person: UIImage { .load(name: "person") }
+    static var personFill: UIImage { .load(name: "person_fill") }
+    
     static var bookmark: UIImage { .load(name: "bookmark") }
+    static var bookmarkFill: UIImage { .load(name: "bookmark_fill") }
+    
     static var search: UIImage { .load(name: "search") }
     static var place: UIImage { .load(name: "place") }
     static var univ: UIImage { .load(name: "univ") }
     static var profile: UIImage { .load(name: "profile") }
-
-    static var bookmarkFill: UIImage { .load(name: "bookmark_fill") }
-    static var placeFill: UIImage { .load(name: "place_fill") }
-
+    
     static var btnClose: UIImage { .load(systemName: "xmark") }
     static var btnSetting: UIImage { .load(name: "settings") }
     static var btnBack: UIImage { .load(systemName: "chevron.backward") }
@@ -29,6 +37,8 @@ enum ImageLiteral {
     static var btnOption: UIImage { .load(name: "option") }
     static var btnKakaomap: UIImage { .load(name: "kakaomap") }
     static var btnFeed: UIImage { .load(name: "feed") }
+    
+    static var placeFill: UIImage { .load(name: "place_fill") }
 
     static var defaultProfile: UIImage { .load(name: "user") }
     static var appleLogo: UIImage { .load(systemName: "apple.logo") }

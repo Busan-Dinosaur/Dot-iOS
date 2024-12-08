@@ -1,26 +1,26 @@
 //
-//  BookmarkMapButton.swift
+//  FriendsFilterButton.swift
 //  FoodBowl
 //
-//  Created by COBY_PRO on 2023/09/16.
+//  Created by Coby on 12/8/24.
 //
 
 import UIKit
 
-final class BookmarkMapButton: UIButton {
+final class FriendsFilterButton: UIButton {
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
                 setImage(
-                    ImageLiteral.bookmarkFill.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate),
+                    ImageLiteral.friendsFill.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate),
                     for: .normal
                 )
                 tintColor = .mainBackgroundColor
                 backgroundColor = .mainColor
             } else {
                 setImage(
-                    ImageLiteral.bookmark.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate),
+                    ImageLiteral.friends.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate),
                     for: .normal
                 )
                 tintColor = .mainColor

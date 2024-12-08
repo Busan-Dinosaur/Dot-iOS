@@ -21,29 +21,12 @@ final class MapView: UIView, BaseViewType {
     }
     private let plusButton = PlusButton()
     private let settingButton = SettingButton()
-    
     private let categoryListView = CategoryListView()
+    
     private let mkMapView = MKMapView()
-    
-    private lazy var trackingButton = MKUserTrackingButton(mapView: mkMapView).then {
-        $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
-        $0.layer.borderColor = UIColor.grey002.cgColor
-        $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 10
-        $0.layer.masksToBounds = true
-        $0.tintColor = UIColor.mainColor
-    }
-    
-    private let bookmarkButton = BookmarkMapButton().then {
-        $0.layer.backgroundColor = UIColor.mainBackgroundColor.cgColor
-        $0.layer.borderColor = UIColor.grey002.cgColor
-        $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 10
-        $0.layer.masksToBounds = true
-    }
+    private let switchButton = SwitchButton()
     
     private let feedListView = FeedListView()
-    
     private lazy var modalView = ModalView(states: [100, self.fullViewHeight * 0.5, self.modalMaxHeight]).then {
         $0.setContentView(self.feedListView)
     }
@@ -84,8 +67,7 @@ final class MapView: UIView, BaseViewType {
         self.addSubviews(
             self.categoryListView,
             self.mkMapView,
-            self.trackingButton,
-            self.bookmarkButton
+            self.switchButton
         )
         
         self.categoryListView.snp.makeConstraints {
@@ -98,15 +80,9 @@ final class MapView: UIView, BaseViewType {
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        self.trackingButton.snp.makeConstraints {
+        self.switchButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(10)
             $0.top.equalTo(self.categoryListView.snp.bottom).offset(20)
-            $0.height.width.equalTo(40)
-        }
-        
-        self.bookmarkButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(10)
-            $0.top.equalTo(self.trackingButton.snp.bottom).offset(8)
             $0.height.width.equalTo(40)
         }
 
@@ -117,6 +93,7 @@ final class MapView: UIView, BaseViewType {
         self.backgroundColor = .mainBackgroundColor
         self.mkMapView.configureDefaultSettings()
         self.mkMapView.delegate = self
+        self.switchButton.currentSwitchType = .all
     }
     
     // MARK: - func

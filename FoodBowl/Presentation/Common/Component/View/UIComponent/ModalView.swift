@@ -38,7 +38,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
 
     private func setupView() {
         self.backgroundColor = .mainBackgroundColor
-        self.layer.cornerRadius = 12
+        self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
 
         // Add grab bar
@@ -99,7 +99,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
                     gesture.setTranslation(.zero, in: superview)
                     
                     let progress = abs(newTopConstant + self.states[self.states.count - 1]) / abs(self.states[0] - self.states[self.states.count - 1])
-                    self.layer.cornerRadius = 12 * (1 - progress)
+                    self.layer.cornerRadius = 16 * (1 - progress)
                 }
             }
         case .ended:
@@ -144,7 +144,7 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
             self.layer.cornerRadius = 0
         } else {
             // 다른 상태일 때
-            self.layer.cornerRadius = 12
+            self.layer.cornerRadius = 16
         }
     }
 
