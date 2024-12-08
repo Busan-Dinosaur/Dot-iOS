@@ -333,7 +333,7 @@ extension FindViewController: UITableViewDataSource, UITableViewDelegate {
         if self.scope == 0 {
             self.presentStoreDetailViewController(id: self.stores[indexPath.item].id)
         } else {
-            self.presentProfileViewController(id: self.members[indexPath.item].id)
+            self.presentMemberViewController(id: self.members[indexPath.item].id)
         }
     }
 }

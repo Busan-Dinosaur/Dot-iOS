@@ -16,9 +16,8 @@ final class MemberView: UIView, BaseViewType {
     
     // MARK: - ui component
     
-    private let searchBarButton = SearchBarButton().then {
-        $0.setPlaceholder(title: "둘러보기")
-    }
+    private let optionButton = OptionButton()
+    private let memberProfileView = MemberProfileView()
     private let categoryListView = CategoryListView()
     
     private let mkMapView = MKMapView()
@@ -31,11 +30,13 @@ final class MemberView: UIView, BaseViewType {
     // MARK: - property
     
     let locationPublisher = PassthroughSubject<CustomLocationRequestDTO, Never>()
-    let followButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
+    var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.optionButton.buttonTapPublisher
+    }
     let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
-    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48
+    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48 - 60
 
     // MARK: - init
     
@@ -53,12 +54,19 @@ final class MemberView: UIView, BaseViewType {
     
     func setupLayout() {
         self.addSubviews(
+            self.memberProfileView,
             self.categoryListView,
             self.mkMapView
         )
         
+        self.memberProfileView.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
+        }
+        
         self.categoryListView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(8)
+            $0.top.equalTo(self.memberProfileView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -78,8 +86,18 @@ final class MemberView: UIView, BaseViewType {
     
     // MARK: - func
     
-    func configureNavigationBarItem(_ navigationController: UINavigationController) {
+    func configureNavigationBarItem(
+        _ navigationController: UINavigationController,
+        _ title: String = ""
+    ) {
         guard let navigationItem = navigationController.topViewController?.navigationItem else { return }
+        let optionButton = navigationController.makeBarButtonItem(with: self.optionButton)
+        navigationItem.rightBarButtonItem = optionButton
+        navigationItem.title = title
+    }
+    
+    func profileView() -> MemberProfileView {
+        self.memberProfileView
     }
     
     func categoryView() -> CategoryListView {

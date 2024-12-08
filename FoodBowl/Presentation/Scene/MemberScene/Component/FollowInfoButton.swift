@@ -27,7 +27,7 @@ final class FollowInfoButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-//        configureUI()
+        configureUI()
     }
 
     @available(*, unavailable)
@@ -53,8 +53,5 @@ final class FollowInfoButton: UIButton {
 
     private func configureUI() {
         backgroundColor = .mainBackgroundColor
-        layer.cornerRadius = 10
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.grey002.cgColor
     }
 }

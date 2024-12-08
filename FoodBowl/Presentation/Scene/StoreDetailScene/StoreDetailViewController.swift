@@ -160,7 +160,7 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
     
     private func bindCell(_ cell: FeedNSCollectionViewCell, with item: Review) {
         cell.userButtonTapAction = { [weak self] _ in
-            self?.presentProfileViewController(id: item.member.id)
+            self?.presentMemberViewController(id: item.member.id)
         }
         
         cell.optionButtonTapAction = { [weak self] _ in

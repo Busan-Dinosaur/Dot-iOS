@@ -66,9 +66,9 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
 
     // MARK: - func
     
-    private func configureNavigation() {
+    private func configureNavigation(_ title: String = "") {
         guard let navigationController = self.navigationController else { return }
-        self.memberView.configureNavigationBarItem(navigationController)
+        self.memberView.configureNavigationBarItem(navigationController, title)
     }
     
     // MARK: - func - bind
@@ -84,7 +84,7 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
         let input = MemberViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
             setCategory: self.memberView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
-            followMember: self.memberView.followButtonDidTapPublisher.eraseToAnyPublisher(),
+            followMember: self.memberView.profileView().followButtonDidTapPublisher.eraseToAnyPublisher(),
             customLocation: self.memberView.locationPublisher.eraseToAnyPublisher(),
             bookmarkButtonDidTap: self.memberView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.memberView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
@@ -101,9 +101,9 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let member):
-                    break
-//                    self?.setUpProfileHeader(member: member)
-//                    AppStoreReviewManager.requestReviewIfAppropriate()
+                    guard let self = self else { return }
+                    self.memberView.profileView().configureMember(member: member)
+                    self.configureNavigation(member.nickname)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -118,8 +118,8 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success:
-                    break
-//                    self?.profileHeaderView.followButton.isSelected.toggle()
+                    guard let self = self else { return }
+                    self.memberView.profileView().followToggle()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -134,8 +134,9 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let stores):
-                    self?.setupMarkers(stores)
-                    self?.memberView.feedView().updateStoreCount(to: stores.count)
+                    guard let self = self else { return }
+                    self.setupMarkers(stores)
+                    self.memberView.feedView().updateStoreCount(to: stores.count)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -150,8 +151,9 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let reviews):
-                    self?.loadReviews(reviews)
-                    self?.memberView.feedView().refreshControl().endRefreshing()
+                    guard let self = self else { return }
+                    self.loadReviews(reviews)
+                    self.memberView.feedView().refreshControl().endRefreshing()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -195,7 +197,7 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
         cell.userButtonTapAction = { [weak self] _ in
             DispatchQueue.main.async { [weak self] in
-                self?.viewModel.presentProfileViewController(id: item.member.id)
+                self?.viewModel.presentMemberViewController(id: item.member.id)
             }
         }
         
@@ -226,6 +228,26 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     }
     
     private func bindUI() {
+        self.memberView.optionButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+//                self.presentMemberOptionAlert(memberId: viewModel.memberId)
+            })
+            .store(in: &self.cancellable)
+        
+        self.memberView.profileView().followerButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.viewModel.presentFollowerViewController()
+            })
+            .store(in: &self.cancellable)
+        
+        self.memberView.profileView().followingButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.viewModel.presentFollowingViewController()
+            })
+            .store(in: &self.cancellable)
     }
 }
 

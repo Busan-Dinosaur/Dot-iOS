@@ -577,7 +577,6 @@
 			isa = PBXGroup;
 			children = (
 				CB1A7C6029561BCF00C6431D /* ProfileHeaderView.swift */,
-				CB2E4F882977393700FD2566 /* FollowInfoButton.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -626,6 +625,7 @@
 			isa = PBXGroup;
 			children = (
 				CB20B9F62D05D1DD00BC06F9 /* MemberProfileView.swift */,
+				CB2E4F882977393700FD2566 /* FollowInfoButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";

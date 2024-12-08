@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol Helperable {
-    func presentProfileViewController(id: Int)
+    func presentMemberViewController(id: Int)
     func presentUpdateProfileViewController()
     func presentStoreDetailViewController(id: Int)
     func presentReviewDetailViewController(id: Int)
@@ -24,7 +24,7 @@ protocol Helperable {
 }
 
 extension Helperable where Self: UIViewController {
-    func presentProfileViewController(id: Int) {
+    func presentMemberViewController(id: Int) {
         let repository = ProfileRepositoryImpl()
         let usecase = ProfileUsecaseImpl(repository: repository)
         let viewModel = ProfileViewModel(

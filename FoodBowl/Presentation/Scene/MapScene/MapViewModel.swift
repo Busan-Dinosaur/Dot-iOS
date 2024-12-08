@@ -359,8 +359,8 @@ extension MapViewModel: MapViewModelType {
         self.coordinator?.presentRecommendViewController()
     }
     
-    func presentProfileViewController(id: Int) {
-        self.coordinator?.presentProfileViewController(id: id)
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
     }
     
     func presentStoreDetailViewController(id: Int) {

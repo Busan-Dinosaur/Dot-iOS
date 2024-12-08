@@ -212,7 +212,7 @@ class OriginalMapViewController: UIViewController, Navigationable, Optionable, H
     
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
         cell.userButtonTapAction = { [weak self] _ in
-            self?.presentProfileViewController(id: item.member.id)
+            self?.presentMemberViewController(id: item.member.id)
         }
         
         cell.optionButtonTapAction = { [weak self] _ in

@@ -8,7 +8,9 @@
 import UIKit
 
 protocol MemberViewModelType: BaseViewModelType {
-    func presentProfileViewController(id: Int)
+    func presentFollowerViewController()
+    func presentFollowingViewController()
+    func presentMemberViewController(id: Int)
     func presentStoreDetailViewController(id: Int)
     func presentReviewDetailViewController(id: Int)
 }
@@ -22,7 +24,33 @@ final class MemberCoordinator: NSObject {
         super.init()
     }
     
-    func presentProfileViewController(id: Int) {
+    func presentFollowerViewController(id: Int) {
+        guard let navigationController = self.navigationController else { return }
+        let repository = FollowRepositoryImpl()
+        let usecase = FollowUsecaseImpl(repository: repository)
+        let viewModel = FollowerViewModel(
+            usecase: usecase,
+            memberId: id
+        )
+        let viewController = FollowerViewController(viewModel: viewModel)
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentFollowingViewController(id: Int) {
+        guard let navigationController = self.navigationController else { return }
+        let repository = FollowRepositoryImpl()
+        let usecase = FollowUsecaseImpl(repository: repository)
+        let viewModel = FollowingViewModel(
+            usecase: usecase,
+            memberId: id
+        )
+        let viewController = FollowingViewController(viewModel: viewModel)
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentMemberViewController(id: Int) {
         guard let navigationController = self.navigationController else { return }
         let repository = ProfileRepositoryImpl()
         let usecase = ProfileUsecaseImpl(repository: repository)

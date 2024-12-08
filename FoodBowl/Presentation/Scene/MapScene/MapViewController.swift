@@ -109,8 +109,9 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let stores):
-                    self?.setupMarkers(stores)
-                    self?.mapView.feedView().updateStoreCount(to: stores.count)
+                    guard let self = self else { return }
+                    self.setupMarkers(stores)
+                    self.mapView.feedView().updateStoreCount(to: stores.count)
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -125,8 +126,9 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success(let reviews):
-                    self?.loadReviews(reviews)
-                    self?.mapView.feedView().refreshControl().endRefreshing()
+                    guard let self = self else { return }
+                    self.loadReviews(reviews)
+                    self.mapView.feedView().refreshControl().endRefreshing()
                 case .failure(let error):
                     self?.makeErrorAlert(
                         title: "에러",
@@ -170,7 +172,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
         cell.userButtonTapAction = { [weak self] _ in
             DispatchQueue.main.async { [weak self] in
-                self?.viewModel.presentProfileViewController(id: item.member.id)
+                self?.viewModel.presentMemberViewController(id: item.member.id)
             }
         }
         

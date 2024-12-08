@@ -12,7 +12,7 @@ protocol MapViewModelType: BaseViewModelType {
     func presentPhotoesSelectViewController()
     func presentSettingViewController()
     func presentRecommendViewController()
-    func presentProfileViewController(id: Int)
+    func presentMemberViewController(id: Int)
     func presentStoreDetailViewController(id: Int)
     func presentReviewDetailViewController(id: Int)
 }
@@ -65,15 +65,17 @@ final class MapCoordinator: NSObject {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func presentProfileViewController(id: Int) {
+    func presentMemberViewController(id: Int) {
         guard let navigationController = self.navigationController else { return }
-        let repository = ProfileRepositoryImpl()
-        let usecase = ProfileUsecaseImpl(repository: repository)
-        let viewModel = ProfileViewModel(
+        let repository = MemberRepositoryImpl()
+        let usecase = MemberUsecaseImpl(repository: repository)
+        let coordinator = MemberCoordinator(navigationController: navigationController)
+        let viewModel = MemberViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             memberId: id
         )
-        let viewController = ProfileViewController(viewModel: viewModel)
+        let viewController = MemberViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)
     }

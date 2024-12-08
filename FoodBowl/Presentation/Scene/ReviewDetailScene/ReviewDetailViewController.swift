@@ -107,7 +107,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 guard let viewModel = self.viewModel as? ReviewDetailViewModel else { return }
-                self.presentProfileViewController(id: viewModel.memberId)
+                self.presentMemberViewController(id: viewModel.memberId)
             })
             .store(in: &self.cancellable)
         

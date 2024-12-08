@@ -153,7 +153,7 @@ extension RecommendViewController {
             guard let self = self else { return }
             cell.configureCell(item)
             cell.cellTapAction = { _ in
-                self.presentProfileViewController(id: item.id)
+                self.presentMemberViewController(id: item.id)
             }
             self.bindCell(cell, with: item)
         }

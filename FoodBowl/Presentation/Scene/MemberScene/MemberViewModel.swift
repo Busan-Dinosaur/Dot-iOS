@@ -35,7 +35,7 @@ final class MemberViewModel: NSObject {
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
         let setCategory: AnyPublisher<CategoryType?, Never>
-        let followMember: AnyPublisher<(Int, Bool), Never>
+        let followMember: AnyPublisher<Bool, Never>
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
         let bookmarkButtonDidTap: AnyPublisher<(Int, Bool), Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
@@ -55,7 +55,7 @@ final class MemberViewModel: NSObject {
         input.viewDidLoad
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-//                self.getMemberProfile(memberId: self.memberId)
+                self.getMemberProfile(memberId: self.memberId)
             })
             .store(in: &self.cancellable)
         
@@ -72,9 +72,9 @@ final class MemberViewModel: NSObject {
             .store(in: &self.cancellable)
         
         input.followMember
-            .sink(receiveValue: { [weak self] memberId, isFollow in
+            .sink(receiveValue: { [weak self] isFollow in
                 guard let self = self else { return }
-                isFollow ? self.unfollowMember(memberId: memberId) : self.followMember(memberId: memberId)
+                isFollow ? self.unfollowMember(memberId: self.memberId) : self.followMember(memberId: self.memberId)
             })
             .store(in: &self.cancellable)
         
@@ -239,8 +239,16 @@ final class MemberViewModel: NSObject {
 
 extension MemberViewModel: MemberViewModelType {
     
-    func presentProfileViewController(id: Int) {
-        self.coordinator?.presentProfileViewController(id: id)
+    func presentFollowerViewController() {
+        self.coordinator?.presentFollowerViewController(id: self.memberId)
+    }
+    
+    func presentFollowingViewController() {
+        self.coordinator?.presentFollowingViewController(id: self.memberId)
+    }
+    
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
     }
     
     func presentStoreDetailViewController(id: Int) {
