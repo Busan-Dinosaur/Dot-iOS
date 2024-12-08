@@ -691,16 +691,19 @@
 				CBDF112E2B5EAC15007DA3E1 /* SignScene */,
 				CBDA47E32CFEC74700BFB88A /* MapScene */,
 				CB20B9F82D05D50E00BC06F9 /* MemberScene */,
-				CBDF11302B5EAC2D007DA3E1 /* FriendScene */,
 				CBDF11312B5EAC38007DA3E1 /* FindScene */,
-				CBDF11332B5EAC6A007DA3E1 /* UnivScene */,
-				CBDF11342B5EAC73007DA3E1 /* ProfileScene */,
-				CB84CAFB2B602FCD00F4591A /* ReviewDetailScene */,
 				CBDF112F2B5EAC21007DA3E1 /* CreateReviewScene */,
 				CBDF11372B5EAD0A007DA3E1 /* UpdateReviewScene */,
-				CBDF11352B5EACAC007DA3E1 /* StoreDetailScene */,
-				CBDF11362B5EACB4007DA3E1 /* BlameScene */,
 				CB9B92732B8218CA001184BE /* RecommendScene */,
+				CBDF11362B5EACB4007DA3E1 /* BlameScene */,
+				CBDF11352B5EACAC007DA3E1 /* StoreDetailScene */,
+				CB84CAFB2B602FCD00F4591A /* ReviewDetailScene */,
+				CBBAFCBD2D05F53100F6A662 /* SettingScene */,
+				CBBAFCBE2D05F53800F6A662 /* FollowScene */,
+				CBBAFCBF2D05F54100F6A662 /* UpdateProfileScene */,
+				CBDF11302B5EAC2D007DA3E1 /* FriendScene */,
+				CBDF11332B5EAC6A007DA3E1 /* UnivScene */,
+				CBDF11342B5EAC73007DA3E1 /* ProfileScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -712,16 +715,19 @@
 				CBDF113D2B5EAD9C007DA3E1 /* SignScene */,
 				CBDA47E92CFEC79A00BFB88A /* MapScene */,
 				CB20B9FE2D05D5E500BC06F9 /* MemberScene */,
-				CBDF113E2B5EADA4007DA3E1 /* FriendScene */,
 				CBDF11452B5EADF5007DA3E1 /* FindScene */,
-				CBDF113F2B5EADAA007DA3E1 /* MyPlaceScene */,
-				CBDF11402B5EADB8007DA3E1 /* ProfileScene */,
-				CB84CB012B602FF800F4591A /* ReviewDetailScene */,
 				CBDF11412B5EADC7007DA3E1 /* CreateReviewScene */,
 				CBDF11422B5EADD4007DA3E1 /* UpdateReviewScene */,
-				CBDF11432B5EADD8007DA3E1 /* StoreDetailScene */,
-				CBDF11442B5EADDF007DA3E1 /* BlameScene */,
 				CB9B92702B821889001184BE /* RecommendScene */,
+				CBDF11442B5EADDF007DA3E1 /* BlameScene */,
+				CBDF11432B5EADD8007DA3E1 /* StoreDetailScene */,
+				CB84CB012B602FF800F4591A /* ReviewDetailScene */,
+				CBBAFCC32D05F5DE00F6A662 /* SettingScene */,
+				CBBAFCC42D05F5E500F6A662 /* FollowScene */,
+				CBBAFCC52D05F5EA00F6A662 /* UpdateProfileScene */,
+				CBDF113F2B5EADAA007DA3E1 /* MyPlaceScene */,
+				CBDF11402B5EADB8007DA3E1 /* ProfileScene */,
+				CBDF113E2B5EADA4007DA3E1 /* FriendScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -794,6 +800,9 @@
 				CBDF6EA42AD9253A00EB2481 /* BlameScene */,
 				CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */,
 				CB84CAF12B602F8600F4591A /* ReviewDetailScene */,
+				CBBAFCB62D05F3AF00F6A662 /* SettingScene */,
+				CBBAFCB82D05F40900F6A662 /* FollowScene */,
+				CBBAFCB72D05F3C800F6A662 /* UpdateProfileScene */,
 				CBE6190D296C6423005295AF /* FriendScene */,
 				CBADC2A52955A07B00E56C93 /* ProfileScene */,
 				CBCD0F7D2A66DA0B00A51B32 /* MyPlaceScene */,
@@ -986,10 +995,6 @@
 			isa = PBXGroup;
 			children = (
 				CBADEF432B5D64AB0026FACA /* ProfileViewModel.swift */,
-				CBADEF3F2B5D64870026FACA /* UpdateProfileViewModel.swift */,
-				CB73E5722B341B3B0026E4D7 /* FollowerViewModel.swift */,
-				CB16FD4D2B347C31006D18D6 /* FollowingViewModel.swift */,
-				CB07CE162B6BBABD001658E2 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -998,9 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				CBDF114C2B5EB77A007DA3E1 /* ProfileUsecase.swift */,
-				CB78A80F2B5D0CBD007EC9C1 /* FollowUsecase.swift */,
-				CBADEF392B5D5C770026FACA /* UpdateProfileUsecase.swift */,
-				CB07CE1A2B6BBB1D001658E2 /* SettingUsecase.swift */,
 			);
 			path = ProfileScene;
 			sourceTree = "<group>";
@@ -1106,10 +1108,6 @@
 			isa = PBXGroup;
 			children = (
 				CBADC2AC2955A0FF00E56C93 /* ProfileViewController.swift */,
-				CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */,
-				CB4FBBF12978CFA90052D371 /* FollowerViewController.swift */,
-				CB4FBBF32978CFE40052D371 /* FollowingViewController.swift */,
-				CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1121,16 +1119,19 @@
 				CB9332702AFCCCF100B7F87A /* SignScene */,
 				CBDA47E62CFEC76600BFB88A /* MapScene */,
 				CB20B9FB2D05D57700BC06F9 /* MemberScene */,
-				CBDF11322B5EAC56007DA3E1 /* FriendScene */,
 				CB8306732B599CAE00632789 /* FindScene */,
-				CBDF11152B5EA750007DA3E1 /* MyPlaceScene */,
-				CB78A80E2B5D0CA2007EC9C1 /* ProfileScene */,
-				CB84CAFE2B602FE700F4591A /* ReviewDetailScene */,
 				CB4A78A22B5830090002136F /* CreateReviewScene */,
 				CBDF113A2B5EAD79007DA3E1 /* UpdateReviewScene */,
-				CB91E2A22B56D797008A0E8E /* StoreDetailScene */,
-				CBF926472B411C25005E251B /* BlameScene */,
 				CB9B92762B8219D9001184BE /* RecommendScene */,
+				CBF926472B411C25005E251B /* BlameScene */,
+				CB91E2A22B56D797008A0E8E /* StoreDetailScene */,
+				CB84CAFE2B602FE700F4591A /* ReviewDetailScene */,
+				CBBAFCC02D05F58100F6A662 /* SettingScene */,
+				CBBAFCC12D05F58600F6A662 /* FollowScene */,
+				CBBAFCC22D05F58B00F6A662 /* UpdateProfileScene */,
+				CBDF11322B5EAC56007DA3E1 /* FriendScene */,
+				CBDF11152B5EA750007DA3E1 /* MyPlaceScene */,
+				CB78A80E2B5D0CA2007EC9C1 /* ProfileScene */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -1270,6 +1271,136 @@
 			path = CreateReviewScene;
 			sourceTree = "<group>";
 		};
+		CBBAFCB62D05F3AF00F6A662 /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBBAFCBA2D05F45200F6A662 /* Cell */,
+				CB78A8152B5D5511007EC9C1 /* SettingView.swift */,
+				CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */,
+				CB07CE162B6BBABD001658E2 /* SettingViewModel.swift */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCB72D05F3C800F6A662 /* UpdateProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBADEF412B5D648F0026FACA /* UpdateProfileView.swift */,
+				CBD1B5EE2982A5AD00B0AD51 /* UpdateProfileViewController.swift */,
+				CBADEF3F2B5D64870026FACA /* UpdateProfileViewModel.swift */,
+			);
+			path = UpdateProfileScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCB82D05F40900F6A662 /* FollowScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1B5F22982D38300B0AD51 /* Cell */,
+				CBBAFCBB2D05F4B900F6A662 /* FollowerScene */,
+				CBBAFCBC2D05F4C300F6A662 /* FollowingScene */,
+				CB73E56D2B3417980026E4D7 /* FollowView.swift */,
+			);
+			path = FollowScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCBA2D05F45200F6A662 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CB2E4F80297702B800FD2566 /* UserInfoCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CBBAFCBB2D05F4B900F6A662 /* FollowerScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB4FBBF12978CFA90052D371 /* FollowerViewController.swift */,
+				CB73E5722B341B3B0026E4D7 /* FollowerViewModel.swift */,
+			);
+			path = FollowerScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCBC2D05F4C300F6A662 /* FollowingScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB4FBBF32978CFE40052D371 /* FollowingViewController.swift */,
+				CB16FD4D2B347C31006D18D6 /* FollowingViewModel.swift */,
+			);
+			path = FollowingScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCBD2D05F53100F6A662 /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB07CE182B6BBAD1001658E2 /* SettingRepository.swift */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCBE2D05F53800F6A662 /* FollowScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB78A80A2B5D0A51007EC9C1 /* FollowRepository.swift */,
+			);
+			path = FollowScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCBF2D05F54100F6A662 /* UpdateProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBADEF3D2B5D5CB00026FACA /* UpdateProfileRepository.swift */,
+			);
+			path = UpdateProfileScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC02D05F58100F6A662 /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB07CE1A2B6BBB1D001658E2 /* SettingUsecase.swift */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC12D05F58600F6A662 /* FollowScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB78A80F2B5D0CBD007EC9C1 /* FollowUsecase.swift */,
+			);
+			path = FollowScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC22D05F58B00F6A662 /* UpdateProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBADEF392B5D5C770026FACA /* UpdateProfileUsecase.swift */,
+			);
+			path = UpdateProfileScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC32D05F5DE00F6A662 /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB07CE1C2B6BBB85001658E2 /* SettingRepositoryImpl.swift */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC42D05F5E500F6A662 /* FollowScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB78A80C2B5D0AFA007EC9C1 /* FollowRepositoryImpl.swift */,
+			);
+			path = FollowScene;
+			sourceTree = "<group>";
+		};
+		CBBAFCC52D05F5EA00F6A662 /* UpdateProfileScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBADEF3B2B5D5C940026FACA /* UpdateProfileRepositoryImpl.swift */,
+			);
+			path = UpdateProfileScene;
+			sourceTree = "<group>";
+		};
 		CBC730F7295550A100C7F198 = {
 			isa = PBXGroup;
 			children = (
@@ -1390,7 +1521,6 @@
 		CBD1B5F22982D38300B0AD51 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				CB2E4F80297702B800FD2566 /* UserInfoCollectionViewCell.swift */,
 				CBD1B5F32982D39B00B0AD51 /* SettingItemTableViewCell.swift */,
 			);
 			path = Cell;
@@ -1453,10 +1583,6 @@
 			isa = PBXGroup;
 			children = (
 				CB1A7C5F29561B8400C6431D /* UIComponent */,
-				CBD1B5F22982D38300B0AD51 /* Cell */,
-				CBADEF412B5D648F0026FACA /* UpdateProfileView.swift */,
-				CB73E56D2B3417980026E4D7 /* FollowView.swift */,
-				CB78A8152B5D5511007EC9C1 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1585,9 +1711,6 @@
 			isa = PBXGroup;
 			children = (
 				CBDF112C2B5EABE7007DA3E1 /* ProfileRepository.swift */,
-				CBADEF3D2B5D5CB00026FACA /* UpdateProfileRepository.swift */,
-				CB78A80A2B5D0A51007EC9C1 /* FollowRepository.swift */,
-				CB07CE182B6BBAD1001658E2 /* SettingRepository.swift */,
 			);
 			path = ProfileScene;
 			sourceTree = "<group>";
@@ -1653,9 +1776,6 @@
 			isa = PBXGroup;
 			children = (
 				CBDF11482B5EB190007DA3E1 /* ProfileRepositoryImpl.swift */,
-				CB78A80C2B5D0AFA007EC9C1 /* FollowRepositoryImpl.swift */,
-				CBADEF3B2B5D5C940026FACA /* UpdateProfileRepositoryImpl.swift */,
-				CB07CE1C2B6BBB85001658E2 /* SettingRepositoryImpl.swift */,
 			);
 			path = ProfileScene;
 			sourceTree = "<group>";
