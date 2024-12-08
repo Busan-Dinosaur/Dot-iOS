@@ -97,6 +97,9 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
                 if newTopConstant <= -self.states[0] && newTopConstant >= -self.states[self.states.count - 1] {
                     currentTopConstraint.update(offset: newTopConstant)
                     gesture.setTranslation(.zero, in: superview)
+                    
+                    let progress = abs(newTopConstant + self.states[self.states.count - 1]) / abs(self.states[0] - self.states[self.states.count - 1])
+                    self.layer.cornerRadius = 12 * (1 - progress)
                 }
             }
         case .ended:
