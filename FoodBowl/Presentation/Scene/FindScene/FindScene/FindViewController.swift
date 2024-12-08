@@ -12,7 +12,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class FindViewController: UIViewController, Keyboardable, Helperable {
+final class FindViewController: UIViewController, Navigationable, Keyboardable, Helperable {
     
     enum Section: CaseIterable {
         case main
@@ -61,10 +61,10 @@ final class FindViewController: UIViewController, Keyboardable, Helperable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavigation()
         self.configureDataSource()
         self.configureDelegation()
         self.bindViewModel()
-        self.bindUI()
         self.setupKeyboardGesture()
     }
     
@@ -151,15 +151,6 @@ final class FindViewController: UIViewController, Keyboardable, Helperable {
                         error: error
                     )
                 }
-            })
-            .store(in: &self.cancellable)
-    }
-    
-    private func bindUI() {
-        self.findView.plusButtonDidTapPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] _ in
-                self?.presentPhotoesSelectViewController()
             })
             .store(in: &self.cancellable)
     }

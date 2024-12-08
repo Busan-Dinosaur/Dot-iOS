@@ -8,6 +8,7 @@
 import UIKit
 
 protocol MapViewModelType: BaseViewModelType {
+    func presentFindViewController()
     func presentPhotoesSelectViewController()
     func presentSettingViewController()
     func presentRecommendViewController()
@@ -23,6 +24,16 @@ final class MapCoordinator: NSObject {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         super.init()
+    }
+    
+    func presentFindViewController() {
+        guard let navigationController = self.navigationController else { return }
+        let repository = FindRepositoryImpl()
+        let usecase = FindUsecaseImpl(repository: repository)
+        let viewModel = FindViewModel(usecase: usecase)
+        let viewController = FindViewController(viewModel: viewModel)
+        
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     func presentPhotoesSelectViewController() {

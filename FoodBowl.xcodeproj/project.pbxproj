@@ -557,14 +557,6 @@
 			path = SplashScene;
 			sourceTree = "<group>";
 		};
-		CB16FD4F2B347FC6006D18D6 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CB8306642B59747000632789 /* FindViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		CB1A7C5F29561B8400C6431D /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +572,26 @@
 				CB20B9E42D05804F00BC06F9 /* SwitchButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		CB20B9E82D05C7D300BC06F9 /* FindScene */ = {
+			isa = PBXGroup;
+			children = (
+				CB8306672B59748700632789 /* FindView.swift */,
+				CBA62D3E2A6EC7B800AA0830 /* FindViewController.swift */,
+				CB8306642B59747000632789 /* FindViewModel.swift */,
+			);
+			path = FindScene;
+			sourceTree = "<group>";
+		};
+		CB20B9E92D05C7E300BC06F9 /* FindResultScene */ = {
+			isa = PBXGroup;
+			children = (
+				CBDF11142B5EA306007DA3E1 /* Cell */,
+				CB78A8082B5CFFC0007EC9C1 /* FindResultView.swift */,
+				CBFB52602977C9AB0049E8BA /* FindResultViewController.swift */,
+			);
+			path = FindResultScene;
 			sourceTree = "<group>";
 		};
 		CB49256D2AB44D0E00B66B68 /* Cell */ = {
@@ -598,9 +610,8 @@
 		CB49256E2AB44D4400B66B68 /* FindScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB8306662B59747E00632789 /* View */,
-				CB9332682AFCCB6100B7F87A /* ViewController */,
-				CB16FD4F2B347FC6006D18D6 /* ViewModel */,
+				CB20B9E82D05C7D300BC06F9 /* FindScene */,
+				CB20B9E92D05C7E300BC06F9 /* FindResultScene */,
 			);
 			path = FindScene;
 			sourceTree = "<group>";
@@ -713,6 +724,7 @@
 				CB07CE032B6BB24D001658E2 /* SplashScene */,
 				CB981C28297A5A2900AF0167 /* SignScene */,
 				CBDA47D82CFEC59E00BFB88A /* MapScene */,
+				CB49256E2AB44D4400B66B68 /* FindScene */,
 				CBADC2B02955A13800E56C93 /* CreateReviewScene */,
 				CB73E00F2AB5FEA9005B6BF1 /* UpdateReviewScene */,
 				CB9B92642B8214D0001184BE /* RecommendScene */,
@@ -721,7 +733,6 @@
 				CB84CAF12B602F8600F4591A /* ReviewDetailScene */,
 				CBADC2A52955A07B00E56C93 /* ProfileScene */,
 				CBE6190D296C6423005295AF /* FriendScene */,
-				CB49256E2AB44D4400B66B68 /* FindScene */,
 				CBCD0F7D2A66DA0B00A51B32 /* MyPlaceScene */,
 			);
 			path = Scene;
@@ -959,16 +970,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		CB8306662B59747E00632789 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CBDF11142B5EA306007DA3E1 /* Cell */,
-				CB8306672B59748700632789 /* FindView.swift */,
-				CB78A8082B5CFFC0007EC9C1 /* FindResultView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		CB8306732B599CAE00632789 /* FindScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -1034,15 +1035,6 @@
 			isa = PBXGroup;
 			children = (
 				CBCD0F7B2A66D9BC00A51B32 /* FriendViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CB9332682AFCCB6100B7F87A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CBA62D3E2A6EC7B800AA0830 /* FindViewController.swift */,
-				CBFB52602977C9AB0049E8BA /* FindResultViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

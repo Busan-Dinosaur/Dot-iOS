@@ -122,7 +122,7 @@ final class MapView: UIView, BaseViewType {
         
         let screenWidth = UIScreen.main.bounds.width
         let rightButtonsWidth: CGFloat = 30 * 2 + 16 * 3
-        let leftButtonWidth = screenWidth - rightButtonsWidth - 12
+        let leftButtonWidth = screenWidth - rightButtonsWidth - 8
         
         let searchContainerView = UIView().then {
             $0.addSubview(self.searchBarButton)

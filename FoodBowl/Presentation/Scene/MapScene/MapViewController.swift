@@ -204,7 +204,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
         self.mapView.searchBarButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.viewModel.presentPhotoesSelectViewController()
+                self?.viewModel.presentFindViewController()
             })
             .store(in: &self.cancellable)
         

@@ -29,15 +29,7 @@ final class FindView: UIView, BaseViewType {
     }
     
     // MARK: - ui component
-    
-    private let plusButton = PlusButton()
-    private let findGuideLabel = PaddingLabel().then {
-        $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
-        $0.text = "둘러보기"
-        $0.textColor = .mainTextColor
-        $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
-        $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
-    }
+
     let findResultViewController = FindResultViewController()
     lazy var searchController = UISearchController(searchResultsController: self.findResultViewController).then {
         $0.searchBar.placeholder = "검색"
@@ -57,9 +49,6 @@ final class FindView: UIView, BaseViewType {
     
     // MARK: - property
     
-    var plusButtonDidTapPublisher: AnyPublisher<Void, Never> {
-        return self.plusButton.buttonTapPublisher
-    }
     let searchStoresPublisher = PassthroughSubject<String, Never>()
     let searchMembersPublisher = PassthroughSubject<String, Never>()
     let refreshPublisher = PassthroughSubject<Void, Never>()
@@ -81,11 +70,8 @@ final class FindView: UIView, BaseViewType {
     
     func configureNavigationBarItem(_ navigationController: UINavigationController) {
         let navigationItem = navigationController.topViewController?.navigationItem
-        let findGuideLabel = navigationController.makeBarButtonItem(with: findGuideLabel)
-        let plusButton = navigationController.makeBarButtonItem(with: plusButton)
-        navigationItem?.leftBarButtonItem = findGuideLabel
-        navigationItem?.rightBarButtonItem = plusButton
         navigationItem?.searchController = self.searchController
+        navigationItem?.title = "둘러보기"
     }
     
     func collectionView() -> UICollectionView {
