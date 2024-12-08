@@ -17,7 +17,7 @@ final class MapView: UIView, BaseViewType {
     // MARK: - ui component
     
     private let searchBarButton = SearchBarButton().then {
-        $0.setPlaceholder(title: "검색")
+        $0.setPlaceholder(title: "둘러보기")
     }
     private let plusButton = PlusButton()
     private let settingButton = SettingButton()
@@ -114,12 +114,32 @@ final class MapView: UIView, BaseViewType {
     // MARK: - func
     
     func configureNavigationBarItem(_ navigationController: UINavigationController) {
-        let navigationItem = navigationController.topViewController?.navigationItem
-        let searchBarButton = navigationController.makeBarButtonItem(with: self.searchBarButton)
+        guard let navigationItem = navigationController.topViewController?.navigationItem else { return }
+        
         let plusButton = navigationController.makeBarButtonItem(with: self.plusButton)
         let settingButton = navigationController.makeBarButtonItem(with: self.settingButton)
-        navigationItem?.leftBarButtonItem = searchBarButton
-        navigationItem?.rightBarButtonItems = [settingButton, plusButton]
+        navigationItem.rightBarButtonItems = [settingButton, plusButton]
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let rightButtonsWidth: CGFloat = 30 * 2 + 16 * 3
+        let leftButtonWidth = screenWidth - rightButtonsWidth - 12
+        
+        let searchContainerView = UIView().then {
+            $0.addSubview(self.searchBarButton)
+        }
+        
+        self.searchBarButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(4)
+            $0.top.bottom.trailing.equalToSuperview()
+            $0.width.equalTo(leftButtonWidth)
+        }
+        
+        searchContainerView.snp.makeConstraints {
+            $0.width.equalTo(leftButtonWidth)
+        }
+        
+        let searchBarButtonItem = UIBarButtonItem(customView: searchContainerView)
+        navigationItem.leftBarButtonItem = searchBarButtonItem
     }
     
     func categoryView() -> CategoryListView {

@@ -201,6 +201,13 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     }
     
     private func bindUI() {
+        self.mapView.searchBarButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.viewModel.presentPhotoesSelectViewController()
+            })
+            .store(in: &self.cancellable)
+        
         self.mapView.plusButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in

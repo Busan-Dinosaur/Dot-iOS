@@ -45,11 +45,13 @@ final class SearchBarButton: UIButton, BaseViewType {
         self.searchIconView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(14)
+            $0.width.height.equalTo(20)
         }
 
         self.placeholderLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(self.searchIconView.snp.trailing).offset(10)
+            $0.trailing.lessThanOrEqualToSuperview().inset(14)
         }
         
         self.snp.makeConstraints {
