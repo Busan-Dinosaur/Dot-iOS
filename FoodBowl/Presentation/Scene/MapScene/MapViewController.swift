@@ -35,6 +35,8 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     private let viewModel: any MapViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
+    private let switchPublisher = PassthroughSubject<SwitchType, Never>()
+    
     private var markers: [Marker] = []
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Review>!
@@ -91,7 +93,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
             viewDidLoad: self.viewDidLoadPublisher,
             setCategory: self.mapView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
             customLocation: self.mapView.locationPublisher.eraseToAnyPublisher(),
-            bookmarkToggleButtonDidTap: self.mapView.bookmarkToggleButtonDidTapPublisher.eraseToAnyPublisher(),
+            switchButtonDidTap: self.switchPublisher.eraseToAnyPublisher(),
             bookmarkButtonDidTap: self.mapView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.mapView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
             refreshControl: self.mapView.feedView().refreshPublisher.eraseToAnyPublisher()
@@ -219,6 +221,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 guard let self = self else { return }
                 let nextType = self.mapView.switchButton.currentSwitchType.nextType
                 self.mapView.switchButton.currentSwitchType = nextType
+                self.switchPublisher.send(nextType)
             })
             .store(in: &self.cancellable)
     }

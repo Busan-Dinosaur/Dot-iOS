@@ -23,7 +23,7 @@ final class MapViewModel: NSObject {
     private let isBookmarkedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
     private var category: CategoryType?
-    private var isBookmark: Bool = false
+    private var switchType: SwitchType = .all
     private var location: CustomLocationRequestDTO?
     private let pageSize: Int = 20
     private var currentpageSize: Int = 20
@@ -33,7 +33,7 @@ final class MapViewModel: NSObject {
         let viewDidLoad: AnyPublisher<Void, Never>
         let setCategory: AnyPublisher<CategoryType?, Never>
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
-        let bookmarkToggleButtonDidTap: AnyPublisher<Bool, Never>
+        let switchButtonDidTap: AnyPublisher<SwitchType, Never>
         let bookmarkButtonDidTap: AnyPublisher<(Int, Bool), Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
         let refreshControl: AnyPublisher<Void, Never>
@@ -58,10 +58,7 @@ final class MapViewModel: NSObject {
             .sink(receiveValue: { [weak self] category in
                 guard let self = self else { return }
                 self.category = category
-                self.currentpageSize = self.pageSize
-                self.lastReviewId = nil
-                self.getReviewsByBound()
-                self.getStoresByBound()
+                self.getBySwitchType()
             })
             .store(in: &self.cancellable)
         
@@ -70,22 +67,16 @@ final class MapViewModel: NSObject {
             .sink(receiveValue: { [weak self] location in
                 guard let self = self else { return }
                 self.location = location
-                self.currentpageSize = self.pageSize
-                self.lastReviewId = nil
-                self.getReviewsByBound()
-                self.getStoresByBound()
+                self.getBySwitchType()
             })
             .store(in: &self.cancellable)
         
-        input.bookmarkToggleButtonDidTap
+        input.switchButtonDidTap
             .removeDuplicates()
-            .sink(receiveValue: { [weak self] isBookmark in
+            .sink(receiveValue: { [weak self] switchType in
                 guard let self = self else { return }
-                self.currentpageSize = self.pageSize
-                self.lastReviewId = nil
-                self.isBookmark = !isBookmark
-                self.isBookmark ? self.getReviewsByBookmark() : self.getReviewsByFollowing()
-                self.isBookmark ? self.getStoresByBookmark() : self.getStoresByFollowing()
+                self.switchType = switchType
+                self.getBySwitchType()
             })
             .store(in: &self.cancellable)
         
@@ -99,16 +90,14 @@ final class MapViewModel: NSObject {
         input.scrolledToBottom
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.getReviewsByBound(lastReviewId: self.lastReviewId)
+                self.getMoreReviewsBySwitchType(lastReviewId: self.lastReviewId)
             })
             .store(in: &self.cancellable)
         
         input.refreshControl
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.currentpageSize = self.pageSize
-                self.lastReviewId = nil
-                self.getReviewsByBound()
+                self.getBySwitchType()
             })
             .store(in: &self.cancellable)
         
@@ -131,6 +120,39 @@ final class MapViewModel: NSObject {
     }
     
     // MARK: - func
+    
+    private func getBySwitchType() {
+        self.currentpageSize = self.pageSize
+        self.lastReviewId = nil
+        
+        switch self.switchType {
+        case .all:
+            self.getReviewsByBound()
+            self.getStoresByBound()
+        case .friends:
+            self.getReviewsByFollowing()
+            self.getStoresByFollowing()
+        case .person:
+            self.getReviewsByFollowing()
+            self.getStoresByFollowing()
+        case .bookmark:
+            self.getReviewsByBookmark()
+            self.getStoresByBookmark()
+        }
+    }
+    
+    private func getMoreReviewsBySwitchType(lastReviewId: Int? = nil) {
+        switch self.switchType {
+        case .all:
+            self.getReviewsByBound(lastReviewId: lastReviewId)
+        case .friends:
+            self.getReviewsByFollowing(lastReviewId: lastReviewId)
+        case .person:
+            self.getReviewsByFollowing(lastReviewId: lastReviewId)
+        case .bookmark:
+            self.getReviewsByBookmark(lastReviewId: lastReviewId)
+        }
+    }
     
     private func getReviewsByBound(lastReviewId: Int? = nil) {
         Task {
