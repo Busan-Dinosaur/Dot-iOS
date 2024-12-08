@@ -22,9 +22,9 @@ final class FindView: UIView, BaseViewType {
         )
         static let sectionContentInset: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(
             top: 0,
-            leading: SizeLiteral.horizantalPadding - 4,
+            leading: SizeLiteral.horizantalPadding,
             bottom: 10,
-            trailing: SizeLiteral.horizantalPadding - 4
+            trailing: SizeLiteral.horizantalPadding
         )
     }
     
@@ -71,6 +71,7 @@ final class FindView: UIView, BaseViewType {
     func configureNavigationBarItem(_ navigationController: UINavigationController) {
         let navigationItem = navigationController.topViewController?.navigationItem
         navigationItem?.searchController = self.searchController
+        navigationItem?.hidesSearchBarWhenScrolling = false
         navigationItem?.title = "둘러보기"
     }
     
