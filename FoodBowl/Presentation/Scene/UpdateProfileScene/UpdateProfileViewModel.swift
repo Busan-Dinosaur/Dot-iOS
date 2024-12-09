@@ -16,7 +16,7 @@ final class UpdateProfileViewModel: NSObject, BaseViewModelType {
     
     private var isEnabled: Bool = true
     
-    private var profileImage: UIImage = ImageLiteral.defaultProfile
+    private var profileImage: UIImage = ImageLiteral.profile
     
     private let usecase: UpdateProfileUsecase
     private var cancellable: Set<AnyCancellable> = Set()

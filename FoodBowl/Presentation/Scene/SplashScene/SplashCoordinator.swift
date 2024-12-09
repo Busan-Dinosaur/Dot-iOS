@@ -10,7 +10,6 @@ import UIKit
 protocol SplashViewModelType: BaseViewModelType {
     func presentSignViewController()
     func presentMapViewController()
-    func presentTabViewController()
 }
 
 final class SplashCoordinator: NSObject {
@@ -30,10 +29,5 @@ final class SplashCoordinator: NSObject {
     func presentMapViewController() {
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         sceneDelegate.moveToMapViewController()
-    }
-    
-    func presentTabViewController() {
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
-        sceneDelegate.moveToTabViewController()
     }
 }

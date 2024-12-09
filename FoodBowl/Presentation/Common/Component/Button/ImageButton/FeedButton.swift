@@ -12,7 +12,7 @@ final class FeedButton: UIButton {
     // MARK: - init
     
     override init(frame _: CGRect) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 30, height: 30)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 40, height: 40)))
         self.configureUI()
     }
 
@@ -22,7 +22,7 @@ final class FeedButton: UIButton {
     }
 
     private func configureUI() {
-        self.setImage(ImageLiteral.btnFeed.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate), for: .normal)
+        self.setImage(ImageLiteral.btnFeed.resize(to: CGSize(width: 16, height: 16)).withRenderingMode(.alwaysTemplate), for: .normal)
         self.tintColor = .mainTextColor
     }
 }

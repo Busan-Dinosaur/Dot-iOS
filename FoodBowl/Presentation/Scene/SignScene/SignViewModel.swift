@@ -117,8 +117,4 @@ extension SignViewModel: SignViewModelType {
     func presentMapViewController() {
         self.coordinator?.presentMapViewController()
     }
-    
-    func presentTabViewController() {
-        self.coordinator?.presentTabViewController()
-    }
 }

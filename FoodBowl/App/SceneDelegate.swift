@@ -93,8 +93,4 @@ extension SceneDelegate {
     func moveToMapViewController() {
         self.window?.rootViewController = self.mapViewController
     }
-    
-    func moveToTabViewController() {
-        self.window?.rootViewController = TabBarController()
-    }
 }

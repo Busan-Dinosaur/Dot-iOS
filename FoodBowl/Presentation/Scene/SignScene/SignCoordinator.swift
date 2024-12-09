@@ -9,7 +9,6 @@ import UIKit
 
 protocol SignViewModelType: BaseViewModelType {
     func presentMapViewController()
-    func presentTabViewController()
 }
 
 final class SignCoordinator: NSObject {
@@ -24,10 +23,5 @@ final class SignCoordinator: NSObject {
     func presentMapViewController() {
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         sceneDelegate.moveToMapViewController()
-    }
-    
-    func presentTabViewController() {
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
-        sceneDelegate.moveToTabViewController()
     }
 }

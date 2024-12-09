@@ -95,8 +95,4 @@ extension SplashViewModel: SplashViewModelType {
     func presentMapViewController() {
         self.coordinator?.presentMapViewController()
     }
-    
-    func presentTabViewController() {
-        self.coordinator?.presentTabViewController()
-    }
 }

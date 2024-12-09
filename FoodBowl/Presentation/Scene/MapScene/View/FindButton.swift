@@ -19,7 +19,7 @@ final class FindButton: UIButton {
         $0.text = "추천 친구 찾아보기"
     }
     private let nextView = UIImageView().then {
-        $0.image = ImageLiteral.next.withRenderingMode(.alwaysTemplate)
+        $0.image = ImageLiteral.btnForward.withRenderingMode(.alwaysTemplate)
         $0.tintColor = .mainColor
     }
 

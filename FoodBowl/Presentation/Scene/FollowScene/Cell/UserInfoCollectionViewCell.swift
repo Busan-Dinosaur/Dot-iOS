@@ -16,7 +16,7 @@ final class UserInfoCollectionViewCell: UICollectionViewCell, BaseViewType {
     // MARK: - ui component
     
     private let userImageView = UIImageView().then {
-        $0.image = ImageLiteral.defaultProfile
+        $0.image = ImageLiteral.profile
         $0.layer.cornerRadius = 20
         $0.layer.masksToBounds = true
         $0.layer.borderColor = UIColor.grey002.cgColor
@@ -52,7 +52,7 @@ final class UserInfoCollectionViewCell: UICollectionViewCell, BaseViewType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.userImageView.image = ImageLiteral.defaultProfile
+        self.userImageView.image = ImageLiteral.profile
     }
     
     func setupLayout() {
@@ -113,7 +113,7 @@ extension UserInfoCollectionViewCell {
         if let url = member.profileImageUrl {
             self.userImageView.kf.setImage(with: URL(string: url))
         } else {
-            self.userImageView.image = ImageLiteral.defaultProfile
+            self.userImageView.image = ImageLiteral.profile
         }
         
         self.userNameLabel.text = member.nickname

@@ -27,7 +27,7 @@ final class UpdateProfileView: UIView, BaseViewType {
         $0.layer.masksToBounds = true
         $0.layer.borderColor = UIColor.grey002.cgColor
         $0.layer.borderWidth = 1
-        $0.setImage(ImageLiteral.defaultProfile, for: .normal)
+        $0.setImage(ImageLiteral.profile, for: .normal)
     }
     
     private let nicknameLabel = UILabel().then {

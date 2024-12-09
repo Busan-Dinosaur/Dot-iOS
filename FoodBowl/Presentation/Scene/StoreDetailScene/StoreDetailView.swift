@@ -25,7 +25,6 @@ final class StoreDetailView: UIView, BaseViewType {
     
     // MARK: - ui component
     
-    let reviewToggleButton = ReviewToggleButton()
     let storeHeaderView = StoreHeaderView()
     private lazy var listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout()).then {
         $0.showsVerticalScrollIndicator = false
@@ -90,13 +89,6 @@ final class StoreDetailView: UIView, BaseViewType {
     // MARK: - Private - func
 
     private func setupAction() {
-        let toggleAction = UIAction { [weak self] _ in
-            guard let self = self else { return }
-            self.reviewToggleButton.isSelected.toggle()
-            self.reviewToggleButtonDidTapPublisher.send(self.reviewToggleButton.isSelected)
-        }
-        self.reviewToggleButton.addAction(toggleAction, for: .touchUpInside)
-        
         let bookmarkAction = UIAction { [weak self] _ in
             guard let self = self else { return }
             self.bookmarkButtonDidTapPublisher.send(self.storeHeaderView.bookmarkButton.isSelected)

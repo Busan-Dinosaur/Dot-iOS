@@ -17,7 +17,7 @@ final class MyProfileView: UIView, BaseViewType {
     // MARK: - ui component
     
     private let userImageView = UIImageView().then {
-        $0.image = ImageLiteral.defaultProfile
+        $0.image = ImageLiteral.profile
         $0.layer.cornerRadius = 25
         $0.layer.masksToBounds = true
         $0.layer.borderColor = UIColor.grey002.cgColor
@@ -117,7 +117,7 @@ extension MyProfileView {
         if let url = member.profileImageUrl {
             self.userImageView.kf.setImage(with: URL(string: url))
         } else {
-            self.userImageView.image = ImageLiteral.defaultProfile
+            self.userImageView.image = ImageLiteral.profile
         }
         self.userInfoLabel.text = member.introduction == "" ? "소개를 작성하지 않았어요." : member.introduction
         self.followerInfoButton.numberLabel.text = "\(member.followerCount)명"

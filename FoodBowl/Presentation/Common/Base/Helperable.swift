@@ -25,17 +25,17 @@ protocol Helperable {
 
 extension Helperable where Self: UIViewController {
     func presentMemberViewController(id: Int) {
-        let repository = ProfileRepositoryImpl()
-        let usecase = ProfileUsecaseImpl(repository: repository)
-        let viewModel = ProfileViewModel(
-            usecase: usecase,
-            memberId: id
-        )
-        let viewController = ProfileViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = ProfileRepositoryImpl()
+//        let usecase = ProfileUsecaseImpl(repository: repository)
+//        let viewModel = ProfileViewModel(
+//            usecase: usecase,
+//            memberId: id
+//        )
+//        let viewController = ProfileViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentUpdateProfileViewController() {

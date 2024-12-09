@@ -12,7 +12,7 @@ final class ForwardButton: UIButton {
     // MARK: - init
     
     override init(frame _: CGRect) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 44, height: 44)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 30, height: 30)))
         self.configureUI()
     }
 
@@ -22,7 +22,7 @@ final class ForwardButton: UIButton {
     }
 
     private func configureUI() {
-        self.setImage(ImageLiteral.btnForward, for: .normal)
+        self.setImage(ImageLiteral.btnForward.resize(to: CGSize(width: 16, height: 16)).withRenderingMode(.alwaysTemplate), for: .normal)
         self.tintColor = .grey001
     }
 }
