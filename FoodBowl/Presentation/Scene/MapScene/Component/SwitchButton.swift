@@ -41,6 +41,7 @@ final class SwitchButton: UIButton {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
+        self.adjustsImageWhenHighlighted = false
     }
     
     private func updateIcon() {
