@@ -18,6 +18,7 @@ protocol MapUsecase {
     func getStoresByMember(request: GetStoresByMemberRequestDTO) async throws -> [Store]
     func createBookmark(storeId: Int) async throws
     func removeBookmark(storeId: Int) async throws
+    func removeReview(id: Int) async throws
 }
 
 final class MapUsecaseImpl: MapUsecase {
@@ -117,6 +118,14 @@ final class MapUsecaseImpl: MapUsecase {
     func removeBookmark(storeId: Int) async throws {
         do {
             try await self.repository.removeBookmark(storeId: storeId)
+        } catch(let error) {
+            throw error
+        }
+    }
+    
+    func removeReview(id: Int) async throws {
+        do {
+            try await self.repository.removeReview(id: id)
         } catch(let error) {
             throw error
         }

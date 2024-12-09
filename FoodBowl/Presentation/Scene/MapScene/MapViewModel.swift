@@ -21,6 +21,7 @@ final class MapViewModel: NSObject {
     private let moreReviewsSubject: PassthroughSubject<Result<[Review], Error>, Never> = PassthroughSubject()
     private let refreshControlSubject: PassthroughSubject<Void, Error> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
+    private let isRemovedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
     private var category: CategoryType?
     private var switchType: SwitchType = .all
@@ -35,6 +36,7 @@ final class MapViewModel: NSObject {
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
         let switchButtonDidTap: AnyPublisher<SwitchType, Never>
         let bookmarkButtonDidTap: AnyPublisher<(Int, Bool), Never>
+        let removeButtonDidTap: AnyPublisher<Int, Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
         let refreshControl: AnyPublisher<Void, Never>
     }
@@ -84,6 +86,13 @@ final class MapViewModel: NSObject {
             .sink(receiveValue: { [weak self] storeId, isBookmark in
                 guard let self = self else { return }
                 isBookmark ? self.removeBookmark(storeId: storeId) : self.createBookmark(storeId: storeId)
+            })
+            .store(in: &self.cancellable)
+        
+        input.removeButtonDidTap
+            .sink(receiveValue: { [weak self] reviewId in
+                guard let self = self else { return }
+                self.removeReview(id: reviewId)
             })
             .store(in: &self.cancellable)
         
@@ -339,6 +348,17 @@ final class MapViewModel: NSObject {
             }
         }
     }
+    
+    private func removeReview(id: Int) {
+        Task {
+            do {
+                try await self.usecase.removeReview(id: id)
+                self.isRemovedSubject.send(.success(id))
+            } catch(let error) {
+                self.isRemovedSubject.send(.failure(error))
+            }
+        }
+    }
 }
 
 extension MapViewModel: MapViewModelType {
@@ -349,6 +369,10 @@ extension MapViewModel: MapViewModelType {
     
     func presentPhotoesSelectViewController() {
         self.coordinator?.presentPhotoesSelectViewController()
+    }
+    
+    func presentUpdateReviewViewController(reviewId: Int) {
+        self.coordinator?.presentUpdateReviewViewController(reviewId: reviewId)
     }
     
     func presentSettingViewController() {
@@ -369,5 +393,28 @@ extension MapViewModel: MapViewModelType {
     
     func presentReviewDetailViewController(id: Int) {
         self.coordinator?.presentReviewDetailViewController(id: id)
+    }
+    
+    func presentBlameViewController(targetId: Int, blameTarget: String) {
+        self.coordinator?.presentBlameViewController(targetId: targetId, blameTarget: blameTarget)
+    }
+    
+    func presentReviewOptionAlert(
+        reviewId: Int,
+        onBlame: @escaping () -> Void
+    ) {
+        self.coordinator?.presentReviewOptionAlert(reviewId: reviewId, onBlame: onBlame)
+    }
+    
+    func presentMyReviewOptionAlert(
+        reviewId: Int,
+        onUpdate: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        self.coordinator?.presentMyReviewOptionAlert(
+            reviewId: reviewId,
+            onUpdate: onUpdate,
+            onDelete: onDelete
+        )
     }
 }

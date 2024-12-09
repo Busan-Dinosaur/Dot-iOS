@@ -221,6 +221,13 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             }
             .store(in: &cell.cancellable)
         
+        cell.bookmarkButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
+            }
+            .store(in: &cell.cancellable)
+        
         cell.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in

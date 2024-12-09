@@ -12,7 +12,7 @@ import MapKit
 import SnapKit
 import Then
 
-final class MapViewController: UIViewController, Navigationable, Optionable {
+final class MapViewController: UIViewController, Navigationable {
     
     enum Section: CaseIterable {
         case main
@@ -30,6 +30,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     private let viewModel: any MapViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
+    private let removeButtonDidTapPublisher = PassthroughSubject<Int, Never>()
     private let bookmarkButtonDidTapPublisher: PassthroughSubject<(Int, Bool), Never> = PassthroughSubject()
     private let switchPublisher = PassthroughSubject<SwitchType, Never>()
     
@@ -91,6 +92,7 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
             customLocation: self.mapView.locationPublisher.eraseToAnyPublisher(),
             switchButtonDidTap: self.switchPublisher.eraseToAnyPublisher(),
             bookmarkButtonDidTap: self.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            removeButtonDidTap: self.removeButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.mapView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
             refreshControl: self.mapView.feedView().refreshPublisher.eraseToAnyPublisher()
         )
@@ -190,16 +192,31 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
         cell.bookmarkButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-//                self?.viewModel.presentMemberViewController(id: item.member.id)
+                self?.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
             }
             .store(in: &cell.cancellable)
         
         cell.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.presentReviewOptionAlert(
+                self?.viewModel.presentReviewOptionAlert(
                     reviewId: item.comment.id,
-                    isMyReview: item.member.isMyProfile
+                    onBlame: {
+                        self?.viewModel.presentBlameViewController(
+                            targetId: item.store.id,
+                            blameTarget: "REVIEW"
+                        )
+                    }
+                )
+                
+                self?.viewModel.presentMyReviewOptionAlert(
+                    reviewId: item.comment.id,
+                    onUpdate: {
+                        self?.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
+                    },
+                    onDelete: {
+                        self?.removeButtonDidTapPublisher.send(item.comment.id)
+                    }
                 )
             }
             .store(in: &cell.cancellable)

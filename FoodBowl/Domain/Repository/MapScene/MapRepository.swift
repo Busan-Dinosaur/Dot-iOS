@@ -18,4 +18,5 @@ protocol MapRepository {
     func getStoresByMember(request: GetStoresByMemberRequestDTO) async throws -> StoreDTO
     func createBookmark(storeId: Int) async throws
     func removeBookmark(storeId: Int) async throws
+    func removeReview(id: Int) async throws
 }
