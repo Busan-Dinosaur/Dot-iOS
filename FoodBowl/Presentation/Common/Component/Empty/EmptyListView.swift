@@ -46,8 +46,7 @@ final class EmptyListView: UIView, BaseViewType {
         )
         
         self.emptyLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-60)
+            $0.center.equalToSuperview()
         }
         
         self.findButton.snp.makeConstraints {
@@ -63,5 +62,12 @@ final class EmptyListView: UIView, BaseViewType {
     func configureEmptyView(message: String, isFind: Bool = true) {
         self.emptyLabel.text = message
         self.findButton.isHidden = !isFind
+        
+        if isFind {
+            self.emptyLabel.snp.remakeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.centerY.equalToSuperview().offset(-60)
+            }
+        }
     }
 }
