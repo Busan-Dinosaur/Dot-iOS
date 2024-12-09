@@ -1,16 +1,17 @@
 //
-//  EmptyView.swift
+//  EmptyListView.swift
 //  FoodBowl
 //
 //  Created by Coby on 2/4/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 import Then
 
-final class EmptyView: UIView, BaseViewType {
+final class EmptyListView: UIView, BaseViewType {
     
     // MARK: - ui component
 
@@ -18,20 +19,19 @@ final class EmptyView: UIView, BaseViewType {
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .regular)
         $0.textColor = .subTextColor
     }
-    let findButton = FindButton()
+    private let findButton = FindButton()
     
     // MARK: - property
     
-    var findButtonTapAction: ((EmptyView) -> Void)?
+    var findButtonTapPublisher: AnyPublisher<Void, Never> {
+        return self.findButton.buttonTapPublisher
+    }
 
     // MARK: - init
     
-    init(message: String, isFind: Bool = true) {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.baseInit()
-        self.emptyLabel.text = message
-        self.findButton.isHidden = !isFind
-        self.setupAction()
     }
     
     @available(*, unavailable)
@@ -60,7 +60,8 @@ final class EmptyView: UIView, BaseViewType {
         self.backgroundColor = .mainBackgroundColor
     }
     
-    private func setupAction() {
-        self.findButton.addAction(UIAction { _ in self.findButtonTapAction?(self) }, for: .touchUpInside)
+    func configureEmptyView(message: String, isFind: Bool = true) {
+        self.emptyLabel.text = message
+        self.findButton.isHidden = !isFind
     }
 }

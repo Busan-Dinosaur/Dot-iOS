@@ -20,6 +20,12 @@ final class FollowerViewController: UIViewController, Navigationable, Helperable
     // MARK: - ui component
     
     private let followView: FollowView = FollowView()
+    private let emptyView = EmptyListView().then {
+        $0.configureEmptyView(
+            message: "팔로우 중인 유저가 없어요.",
+            isFind: false
+        )
+    }
     
     // MARK: - property
     
@@ -199,8 +205,7 @@ extension FollowerViewController {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-                let emptyView = EmptyView( message: "팔로우 중인 유저가 없어요.", isFind: false)
-                self.followView.collectionView().backgroundView = emptyView
+                self.followView.collectionView().backgroundView = self.emptyView
             } else {
                 self.followView.collectionView().backgroundView = nil
             }

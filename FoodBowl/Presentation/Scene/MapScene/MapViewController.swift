@@ -21,13 +21,8 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
     // MARK: - ui component
     
     private let mapView: MapView = MapView()
-    
-    private lazy var emptyView = EmptyView(message: "해당 지역에 후기가 없어요.").then {
-        $0.findButtonTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.presentRecommendViewController()
-            }
-        }
+    private let emptyReviewView = EmptyListView().then {
+        $0.configureEmptyView(message: "해당 지역에 후기가 없어요.")
     }
     
     // MARK: - property
@@ -233,6 +228,14 @@ final class MapViewController: UIViewController, Navigationable, Optionable {
                 self.switchPublisher.send(nextType)
             })
             .store(in: &self.cancellable)
+        
+        self.emptyReviewView.findButtonTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.presentRecommendViewController()
+            })
+            .store(in: &self.cancellable)
     }
 }
 
@@ -304,7 +307,7 @@ extension MapViewController {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-                self.mapView.feedView().collectionView().backgroundView = self.emptyView
+                self.mapView.feedView().collectionView().backgroundView = self.emptyReviewView
             } else {
                 self.mapView.feedView().collectionView().backgroundView = nil
             }

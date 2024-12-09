@@ -20,6 +20,9 @@ final class RecommendViewController: UIViewController, Navigationable, Helperabl
     // MARK: - ui component
     
     private let followView: FollowView = FollowView()
+    private let emptyMemberView = EmptyListView().then {
+        $0.configureEmptyView(message: "추천 유저가 없어요.")
+    }
     
     // MARK: - property
     
@@ -183,7 +186,7 @@ extension RecommendViewController {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-                self.followView.collectionView().backgroundView = EmptyView(message: "추천 유저가 없어요.")
+                self.followView.collectionView().backgroundView = self.emptyMemberView
             } else {
                 self.followView.collectionView().backgroundView = nil
             }

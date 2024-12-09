@@ -184,10 +184,14 @@ extension FollowingViewController {
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
                 guard let viewModel = self.viewModel as? FollowingViewModel else { return }
-                let emptyView = EmptyView(message: "팔로잉 중인 유저가 없어요.", isFind: viewModel.isOwn)
-                emptyView.findButtonTapAction = { [weak self] _ in
-                    self?.presentRecommendViewController()
-                }
+                let emptyView = EmptyListView()
+                emptyView.configureEmptyView(
+                    message: "팔로잉 중인 유저가 없어요.",
+                    isFind: viewModel.isOwn
+                )
+//                emptyView.findButtonTapAction = { [weak self] _ in
+//                    self?.presentRecommendViewController()
+//                }
                 
                 self.followView.collectionView().backgroundView = emptyView
             } else {

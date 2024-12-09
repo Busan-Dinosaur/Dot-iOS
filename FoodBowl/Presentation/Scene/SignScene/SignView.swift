@@ -61,7 +61,7 @@ final class SignView: UIView, BaseViewType {
         self.appleSignButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
             $0.bottom.equalToSuperview().inset(SizeLiteral.bottomPadding)
-            $0.height.equalTo(60)
+            $0.height.equalTo(48)
         }
     }
     

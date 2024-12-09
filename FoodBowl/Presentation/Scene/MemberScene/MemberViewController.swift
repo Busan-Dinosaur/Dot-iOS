@@ -21,8 +21,9 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     // MARK: - ui component
     
     private let memberView: MemberView = MemberView()
-    
-    private lazy var emptyView = EmptyView(message: "해당 지역에 후기가 없어요.")
+    private let emptyView = EmptyListView().then {
+        $0.configureEmptyView(message: "해당 지역에 후기가 없어요.")
+    }
     
     // MARK: - property
     

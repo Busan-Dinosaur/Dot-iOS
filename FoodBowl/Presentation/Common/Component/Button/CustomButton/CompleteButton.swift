@@ -49,7 +49,7 @@ final class CompleteButton: UIButton, BaseViewType {
         }
         
         self.snp.makeConstraints {
-            $0.height.equalTo(44)
+            $0.height.equalTo(48)
         }
     }
 

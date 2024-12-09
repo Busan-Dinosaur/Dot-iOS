@@ -221,12 +221,12 @@ extension StoreDetailViewController {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-                let emptyView = EmptyView(message: "\(self.owner)의 후기가 없어요.")
-                emptyView.findButtonTapAction = { [weak self] _ in
-                    self?.presentRecommendViewController()
-                }
-                
-                self.storeDetailView.collectionView().backgroundView = emptyView
+//                let emptyView = EmptyListView(message: "\(self.owner)의 후기가 없어요.")
+//                emptyView.findButtonTapAction = { [weak self] _ in
+//                    self?.presentRecommendViewController()
+//                }
+//                
+//                self.storeDetailView.collectionView().backgroundView = emptyView
             } else {
                 self.storeDetailView.collectionView().backgroundView = nil
             }
