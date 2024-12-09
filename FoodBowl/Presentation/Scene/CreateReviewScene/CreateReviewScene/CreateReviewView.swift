@@ -19,21 +19,27 @@ final class CreateReviewView: UIView, BaseViewType {
         $0.isScrollEnabled = true
         $0.showsVerticalScrollIndicator = false
     }
+    
     private let contentView = UIView()
+    
     private let closeButton = UIButton().then {
         $0.setTitle("닫기", for: .normal)
         $0.setTitleColor(.mainColor, for: .normal)
         $0.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
     }
+    
     private let searchBarButton = SearchBarButton()
+    
     private lazy var selectedStoreView = SelectedStoreView().then {
         $0.isHidden = true
     }
+    
     private let guideCommentLabel = UILabel().then {
         $0.text = "한줄평"
         $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .medium)
         $0.textColor = .mainTextColor
     }
+    
     private lazy var commentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .light)
@@ -49,6 +55,7 @@ final class CreateReviewView: UIView, BaseViewType {
         $0.makeBorderLayer(color: .grey002)
         $0.backgroundColor = .mainBackgroundColor
     }
+    
     private let completeButton = CompleteButton()
     
     // MARK: - property
@@ -62,7 +69,6 @@ final class CreateReviewView: UIView, BaseViewType {
         return self.searchBarButton.buttonTapPublisher
     }
     let makeAlertPublisher = PassthroughSubject<String, Never>()
-    let showStorePublisher = PassthroughSubject<String, Never>()
     let completeButtonDidTapPublisher = PassthroughSubject<String, Never>()
     
     // MARK: - init
@@ -90,7 +96,10 @@ final class CreateReviewView: UIView, BaseViewType {
     // MARK: - base func
     
     func setupLayout() {
-        self.addSubviews(self.scrollView, self.completeButton)
+        self.addSubviews(
+            self.scrollView,
+            self.completeButton
+        )
         
         self.scrollView.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide.snp.top)
@@ -160,9 +169,6 @@ final class CreateReviewView: UIView, BaseViewType {
     }
     
     func setStore(store: Store) {
-        self.selectedStoreView.mapButtonTapAction = { _ in
-            self.showStorePublisher.send(store.url)
-        }
         self.selectedStoreView.configureStore(store)
         self.selectedStoreView.isHidden = false
         self.searchBarButton.placeholderLabel.text = "가게 재검색"
@@ -172,6 +178,12 @@ final class CreateReviewView: UIView, BaseViewType {
         }
         
         self.completeButton.isEnabled = !self.selectedStoreView.isHidden && self.commentTextView.text.count != 0 && self.commentTextView.text != self.textViewStoreHolder
+    }
+    
+    // MARK: - func
+    
+    func selectedStore() -> SelectedStoreView {
+        self.selectedStoreView
     }
 }
 

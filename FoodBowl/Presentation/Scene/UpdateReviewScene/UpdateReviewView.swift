@@ -19,7 +19,9 @@ final class UpdateReviewView: UIView, BaseViewType {
         $0.isScrollEnabled = true
         $0.showsVerticalScrollIndicator = false
     }
+    
     private let contentView = UIView()
+    
     private let newFeedGuideLabel = PaddingLabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .title3, weight: .bold)
         $0.text = "후기 수정"
@@ -27,17 +29,21 @@ final class UpdateReviewView: UIView, BaseViewType {
         $0.padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
         $0.frame = CGRect(x: 0, y: 0, width: 150, height: 0)
     }
+    
     private let closeButton = UIButton().then {
         $0.setTitle("닫기", for: .normal)
         $0.setTitleColor(.mainColor, for: .normal)
         $0.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline, weight: .regular)
     }
-    let selectedStoreView = SelectedStoreView()
+    
+    private let selectedStoreView = SelectedStoreView()
+    
     private let guideCommentLabel = UILabel().then {
         $0.text = "한줄평"
         $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .medium)
         $0.textColor = .mainTextColor
     }
+    
     private lazy var commentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .light)
@@ -53,6 +59,7 @@ final class UpdateReviewView: UIView, BaseViewType {
         $0.makeBorderLayer(color: .grey002)
         $0.backgroundColor = .mainBackgroundColor
     }
+    
     private let completeButton = CompleteButton()
     
     // MARK: - property
@@ -63,7 +70,6 @@ final class UpdateReviewView: UIView, BaseViewType {
         return self.closeButton.buttonTapPublisher
     }
     let makeAlertPublisher = PassthroughSubject<String, Never>()
-    let showStorePublisher = PassthroughSubject<String, Never>()
     let completeButtonDidTapPublisher = PassthroughSubject<String, Never>()
     
     // MARK: - init
@@ -92,7 +98,10 @@ final class UpdateReviewView: UIView, BaseViewType {
     // MARK: - base func
     
     func setupLayout() {
-        self.addSubviews(self.scrollView, self.completeButton)
+        self.addSubviews(
+            self.scrollView,
+            self.completeButton
+        )
         
         self.scrollView.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide.snp.top)
@@ -153,6 +162,12 @@ final class UpdateReviewView: UIView, BaseViewType {
         }
         self.completeButton.addAction(completeAction, for: .touchUpInside)
     }
+    
+    // MARK: - func
+    
+    func selectedStore() -> SelectedStoreView {
+        self.selectedStoreView
+    }
 }
 
 extension UpdateReviewView: UITextViewDelegate {
@@ -193,7 +208,6 @@ extension UpdateReviewView: UITextViewDelegate {
 
 extension UpdateReviewView {
     func configureReview(_ review: Review) {
-        self.selectedStoreView.mapButton.isHidden = true
         self.selectedStoreView.configureStore(review.store)
         self.commentTextView.text = review.comment.content
         self.commentTextView.textColor = .mainTextColor

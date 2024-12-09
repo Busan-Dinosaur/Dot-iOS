@@ -20,10 +20,10 @@ final class UpdateReviewViewController: UIViewController, Keyboardable {
     
     // MARK: - property
     
-    private var reviewImages = [UIImage]()
-    
-    private let viewModel: any UpdateReviewViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
+    private let viewModel: any UpdateReviewViewModelType
+    
+    private var reviewImages = [UIImage]()
 
     // MARK: - init
     
@@ -80,9 +80,6 @@ final class UpdateReviewViewController: UIViewController, Keyboardable {
                 switch result {
                 case .success(let review):
                     guard let self = self else { return }
-                    self.updateReviewView.selectedStoreView.mapButtonTapAction = { _ in
-                        self.viewModel.presentShowWebViewController(url: review.store.url)
-                    }
                     self.updateReviewView.configureReview(review)
                 case .failure(let error):
                     self?.makeErrorAlert(
@@ -142,7 +139,7 @@ final class UpdateReviewViewController: UIViewController, Keyboardable {
             })
             .store(in: &self.cancellable)
         
-        self.updateReviewView.showStorePublisher
+        self.updateReviewView.selectedStore().mapButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
                 self?.viewModel.presentShowWebViewController(url: url)

@@ -132,7 +132,7 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
             })
             .store(in: &self.cancellable)
         
-        self.createReviewView.showStorePublisher
+        self.createReviewView.selectedStore().mapButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
                 self?.viewModel.presentShowWebViewController(url: url)

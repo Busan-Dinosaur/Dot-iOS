@@ -30,9 +30,7 @@ final class UpdateReviewCoordinator: NSObject {
     func presentShowWebViewController(url: String) {
         guard let navigationController = self.navigationController else { return }
         let viewController = ShowWebViewController(url: url)
-        let modalNavigationController = UINavigationController(rootViewController: viewController)
-        modalNavigationController.modalPresentationStyle = .fullScreen
         
-        navigationController.present(modalNavigationController, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

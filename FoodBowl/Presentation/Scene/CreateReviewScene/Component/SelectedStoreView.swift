@@ -5,6 +5,7 @@
 //  Created by Coby Kim on 2023/01/13.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -18,26 +19,30 @@ final class SelectedStoreView: UIView, BaseViewType {
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .medium)
         $0.textColor = .mainTextColor
     }
+    
     private let storeCategoryLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .light)
         $0.textColor = .mainTextColor
     }
+    
     private let storeAddressLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .light)
         $0.textColor = .subTextColor
     }
-    let mapButton = MapButton()
+    
+    private let mapButton = MapButton()
     
     // MARK: - property
     
-    var mapButtonTapAction: ((SelectedStoreView) -> Void)?
+    private var cancellable: Set<AnyCancellable> = Set()
+    
+    let mapButtonDidTapPublisher = PassthroughSubject<String, Never>()
 
     // MARK: - init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.baseInit()
-        self.setupAction()
     }
 
     @available(*, unavailable)
@@ -82,14 +87,17 @@ final class SelectedStoreView: UIView, BaseViewType {
         self.backgroundColor = .mainBackgroundColor
         self.makeBorderLayer(color: .grey002)
     }
-    
-    func setupAction() {
-        self.mapButton.addAction(UIAction { _ in self.mapButtonTapAction?(self) }, for: .touchUpInside)
-    }
 }
 
 extension SelectedStoreView {
     func configureStore(_ store: Store) {
+        self.cancellable.removeAll()
+        self.mapButton.tapPublisher
+            .sink { [weak self] in
+                self?.mapButtonDidTapPublisher.send(store.url)
+            }
+            .store(in: &self.cancellable)
+        
         self.storeNameLabel.text = store.name
         self.storeCategoryLabel.text = store.category
         self.storeAddressLabel.text = "\(store.address), \(store.distance)"
