@@ -12,7 +12,7 @@ import MapKit
 import SnapKit
 import Then
 
-final class MemberViewController: UIViewController, Navigationable, Optionable {
+final class MemberViewController: UIViewController, Navigationable {
     
     enum Section: CaseIterable {
         case main
@@ -231,9 +231,13 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
         cell.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.presentReviewOptionAlert(
-                    reviewId: item.comment.id,
-                    isMyReview: item.member.isMyProfile
+                self?.viewModel.presentReviewOptionAlert(
+                    onBlame: {
+                        self?.viewModel.presentBlameViewController(
+                            targetId: item.store.id,
+                            blameTarget: "REVIEW"
+                        )
+                    }
                 )
             }
             .store(in: &cell.cancellable)
@@ -243,8 +247,11 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
         self.memberView.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                guard let viewModel = self?.viewModel as? MemberViewModel else { return }
-                self?.presentMemberOptionAlert(memberId: viewModel.memberId)
+                self?.viewModel.presentReviewOptionAlert(
+                    onBlame: {
+                        self?.viewModel.presentMemberBlameViewController()
+                    }
+                )
             })
             .store(in: &self.cancellable)
         

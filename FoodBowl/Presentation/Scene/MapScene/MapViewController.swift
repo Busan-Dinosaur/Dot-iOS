@@ -199,25 +199,25 @@ final class MapViewController: UIViewController, Navigationable {
         cell.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.viewModel.presentReviewOptionAlert(
-                    reviewId: item.comment.id,
-                    onBlame: {
-                        self?.viewModel.presentBlameViewController(
-                            targetId: item.store.id,
-                            blameTarget: "REVIEW"
-                        )
-                    }
-                )
-                
-                self?.viewModel.presentMyReviewOptionAlert(
-                    reviewId: item.comment.id,
-                    onUpdate: {
-                        self?.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
-                    },
-                    onDelete: {
-                        self?.removeButtonDidTapPublisher.send(item.comment.id)
-                    }
-                )
+                if item.member.isMyProfile {
+                    self?.viewModel.presentMyReviewOptionAlert(
+                        onUpdate: {
+                            self?.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
+                        },
+                        onDelete: {
+                            self?.removeButtonDidTapPublisher.send(item.comment.id)
+                        }
+                    )
+                } else {
+                    self?.viewModel.presentReviewOptionAlert(
+                        onBlame: {
+                            self?.viewModel.presentBlameViewController(
+                                targetId: item.store.id,
+                                blameTarget: "REVIEW"
+                            )
+                        }
+                    )
+                }
             }
             .store(in: &cell.cancellable)
     }

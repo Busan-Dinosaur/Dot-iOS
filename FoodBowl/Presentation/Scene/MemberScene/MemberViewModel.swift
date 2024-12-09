@@ -24,7 +24,7 @@ final class MemberViewModel: NSObject {
     private let refreshControlSubject: PassthroughSubject<Void, Error> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
-    let memberId: Int
+    private let memberId: Int
     private var category: CategoryType?
     private var switchType: SwitchType = .all
     private var location: CustomLocationRequestDTO?
@@ -265,5 +265,19 @@ extension MemberViewModel: MemberViewModelType {
     
     func presentReviewDetailViewController(id: Int) {
         self.coordinator?.presentReviewDetailViewController(id: id)
+    }
+    
+    func presentMemberBlameViewController() {
+        self.presentBlameViewController(targetId: self.memberId, blameTarget: "MEMBER")
+    }
+    
+    func presentBlameViewController(targetId: Int, blameTarget: String) {
+        self.coordinator?.presentBlameViewController(targetId: targetId, blameTarget: blameTarget)
+    }
+    
+    func presentReviewOptionAlert(
+        onBlame: @escaping () -> Void
+    ) {
+        self.coordinator?.presentReviewOptionAlert(onBlame: onBlame)
     }
 }

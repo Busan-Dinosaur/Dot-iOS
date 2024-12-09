@@ -13,6 +13,9 @@ protocol MemberViewModelType: BaseViewModelType {
     func presentMemberViewController(id: Int)
     func presentStoreDetailViewController(id: Int)
     func presentReviewDetailViewController(id: Int)
+    func presentMemberBlameViewController()
+    func presentBlameViewController(targetId: Int, blameTarget: String)
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void)
 }
 
 final class MemberCoordinator: NSObject {
@@ -89,5 +92,32 @@ final class MemberCoordinator: NSObject {
         let viewController = ReviewDetailViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentBlameViewController(targetId: Int, blameTarget: String) {
+        guard let navigationController = self.navigationController else { return }
+        let repository = BlameRepositoryImpl()
+        let usecase = BlameUsecaseImpl(repository: repository)
+        let viewModel = BlameViewModel(usecase: usecase, targetId: targetId, blameTarget: blameTarget)
+        let viewController = BlameViewController(viewModel: viewModel)
+        
+        let modalViewController = UINavigationController(rootViewController: viewController)
+        modalViewController.modalPresentationStyle = .fullScreen
+        
+        navigationController.present(modalViewController, animated: true)
+    }
+    
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void) {
+        guard let navigationController = self.navigationController else { return }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let report = UIAlertAction(title: "신고", style: .destructive, handler: { _ in
+            onBlame()
+        })
+        alert.addAction(report)
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        navigationController.present(alert, animated: true, completion: nil)
     }
 }

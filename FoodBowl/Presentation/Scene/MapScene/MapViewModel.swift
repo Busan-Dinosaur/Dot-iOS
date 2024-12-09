@@ -399,20 +399,15 @@ extension MapViewModel: MapViewModelType {
         self.coordinator?.presentBlameViewController(targetId: targetId, blameTarget: blameTarget)
     }
     
-    func presentReviewOptionAlert(
-        reviewId: Int,
-        onBlame: @escaping () -> Void
-    ) {
-        self.coordinator?.presentReviewOptionAlert(reviewId: reviewId, onBlame: onBlame)
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void) {
+        self.coordinator?.presentReviewOptionAlert(onBlame: onBlame)
     }
     
     func presentMyReviewOptionAlert(
-        reviewId: Int,
         onUpdate: @escaping () -> Void,
         onDelete: @escaping () -> Void
     ) {
         self.coordinator?.presentMyReviewOptionAlert(
-            reviewId: reviewId,
             onUpdate: onUpdate,
             onDelete: onDelete
         )

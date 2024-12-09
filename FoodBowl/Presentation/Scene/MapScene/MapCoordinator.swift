@@ -17,12 +17,8 @@ protocol MapViewModelType: BaseViewModelType {
     func presentStoreDetailViewController(id: Int)
     func presentReviewDetailViewController(id: Int)
     func presentBlameViewController(targetId: Int, blameTarget: String)
-    func presentReviewOptionAlert(
-        reviewId: Int,
-        onBlame: @escaping () -> Void
-    )
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void)
     func presentMyReviewOptionAlert(
-        reviewId: Int,
         onUpdate: @escaping () -> Void,
         onDelete: @escaping () -> Void
     )
@@ -142,10 +138,7 @@ final class MapCoordinator: NSObject {
         navigationController.present(modalViewController, animated: true)
     }
     
-    func presentReviewOptionAlert(
-        reviewId: Int,
-        onBlame: @escaping () -> Void
-    ) {
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void) {
         guard let navigationController = self.navigationController else { return }
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let report = UIAlertAction(title: "신고", style: .destructive, handler: { _ in
@@ -160,7 +153,6 @@ final class MapCoordinator: NSObject {
     }
     
     func presentMyReviewOptionAlert(
-        reviewId: Int,
         onUpdate: @escaping () -> Void,
         onDelete: @escaping () -> Void
     ) {
