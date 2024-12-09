@@ -11,11 +11,11 @@ import SnapKit
 import Then
 @preconcurrency import WebKit
 
-final class ShowWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+final class ShowWebViewController: UIViewController, Navigationable, WKNavigationDelegate, WKUIDelegate {
     
     // MARK: - ui component
     
-    lazy var webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration()).then {
+    private lazy var webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration()).then {
         $0.navigationDelegate = self
         $0.uiDelegate = self
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -43,25 +43,21 @@ final class ShowWebViewController: UIViewController, WKNavigationDelegate, WKUID
     // MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
-        setupNavigationBar()
+        self.setupNavigation()
+        self.setupLayout()
     }
     
     private func setupLayout() {
-        view.addSubviews(webView)
+        self.view.addSubviews(self.webView)
 
-        webView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+        self.webView.snp.makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
         DispatchQueue.main.async {
             if let url = URL(string: self.url) { self.webView.load(URLRequest(url: url)) }
         }
-    }
-
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
     }
 
     func webView(

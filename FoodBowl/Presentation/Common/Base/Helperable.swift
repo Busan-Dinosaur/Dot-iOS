@@ -170,14 +170,14 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentSettingViewController() {
-        let repository = SettingRepositoryImpl()
-        let usecase = SettingUsecaseImpl(repository: repository)
-        let viewModel = SettingViewModel(usecase: usecase)
-        let viewController = SettingViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = SettingRepositoryImpl()
+//        let usecase = SettingUsecaseImpl(repository: repository)
+//        let viewModel = SettingViewModel(usecase: usecase)
+//        let viewController = SettingViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentRecommendViewController() {

@@ -8,6 +8,7 @@
 import Foundation
 
 protocol SettingRepository {
+    func getMyProfile() async throws -> MemberProfileDTO
     func logOut() async throws
     func signOut() async throws
 }

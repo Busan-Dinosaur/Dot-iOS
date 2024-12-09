@@ -134,7 +134,6 @@ final class UpdateReviewView: UIView, BaseViewType {
         self.completeButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
             $0.bottom.equalTo(self.keyboardLayoutGuide.snp.top).offset(-10)
-            $0.height.equalTo(60)
         }
     }
     

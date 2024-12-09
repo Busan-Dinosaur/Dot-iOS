@@ -22,6 +22,8 @@
 		CB15790D2AACD45400007183 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB15790C2AACD45400007183 /* CategoryDTO.swift */; };
 		CB1579102AACD98600007183 /* CreateReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB15790F2AACD98600007183 /* CreateReviewViewModel.swift */; };
 		CB1579122AADB50600007183 /* KakaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1579112AADB50600007183 /* KakaoAPI.swift */; };
+		CB15A06F2D06A63400A1EE38 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB15A06E2D06A63400A1EE38 /* MyProfileView.swift */; };
+		CB15A0712D06A93000A1EE38 /* SettingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB15A0702D06A93000A1EE38 /* SettingCoordinator.swift */; };
 		CB16FD4E2B347C31006D18D6 /* FollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB16FD4D2B347C31006D18D6 /* FollowingViewModel.swift */; };
 		CB16FD512B3491F9006D18D6 /* UserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB16FD502B3491F9006D18D6 /* UserInfoTableViewCell.swift */; };
 		CB1A7C5C29560C2300C6431D /* UserInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A7C5B29560C2300C6431D /* UserInfoButton.swift */; };
@@ -281,6 +283,8 @@
 		CB15790C2AACD45400007183 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
 		CB15790F2AACD98600007183 /* CreateReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewViewModel.swift; sourceTree = "<group>"; };
 		CB1579112AADB50600007183 /* KakaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPI.swift; sourceTree = "<group>"; };
+		CB15A06E2D06A63400A1EE38 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		CB15A0702D06A93000A1EE38 /* SettingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCoordinator.swift; sourceTree = "<group>"; };
 		CB16FD4D2B347C31006D18D6 /* FollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewModel.swift; sourceTree = "<group>"; };
 		CB16FD502B3491F9006D18D6 /* UserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		CB1A7C5B29560C2300C6431D /* UserInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoButton.swift; sourceTree = "<group>"; };
@@ -571,6 +575,22 @@
 				CB07CE102B6BB3BE001658E2 /* SplashUsecase.swift */,
 			);
 			path = SplashScene;
+			sourceTree = "<group>";
+		};
+		CB15A06C2D06A59400A1EE38 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CB2E4F80297702B800FD2566 /* UserInfoCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CB15A06D2D06A61D00A1EE38 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				CB15A06E2D06A63400A1EE38 /* MyProfileView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		CB1A7C5F29561B8400C6431D /* UIComponent */ = {
@@ -1274,10 +1294,12 @@
 		CBBAFCB62D05F3AF00F6A662 /* SettingScene */ = {
 			isa = PBXGroup;
 			children = (
-				CBBAFCBA2D05F45200F6A662 /* Cell */,
+				CB15A06D2D06A61D00A1EE38 /* Component */,
+				CBD1B5F22982D38300B0AD51 /* Cell */,
 				CB78A8152B5D5511007EC9C1 /* SettingView.swift */,
 				CBD1B5F02982B0A300B0AD51 /* SettingViewController.swift */,
 				CB07CE162B6BBABD001658E2 /* SettingViewModel.swift */,
+				CB15A0702D06A93000A1EE38 /* SettingCoordinator.swift */,
 			);
 			path = SettingScene;
 			sourceTree = "<group>";
@@ -1295,20 +1317,12 @@
 		CBBAFCB82D05F40900F6A662 /* FollowScene */ = {
 			isa = PBXGroup;
 			children = (
-				CBD1B5F22982D38300B0AD51 /* Cell */,
+				CB15A06C2D06A59400A1EE38 /* Cell */,
 				CBBAFCBB2D05F4B900F6A662 /* FollowerScene */,
 				CBBAFCBC2D05F4C300F6A662 /* FollowingScene */,
 				CB73E56D2B3417980026E4D7 /* FollowView.swift */,
 			);
 			path = FollowScene;
-			sourceTree = "<group>";
-		};
-		CBBAFCBA2D05F45200F6A662 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				CB2E4F80297702B800FD2566 /* UserInfoCollectionViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		CBBAFCBB2D05F4B900F6A662 /* FollowerScene */ = {
@@ -2051,6 +2065,7 @@
 				CB91E2A62B56D7D6008A0E8E /* StoreDetailRepository.swift in Sources */,
 				CB617A512AE27F96000F7FFC /* UIScrollView+Combine.swift in Sources */,
 				CB4A78A12B5830000002136F /* CreateReviewRepository.swift in Sources */,
+				CB15A0712D06A93000A1EE38 /* SettingCoordinator.swift in Sources */,
 				CB78A8092B5CFFC0007EC9C1 /* FindResultView.swift in Sources */,
 				CB20B9EF2D05D18000BC06F9 /* MemberView.swift in Sources */,
 				CB5BFB0C2B3EE37500B35062 /* SplashRepository.swift in Sources */,
@@ -2150,6 +2165,7 @@
 				CBC158662AD80BB600FD263B /* MemberDTO.swift in Sources */,
 				CB9B92752B8218E3001184BE /* RecommendRepository.swift in Sources */,
 				CB8306682B59748700632789 /* FindView.swift in Sources */,
+				CB15A06F2D06A63400A1EE38 /* MyProfileView.swift in Sources */,
 				CBD062DE2D03120300127A0D /* PhotoesSelectViewModel.swift in Sources */,
 				CBDE390729719CB400DDE49A /* SelectedStoreView.swift in Sources */,
 				CBDA47D32CFEC06000BFB88A /* SplashCoordinator.swift in Sources */,

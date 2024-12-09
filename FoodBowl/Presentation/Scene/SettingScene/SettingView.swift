@@ -14,7 +14,9 @@ final class SettingView: UIView, BaseViewType {
 
     // MARK: - ui component
     
-    let listTableView = UITableView().then {
+    private let myProfileView = MyProfileView()
+    
+    private let listTableView = UITableView().then {
         $0.register(SettingItemTableViewCell.self, forCellReuseIdentifier: SettingItemTableViewCell.className)
         $0.separatorStyle = .none
         $0.backgroundColor = .mainBackgroundColor
@@ -32,24 +34,45 @@ final class SettingView: UIView, BaseViewType {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - func
-    
-    func configureNavigationBarTitle(_ navigationController: UINavigationController) {
-        let navigationItem = navigationController.topViewController?.navigationItem
-        navigationItem?.title = "설정"
-    }
-    
     // MARK: - base func
     
     func setupLayout() {
-        self.addSubviews(self.listTableView)
+        self.addSubviews(
+            self.myProfileView,
+            self.listTableView
+        )
+        
+        self.myProfileView.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
+        }
 
         self.listTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(self.myProfileView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
     func configureUI() {
         self.backgroundColor = .mainBackgroundColor
+    }
+    
+    // MARK: - func
+    
+    func configureNavigationBarItem(
+        _ navigationController: UINavigationController,
+        _ title: String = ""
+    ) {
+        guard let navigationItem = navigationController.topViewController?.navigationItem else { return }
+        navigationItem.title = title
+    }
+    
+    func profileView() -> MyProfileView {
+        self.myProfileView
+    }
+    
+    func settingListView() -> UITableView {
+        self.listTableView
     }
 }

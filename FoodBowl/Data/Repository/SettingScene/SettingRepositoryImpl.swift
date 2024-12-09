@@ -13,6 +13,11 @@ final class SettingRepositoryImpl: SettingRepository {
     
     private let provider = MoyaProvider<SignAPI>()
     
+    func getMyProfile() async throws -> MemberProfileDTO {
+        let response = await provider.request(.getMyProfile)
+        return try response.decode()
+    }
+    
     func logOut() async throws {
         let _ = await provider.request(.logOut)
     }

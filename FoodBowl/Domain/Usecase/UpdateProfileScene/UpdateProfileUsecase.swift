@@ -29,8 +29,8 @@ final class UpdateProfileUsecaseImpl: UpdateProfileUsecase {
     
     func getMyProfile() async throws -> Member {
         do {
-            let MemberProfileDTO = try await self.repository.getMyProfile()
-            return MemberProfileDTO.toMember()
+            let memberProfileDTO = try await self.repository.getMyProfile()
+            return memberProfileDTO.toMember()
         } catch(let error) {
             throw error
         }

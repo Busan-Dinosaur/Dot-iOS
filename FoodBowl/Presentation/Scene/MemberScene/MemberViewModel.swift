@@ -24,7 +24,7 @@ final class MemberViewModel: NSObject {
     private let refreshControlSubject: PassthroughSubject<Void, Error> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
-    private let memberId: Int
+    let memberId: Int
     private var category: CategoryType?
     private var switchType: SwitchType = .all
     private var location: CustomLocationRequestDTO?
@@ -34,6 +34,7 @@ final class MemberViewModel: NSObject {
     
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
+        let viewWillAppear: AnyPublisher<Void, Never>
         let setCategory: AnyPublisher<CategoryType?, Never>
         let followMember: AnyPublisher<Bool, Never>
         let customLocation: AnyPublisher<CustomLocationRequestDTO, Never>
@@ -53,6 +54,13 @@ final class MemberViewModel: NSObject {
     
     func transform(from input: Input) -> Output {
         input.viewDidLoad
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.getMemberProfile(memberId: self.memberId)
+            })
+            .store(in: &self.cancellable)
+        
+        input.viewWillAppear
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.getMemberProfile(memberId: self.memberId)

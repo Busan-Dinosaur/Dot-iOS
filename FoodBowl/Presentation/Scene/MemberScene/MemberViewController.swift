@@ -29,6 +29,8 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     private let viewModel: any MemberViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
+    private let viewWillAppearPublisher: PassthroughSubject<Void, Never> = PassthroughSubject()
+    
     private var markers: [Marker] = []
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Review>!
@@ -83,6 +85,7 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
         guard let viewModel = self.viewModel as? MemberViewModel else { return nil }
         let input = MemberViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
+            viewWillAppear: self.viewWillAppearPublisher.eraseToAnyPublisher(),
             setCategory: self.memberView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
             followMember: self.memberView.profileView().followButtonDidTapPublisher.eraseToAnyPublisher(),
             customLocation: self.memberView.locationPublisher.eraseToAnyPublisher(),
@@ -231,7 +234,8 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
         self.memberView.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-//                self.presentMemberOptionAlert(memberId: viewModel.memberId)
+                guard let viewModel = self?.viewModel as? MemberViewModel else { return }
+                self?.presentMemberOptionAlert(memberId: viewModel.memberId)
             })
             .store(in: &self.cancellable)
         

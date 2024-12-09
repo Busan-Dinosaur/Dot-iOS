@@ -49,7 +49,8 @@ final class MapCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = SettingRepositoryImpl()
         let usecase = SettingUsecaseImpl(repository: repository)
-        let viewModel = SettingViewModel(usecase: usecase)
+        let coordinator = SettingCoordinator(navigationController: navigationController)
+        let viewModel = SettingViewModel(usecase: usecase, coordinator: coordinator)
         let viewController = SettingViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)
