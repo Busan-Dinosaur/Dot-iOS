@@ -189,8 +189,18 @@ extension FindViewController {
 
     private func feedCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Review> {
         let reviewCellRegistration = UICollectionView.CellRegistration<PhotoCollectionViewCell, Review> { cell, indexPath, item in
+            let resizingProcessor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100), mode: .aspectFill)
             
-            cell.imageView.kf.setImage(with: URL(string: item.thumbnail))
+            cell.imageView.kf.setImage(
+                with: URL(string: item.thumbnail),
+                options: [
+                    .processor(resizingProcessor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+            
             cell.cellTapAction = { [weak self] _ in
                 self?.presentReviewDetailViewController(id: item.comment.id)
             }

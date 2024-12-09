@@ -83,7 +83,17 @@ extension PhotoListView: UICollectionViewDataSource, UICollectionViewDelegate {
             return UICollectionViewCell()
         }
         
-        cell.imageView.kf.setImage(with: URL(string: photos[indexPath.item]))
+        let resizingProcessor = ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100), mode: .aspectFill)
+
+        cell.imageView.kf.setImage(
+            with: URL(string: photos[indexPath.item]),
+            options: [
+                .processor(resizingProcessor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(0.2)),
+                .cacheOriginalImage
+            ]
+        )
 
         return cell
     }

@@ -126,7 +126,17 @@ final class MemberProfileView: UIView, BaseViewType {
 extension MemberProfileView {
     func configureMember(member: Member) {
         if let url = member.profileImageUrl {
-            self.userImageView.kf.setImage(with: URL(string: url))
+            let resizingProcessor = ResizingImageProcessor(referenceSize: CGSize(width: 40, height: 40), mode: .aspectFill)
+            
+            self.userImageView.kf.setImage(
+                with: URL(string: url),
+                options: [
+                    .processor(resizingProcessor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
         } else {
             self.userImageView.image = ImageLiteral.profile
         }
