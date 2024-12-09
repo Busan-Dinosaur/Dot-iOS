@@ -24,8 +24,6 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
     
     let setStorePublisher = PassthroughSubject<Store, Never>()
     
-    weak var delegate: CreateReviewViewControllerDelegate?
-    
     // MARK: - init
     
     init(viewModel: any CreateReviewViewModelType) {
@@ -81,7 +79,6 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.delegate?.updateData()
                     self?.makeAlert(
                         title: "후기",
                         message: "후기가 등록되었어요.",
@@ -156,8 +153,4 @@ extension CreateReviewViewController: SearchStoreViewControllerDelegate {
         self.setStorePublisher.send(store)
         self.createReviewView.setStore(store: store)
     }
-}
-
-protocol CreateReviewViewControllerDelegate: AnyObject {
-    func updateData()
 }

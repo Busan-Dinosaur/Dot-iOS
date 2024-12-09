@@ -38,7 +38,7 @@ final class CreateReviewCoordinator: NSObject {
         let usecase = CreateReviewUsecaseImpl(repository: repository)
         let viewModel = SearchStoreViewModel(usecase: usecase, location: location)
         let viewController = SearchStoreViewController(viewModel: viewModel)
-        viewController.delegate = self as? any SearchStoreViewControllerDelegate
+        viewController.delegate = navigationController.viewControllers.last as? CreateReviewViewController
         
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -46,9 +46,7 @@ final class CreateReviewCoordinator: NSObject {
     func presentShowWebViewController(url: String) {
         guard let navigationController = self.navigationController else { return }
         let viewController = ShowWebViewController(url: url)
-        let modalNavigationController = UINavigationController(rootViewController: viewController)
-        modalNavigationController.modalPresentationStyle = .fullScreen
         
-        navigationController.present(modalNavigationController, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

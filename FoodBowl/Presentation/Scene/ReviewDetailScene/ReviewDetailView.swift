@@ -39,7 +39,7 @@ final class ReviewDetailView: UIView, BaseViewType {
         return self.userInfoButton.buttonTapPublisher
     }
     var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
-        return self.userInfoButton.optionButton.buttonTapPublisher
+        return self.userInfoButton.buttonTapPublisher
     }
     var storeInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.storeInfoButton.buttonTapPublisher
@@ -151,7 +151,7 @@ final class ReviewDetailView: UIView, BaseViewType {
 extension ReviewDetailView {
     func configureReview(_ review: Review) {
         self.userInfoButton.configureUser(review.member)
-        self.userInfoButton.optionButton.isHidden = UserDefaultStorage.id == review.member.id
+//        self.userInfoButton.optionButton.isHidden = UserDefaultStorage.id == review.member.id
         self.commentLabel.text = review.comment.content
         self.storeInfoButton.configureStore(review.store)
         

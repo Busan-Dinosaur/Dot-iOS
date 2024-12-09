@@ -228,7 +228,7 @@ final class MemberViewController: UIViewController, Navigationable {
             }
             .store(in: &cell.cancellable)
         
-        cell.optionButtonDidTapPublisher
+        cell.userInfo().optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.viewModel.presentReviewOptionAlert(

@@ -159,24 +159,29 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
     }
     
     private func bindCell(_ cell: FeedNSCollectionViewCell, with item: Review) {
-        cell.userButtonTapAction = { [weak self] _ in
-            self?.presentMemberViewController(id: item.member.id)
-        }
+        cell.cellDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.presentReviewDetailViewController(id: item.comment.id)
+            }
+            .store(in: &cell.cancellable)
         
-        cell.optionButtonTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
+        cell.userInfoButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.presentMemberViewController(id: item.member.id)
+            }
+            .store(in: &cell.cancellable)
+        
+        cell.userInfo().optionButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
                 self?.presentReviewOptionAlert(
                     reviewId: item.comment.id,
                     isMyReview: item.member.isMyProfile
                 )
             }
-        }
-        
-        cell.cellTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.presentReviewDetailViewController(id: item.comment.id)
-            }
-        }
+            .store(in: &cell.cancellable)
     }
 }
 

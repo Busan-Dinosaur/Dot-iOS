@@ -5,6 +5,7 @@
 //  Created by COBY_PRO on 2023/07/22.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -24,9 +25,15 @@ final class FeedNSCollectionViewCell: UICollectionViewCell, BaseViewType {
     
     // MARK: - property
     
-    var userButtonTapAction: ((FeedNSCollectionViewCell) -> Void)?
-    var optionButtonTapAction: ((FeedNSCollectionViewCell) -> Void)?
-    var cellTapAction: ((FeedNSCollectionViewCell) -> Void)?
+    var cancellable: Set<AnyCancellable> = Set()
+    
+    private let cellDidTapSubject = PassthroughSubject<Void, Never>()
+    var cellDidTapPublisher: AnyPublisher<Void, Never> {
+        return cellDidTapSubject.eraseToAnyPublisher()
+    }
+    var userInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.userInfoButton.buttonTapPublisher
+    }
     
     // MARK: - init
     
@@ -85,35 +92,39 @@ final class FeedNSCollectionViewCell: UICollectionViewCell, BaseViewType {
         return layoutAttributes
     }
     
-    private func setupAction() {
-        self.userInfoButton.addAction(UIAction { _ in self.userButtonTapAction?(self) }, for: .touchUpInside)
-        self.userInfoButton.optionButton.addAction(UIAction { _ in self.optionButtonTapAction?(self) }, for: .touchUpInside)
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        self.cancellable.removeAll()
+    }
+    
+    private func setupAction() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cellTapped))
         self.addGestureRecognizer(tapGesture)
     }
     
     @objc
     private func cellTapped() {
-        self.cellTapAction?(self)
+        self.cellDidTapSubject.send(())
+    }
+    
+    func userInfo() -> UserInfoButton {
+        self.userInfoButton
     }
 }
 
 // MARK: - Public - func
 extension FeedNSCollectionViewCell {
-    func configureCell(
-        _ reviewItem: Review,
-        _ isOwn: Bool = false
-    ) {
+    func configureCell(_ reviewItem: Review) {
         let member = reviewItem.member
         let comment = reviewItem.comment
         
         self.userInfoButton.configureUser(member)
-        self.userInfoButton.optionButton.isHidden = member.isMyProfile && !isOwn
-        self.commentLabel.text = comment.content
         
+        self.commentLabel.text = comment.content
         if comment.imagePaths.isEmpty {
             self.photoListView.isHidden = true
+            
             self.photoListView.snp.remakeConstraints {
                 $0.top.equalTo(self.commentLabel.snp.bottom)
                 $0.leading.trailing.equalToSuperview()

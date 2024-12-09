@@ -41,9 +41,6 @@ final class FeedCollectionViewCell: UICollectionViewCell, BaseViewType {
     var bookmarkButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.storeInfoButton.bookmarkButton.buttonTapPublisher
     }
-    var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
-        return self.userInfoButton.optionButton.buttonTapPublisher
-    }
     
     // MARK: - init
 
@@ -124,25 +121,26 @@ final class FeedCollectionViewCell: UICollectionViewCell, BaseViewType {
     private func cellTapped() {
         self.cellDidTapSubject.send(())
     }
+    
+    func userInfo() -> UserInfoButton {
+        self.userInfoButton
+    }
 }
 
 // MARK: - Public - func
 extension FeedCollectionViewCell {    
-    func configureCell(
-        _ reviewItem: Review,
-        _ isOwn: Bool = false
-    ) {
+    func configureCell(_ reviewItem: Review) {
         let member = reviewItem.member
         let store = reviewItem.store
         let comment = reviewItem.comment
         
         self.userInfoButton.configureUser(member)
-        self.userInfoButton.optionButton.isHidden = member.isMyProfile && !isOwn
         self.storeInfoButton.configureStore(store)
-        self.commentLabel.text = comment.content
         
+        self.commentLabel.text = comment.content
         if comment.imagePaths.isEmpty {
             self.photoListView.isHidden = true
+            
             self.storeInfoButton.snp.remakeConstraints {
                 $0.top.equalTo(self.commentLabel.snp.bottom).offset(10)
                 $0.leading.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)

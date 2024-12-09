@@ -519,12 +519,12 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		CB15A0722D06B6C300A1EE38 /* View */ = {
+		CB15A0722D06B6C300A1EE38 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				CBDE390629719CB400DDE49A /* SelectedStoreView.swift */,
 			);
-			path = View;
+			path = Component;
 			sourceTree = "<group>";
 		};
 		CB15A0762D06BDF500A1EE38 /* User */ = {
@@ -1170,7 +1170,7 @@
 		CBADC2B02955A13800E56C93 /* CreateReviewScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB15A0722D06B6C300A1EE38 /* View */,
+				CB15A0722D06B6C300A1EE38 /* Component */,
 				CBD062DA2D0310C400127A0D /* PhotoesSelectScene */,
 				CBD062DB2D0310EE00127A0D /* CreateReviewScene */,
 				CBD062DC2D03111000127A0D /* SearchStoreScene */,

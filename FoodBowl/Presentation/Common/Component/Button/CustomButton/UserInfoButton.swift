@@ -5,6 +5,7 @@
 //  Created by COBY_PRO on 2023/11/14.
 //
 
+import Combine
 import UIKit
 
 import Kingfisher
@@ -22,15 +23,24 @@ final class UserInfoButton: UIButton, BaseViewType {
         $0.layer.borderColor = UIColor.grey002.cgColor
         $0.layer.borderWidth = 1
     }
+    
     private let userNameLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .medium)
         $0.textColor = .mainTextColor
     }
+    
     private let userFollowerLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .light)
         $0.textColor = .subTextColor
     }
-    let optionButton = OptionButton()
+    
+    private let optionButton = OptionButton()
+    
+    // MARK: - property
+    
+    var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.optionButton.buttonTapPublisher
+    }
     
     // MARK: - init
     
