@@ -77,6 +77,9 @@ final class SplashViewModel: NSObject {
                     self.isLoginSubject.send(.success(false))
                 }
             } catch(let error) {
+                KeychainManager.clear()
+                UserDefaultHandler.clearAllData()
+                
                 self.isLoginSubject.send(.failure(error))
             }
         }
