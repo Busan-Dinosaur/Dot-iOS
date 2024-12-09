@@ -46,6 +46,7 @@ final class MapViewModel: NSObject {
         let reviews: AnyPublisher<Result<[Review], Error>, Never>
         let moreReviews: AnyPublisher<Result<[Review], Error>, Never>
         let isBookmarked: AnyPublisher<Result<Int, Error>, Never>
+        let isRemoved: AnyPublisher<Result<Int, Error>, Never>
     }
     
     func transform(from input: Input) -> Output {
@@ -114,7 +115,8 @@ final class MapViewModel: NSObject {
             stores: self.storesSubject.eraseToAnyPublisher(),
             reviews: self.reviewsSubject.eraseToAnyPublisher(),
             moreReviews: self.moreReviewsSubject.eraseToAnyPublisher(),
-            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher()
+            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher(),
+            isRemoved: self.isRemovedSubject.eraseToAnyPublisher()
         )
     }
     

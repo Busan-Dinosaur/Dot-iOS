@@ -165,6 +165,21 @@ final class MapViewController: UIViewController, Navigationable {
                 }
             })
             .store(in: &self.cancellable)
+        
+        output.isRemoved
+              .receive(on: DispatchQueue.main)
+              .sink(receiveValue: { [weak self] result in
+                  switch result {
+                  case .success(let reviewId):
+                      self?.deleteReview(reviewId)
+                  case .failure(let error):
+                      self?.makeErrorAlert(
+                          title: "에러",
+                          error: error
+                      )
+                  }
+              })
+              .store(in: &self.cancellable)
     }
     
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
