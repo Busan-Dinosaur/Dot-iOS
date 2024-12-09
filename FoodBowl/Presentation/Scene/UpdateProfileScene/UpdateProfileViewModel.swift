@@ -109,6 +109,7 @@ final class UpdateProfileViewModel: NSObject, BaseViewModelType {
             do {
                 try await profileUpdate
                 try await imageUpdate
+                UserDefaultHandler.setNickname(nickname: nickname)
                 self.isCompletedSubject.send(.success(()))
             } catch(let error) {
                 self.isEnabled = true
