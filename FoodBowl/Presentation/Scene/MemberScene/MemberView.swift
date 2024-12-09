@@ -36,7 +36,7 @@ final class MemberView: UIView, BaseViewType {
     }
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
-    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48 - 60
+    private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 40 - 60
 
     // MARK: - init
     
@@ -62,7 +62,6 @@ final class MemberView: UIView, BaseViewType {
         self.memberProfileView.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
         }
         
         self.categoryListView.snp.makeConstraints {

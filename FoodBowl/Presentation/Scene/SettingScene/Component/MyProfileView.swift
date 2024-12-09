@@ -105,6 +105,10 @@ final class MyProfileView: UIView, BaseViewType {
             $0.width.equalTo(50)
             $0.height.equalTo(30)
         }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(60)
+        }
     }
     
     func configureUI() {

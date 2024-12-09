@@ -45,7 +45,6 @@ final class SettingView: UIView, BaseViewType {
         self.myProfileView.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
         }
 
         self.listTableView.snp.makeConstraints {
