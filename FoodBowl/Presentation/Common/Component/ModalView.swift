@@ -107,7 +107,9 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
                 let targetStateIndex = self.closestStateIndex(to: currentTopConstraint.layoutConstraints.first!.constant)
                 self.currentStateIndex = targetStateIndex
                 let targetConstant = -self.states[targetStateIndex]
-                self.animate(to: targetConstant)
+
+                // 애니메이션 실행
+                self.animate(to: targetConstant, velocity: velocity)
                 self.updateCornerRadius(for: targetStateIndex)
                 self.didChangeState?(self.currentStateIndex)
             }
@@ -131,11 +133,19 @@ class ModalView: UIView, UIGestureRecognizerDelegate {
         return closestIndex
     }
 
-    private func animate(to targetConstant: CGFloat) {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.snapTopConstraint?.update(offset: targetConstant)
-            self.superview?.layoutIfNeeded()
-        })
+    private func animate(to targetConstant: CGFloat, velocity: CGPoint) {
+        let springVelocity = min(abs(velocity.y / 1000), 2.0) // 스프링 속도 제한
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            usingSpringWithDamping: 0.8, // 스프링 효과
+            initialSpringVelocity: springVelocity,
+            options: [.curveEaseOut],
+            animations: {
+                self.snapTopConstraint?.update(offset: targetConstant)
+                self.superview?.layoutIfNeeded()
+            }
+        )
     }
 
     private func updateCornerRadius(for stateIndex: Int) {
