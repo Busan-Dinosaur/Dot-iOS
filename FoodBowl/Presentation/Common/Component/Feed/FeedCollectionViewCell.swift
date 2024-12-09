@@ -5,6 +5,7 @@
 //  Created by COBY_PRO on 2022/12/23.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -21,15 +22,28 @@ final class FeedCollectionViewCell: UICollectionViewCell, BaseViewType {
         $0.numberOfLines = 0
     }
     private let photoListView = PhotoListView()
-    let storeInfoButton = StoreInfoButton()
+    private let storeInfoButton = StoreInfoButton()
     
     // MARK: - property
     
-    var userButtonTapAction: ((FeedCollectionViewCell) -> Void)?
-    var optionButtonTapAction: ((FeedCollectionViewCell) -> Void)?
-    var cellTapAction: ((FeedCollectionViewCell) -> Void)?
-    var storeButtonTapAction: ((FeedCollectionViewCell) -> Void)?
-    var bookmarkButtonTapAction: ((FeedCollectionViewCell) -> Void)?
+    var cancellable: Set<AnyCancellable> = Set()
+    
+    private let cellDidTapSubject = PassthroughSubject<Void, Never>()
+    var cellDidTapPublisher: AnyPublisher<Void, Never> {
+        return cellDidTapSubject.eraseToAnyPublisher()
+    }
+    var userInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.userInfoButton.buttonTapPublisher
+    }
+    var storeInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.storeInfoButton.buttonTapPublisher
+    }
+    var bookmarkButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.storeInfoButton.bookmarkButton.buttonTapPublisher
+    }
+    var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.userInfoButton.optionButton.buttonTapPublisher
+    }
     
     // MARK: - init
 
@@ -95,19 +109,20 @@ final class FeedCollectionViewCell: UICollectionViewCell, BaseViewType {
         return layoutAttributes
     }
     
-    private func setupAction() {
-        self.userInfoButton.addAction(UIAction { _ in self.userButtonTapAction?(self) }, for: .touchUpInside)
-        self.userInfoButton.optionButton.addAction(UIAction { _ in self.optionButtonTapAction?(self) }, for: .touchUpInside)
-        self.storeInfoButton.addAction(UIAction { _ in self.storeButtonTapAction?(self) }, for: .touchUpInside)
-        self.storeInfoButton.bookmarkButton.addAction(UIAction { _ in self.bookmarkButtonTapAction?(self) }, for: .touchUpInside)
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        self.cancellable.removeAll()
+    }
+    
+    private func setupAction() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cellTapped))
         self.addGestureRecognizer(tapGesture)
     }
     
-    @objc 
+    @objc
     private func cellTapped() {
-        self.cellTapAction?(self)
+        self.cellDidTapSubject.send(())
     }
 }
 

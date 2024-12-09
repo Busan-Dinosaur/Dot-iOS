@@ -51,7 +51,6 @@ final class MapView: UIView, BaseViewType {
     var settingButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.settingButton.buttonTapPublisher
     }
-    let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
     private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48

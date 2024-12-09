@@ -30,6 +30,7 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     private let viewModel: any MemberViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
+    private let bookmarkButtonDidTapPublisher: PassthroughSubject<(Int, Bool), Never> = PassthroughSubject()
     private let viewWillAppearPublisher: PassthroughSubject<Void, Never> = PassthroughSubject()
     
     private var markers: [Marker] = []
@@ -90,7 +91,7 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
             setCategory: self.memberView.categoryView().setCategoryPublisher.eraseToAnyPublisher(),
             followMember: self.memberView.profileView().followButtonDidTapPublisher.eraseToAnyPublisher(),
             customLocation: self.memberView.locationPublisher.eraseToAnyPublisher(),
-            bookmarkButtonDidTap: self.memberView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            bookmarkButtonDidTap: self.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.memberView.feedView().collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
             refreshControl: self.memberView.feedView().refreshPublisher.eraseToAnyPublisher()
         )
@@ -199,36 +200,36 @@ final class MemberViewController: UIViewController, Navigationable, Optionable {
     }
     
     private func bindCell(_ cell: FeedCollectionViewCell, with item: Review) {
-        cell.userButtonTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
+        cell.cellDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.viewModel.presentReviewDetailViewController(id: item.comment.id)
+            }
+            .store(in: &cell.cancellable)
+        
+        cell.userInfoButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
                 self?.viewModel.presentMemberViewController(id: item.member.id)
             }
-        }
+            .store(in: &cell.cancellable)
         
-        cell.optionButtonTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
+        cell.storeInfoButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.viewModel.presentStoreDetailViewController(id: item.store.id)
+            }
+            .store(in: &cell.cancellable)
+        
+        cell.optionButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
                 self?.presentReviewOptionAlert(
                     reviewId: item.comment.id,
                     isMyReview: item.member.isMyProfile
                 )
             }
-        }
-        
-        cell.storeButtonTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.presentStoreDetailViewController(id: item.store.id)
-            }
-        }
-        
-        cell.bookmarkButtonTapAction = { [weak self] _ in
-            self?.memberView.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
-        }
-        
-        cell.cellTapAction = { [weak self] _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.presentReviewDetailViewController(id: item.comment.id)
-            }
-        }
+            .store(in: &cell.cancellable)
     }
     
     private func bindUI() {

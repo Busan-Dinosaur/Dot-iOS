@@ -125,7 +125,6 @@ extension FeedListView {
             )
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = ConstantSize.sectionContentInset
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
@@ -139,6 +138,7 @@ extension FeedListView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = ConstantSize.groupInterItemSpacing
+            section.contentInsets = ConstantSize.sectionContentInset
             
             return section
         }

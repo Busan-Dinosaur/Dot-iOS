@@ -33,7 +33,6 @@ final class MemberView: UIView, BaseViewType {
     var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.optionButton.buttonTapPublisher
     }
-    let bookmarkButtonDidTapPublisher = PassthroughSubject<(Int, Bool), Never>()
     
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
     private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48 - 60

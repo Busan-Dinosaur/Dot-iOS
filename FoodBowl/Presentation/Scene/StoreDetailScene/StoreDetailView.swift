@@ -114,7 +114,6 @@ extension StoreDetailView {
             )
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = ConstantSize.sectionContentInset
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
@@ -128,6 +127,7 @@ extension StoreDetailView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = ConstantSize.groupInterItemSpacing
+            section.contentInsets = ConstantSize.sectionContentInset
             
             return section
         }
