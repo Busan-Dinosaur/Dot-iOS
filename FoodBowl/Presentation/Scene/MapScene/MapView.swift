@@ -52,6 +52,7 @@ final class MapView: UIView, BaseViewType {
         return self.settingButton.buttonTapPublisher
     }
     
+    private var previousCenter: CLLocationCoordinate2D?
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
     private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48
 
@@ -170,6 +171,21 @@ extension MapView: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let center = mapView.centerCoordinate
+
+        // 이전 좌표와 현재 좌표를 비교하여 큰 변화가 없는 경우 return
+        if let previousCenter = self.previousCenter {
+            let threshold: CLLocationDegrees = 0.001 // 변경 감지 임계값
+            let deltaX = abs(center.latitude - previousCenter.latitude)
+            let deltaY = abs(center.longitude - previousCenter.longitude)
+            if deltaX < threshold && deltaY < threshold {
+                return
+            }
+        }
+
+        // 업데이트된 좌표를 저장
+        self.previousCenter = center
+
+        // 현재 사용자 위치가 유효한 경우에만 전송
         if let currentLocation = LocationManager.shared.manager.location?.coordinate {
             let visibleMapRect = mapView.visibleMapRect
             let topLeftCoordinate = MKMapPoint(x: visibleMapRect.minX, y: visibleMapRect.minY).coordinate
