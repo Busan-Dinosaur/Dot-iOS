@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StoreDetailViewController: UIViewController, Navigationable, Optionable, Helperable {
+final class StoreDetailViewController: UIViewController, Navigationable, Optionable {
     
     enum Section: CaseIterable {
         case main
@@ -90,7 +90,7 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
                 case .success(let store):
                     self?.storeDetailView.storeHeaderView.configureHeader(store)
                     self?.storeDetailView.storeHeaderView.mapButtonTapAction = { _ in
-                        self?.presentShowWebViewController(url: store.url)
+//                        self?.presentShowWebViewController(url: store.url)
                     }
                 case .failure(let error):
                     self?.makeErrorAlert(
@@ -162,14 +162,14 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         cell.cellDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.presentReviewDetailViewController(id: item.comment.id)
+//                self?.presentReviewDetailViewController(id: item.comment.id)
             }
             .store(in: &cell.cancellable)
         
         cell.userInfoButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.presentMemberViewController(id: item.member.id)
+//                self?.presentMemberViewController(id: item.member.id)
             }
             .store(in: &cell.cancellable)
         

@@ -64,17 +64,17 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentReviewDetailViewController(id: Int) {
-        let repository = ReviewDetailRepositoryImpl()
-        let usecase = ReviewDetailUsecaseImpl(repository: repository)
-        let viewModel = ReviewDetailViewModel(
-            usecase: usecase,
-            reviewId: id
-        )
-        let viewController = ReviewDetailViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = ReviewDetailRepositoryImpl()
+//        let usecase = ReviewDetailUsecaseImpl(repository: repository)
+//        let viewModel = ReviewDetailViewModel(
+//            usecase: usecase,
+//            reviewId: id
+//        )
+//        let viewController = ReviewDetailViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentPhotoesSelectViewController() {

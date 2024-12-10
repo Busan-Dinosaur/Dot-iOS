@@ -89,8 +89,10 @@ final class MemberCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = ReviewDetailRepositoryImpl()
         let usecase = ReviewDetailUsecaseImpl(repository: repository)
+        let coordinator = ReviewDetailCoordinator(navigationController: navigationController)
         let viewModel = ReviewDetailViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             reviewId: id
         )
         let viewController = ReviewDetailViewController(viewModel: viewModel)

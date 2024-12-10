@@ -93,6 +93,10 @@ final class UserInfoButton: UIButton, BaseViewType {
     func configureUI() {
         self.backgroundColor = .mainBackgroundColor
     }
+    
+    func option() -> OptionButton {
+        self.optionButton
+    }
 }
 
 extension UserInfoButton {

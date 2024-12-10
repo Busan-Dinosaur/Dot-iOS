@@ -105,13 +105,13 @@ final class MapViewController: UIViewController, Navigationable {
         output.stores
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let stores):
-                    guard let self = self else { return }
                     self.setupMarkers(stores)
                     self.mapView.feedView().updateStoreCount(to: stores.count)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -122,13 +122,13 @@ final class MapViewController: UIViewController, Navigationable {
         output.reviews
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let reviews):
-                    guard let self = self else { return }
                     self.loadReviews(reviews)
                     self.mapView.feedView().refreshControl().endRefreshing()
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -139,11 +139,12 @@ final class MapViewController: UIViewController, Navigationable {
         output.moreReviews
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let reviews):
-                    self?.loadMoreReviews(reviews)
+                    self.loadMoreReviews(reviews)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -154,11 +155,12 @@ final class MapViewController: UIViewController, Navigationable {
         output.isBookmarked
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let storeId):
-                    self?.updateBookmark(storeId)
+                    self.updateBookmark(storeId)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -169,11 +171,12 @@ final class MapViewController: UIViewController, Navigationable {
         output.isRemoved
               .receive(on: DispatchQueue.main)
               .sink(receiveValue: { [weak self] result in
+                  guard let self = self else { return }
                   switch result {
                   case .success(let reviewId):
-                      self?.deleteReview(reviewId)
+                      self.deleteReview(reviewId)
                   case .failure(let error):
-                      self?.makeErrorAlert(
+                      self.makeErrorAlert(
                           title: "에러",
                           error: error
                       )
@@ -186,47 +189,52 @@ final class MapViewController: UIViewController, Navigationable {
         cell.cellDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.viewModel.presentReviewDetailViewController(id: item.comment.id)
+                guard let self = self else { return }
+                self.viewModel.presentReviewDetailViewController(id: item.comment.id)
             }
             .store(in: &cell.cancellable)
         
         cell.userInfoButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.viewModel.presentMemberViewController(id: item.member.id)
+                guard let self = self else { return }
+                self.viewModel.presentMemberViewController(id: item.member.id)
             }
             .store(in: &cell.cancellable)
         
         cell.storeInfoButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.viewModel.presentStoreDetailViewController(id: item.store.id)
+                guard let self = self else { return }
+                self.viewModel.presentStoreDetailViewController(id: item.store.id)
             }
             .store(in: &cell.cancellable)
         
         cell.bookmarkButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
+                guard let self = self else { return }
+                self.bookmarkButtonDidTapPublisher.send((item.store.id, item.store.isBookmarked))
             }
             .store(in: &cell.cancellable)
         
         cell.userInfo().optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
+                guard let self = self else { return }
                 if item.member.isMyProfile {
-                    self?.viewModel.presentMyReviewOptionAlert(
+                    self.viewModel.presentMyReviewOptionAlert(
                         onUpdate: {
-                            self?.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
+                            self.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
                         },
                         onDelete: {
-                            self?.removeButtonDidTapPublisher.send(item.comment.id)
+                            self.removeButtonDidTapPublisher.send(item.comment.id)
                         }
                     )
                 } else {
-                    self?.viewModel.presentReviewOptionAlert(
+                    self.viewModel.presentReviewOptionAlert(
                         onBlame: {
-                            self?.viewModel.presentBlameViewController(
+                            self.viewModel.presentBlameViewController(
                                 targetId: item.store.id,
                                 blameTarget: "REVIEW"
                             )
@@ -241,21 +249,24 @@ final class MapViewController: UIViewController, Navigationable {
         self.mapView.searchBarButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.viewModel.presentFindViewController()
+                guard let self = self else { return }
+                self.viewModel.presentFindViewController()
             })
             .store(in: &self.cancellable)
         
         self.mapView.plusButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.viewModel.presentPhotoesSelectViewController()
+                guard let self = self else { return }
+                self.viewModel.presentPhotoesSelectViewController()
             })
             .store(in: &self.cancellable)
         
         self.mapView.settingButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.viewModel.presentSettingViewController()
+                guard let self = self else { return }
+                self.viewModel.presentSettingViewController()
             })
             .store(in: &self.cancellable)
         

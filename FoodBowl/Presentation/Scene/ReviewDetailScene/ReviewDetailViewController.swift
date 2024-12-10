@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ReviewDetailViewController: UIViewController, Navigationable, Optionable, Helperable {
+final class ReviewDetailViewController: UIViewController, Navigationable, Optionable {
     
     // MARK: - ui component
     
@@ -19,12 +19,14 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any ReviewDetailViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
+    
+    private let removeButtonDidTapPublisher = PassthroughSubject<Void, Never>()
 
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any ReviewDetailViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,7 +64,8 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
         guard let viewModel = self.viewModel as? ReviewDetailViewModel else { return nil }
         let input = ReviewDetailViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
-            bookmarkButtonDidTap: self.reviewDetailView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher()
+            bookmarkButtonDidTap: self.reviewDetailView.storeInfoButton.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            removeButtonDidTap: self.removeButtonDidTapPublisher.eraseToAnyPublisher()
         )
         return viewModel.transform(from: input)
     }
@@ -73,11 +76,12 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
         output.review
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let review):
-                    self?.reviewDetailView.configureReview(review)
+                    self.reviewDetailView.configureReview(review)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -88,17 +92,34 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
         output.isBookmarked
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success:
-                    self?.reviewDetailView.storeInfoButton.bookmarkButton.isSelected.toggle()
+                    self.reviewDetailView.storeInfoButton.bookmarkToggle()
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
                 }
             })
             .store(in: &self.cancellable)
+        
+        output.isRemoved
+              .receive(on: DispatchQueue.main)
+              .sink(receiveValue: { [weak self] result in
+                  guard let self = self else { return }
+                  switch result {
+                  case .success:
+                      self.viewModel.dismiss()
+                  case .failure(let error):
+                      self.makeErrorAlert(
+                          title: "에러",
+                          error: error
+                      )
+                  }
+              })
+              .store(in: &self.cancellable)
     }
     
     private func bindUI() {
@@ -106,19 +127,24 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                guard let viewModel = self.viewModel as? ReviewDetailViewModel else { return }
-                self.presentMemberViewController(id: viewModel.memberId)
+                self.viewModel.presentMemberViewController()
             })
             .store(in: &self.cancellable)
         
         self.reviewDetailView.optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                guard let self,
-                      let viewModel = self.viewModel as? ReviewDetailViewModel else { return }
-                self.presentReviewOptionAlert(
-                    reviewId: viewModel.reviewId,
-                    isMyReview: viewModel.reviewId == UserDefaultStorage.id
+                guard let self = self else { return }
+                self.viewModel.presentOptionAlert(
+                    onBlame: {
+                        self.viewModel.presentBlameViewController()
+                    },
+                    onUpdate: {
+                        self.viewModel.presentUpdateReviewViewController()
+                    },
+                    onDelete: {
+                        self.removeButtonDidTapPublisher.send()
+                    }
                 )
             })
             .store(in: &self.cancellable)
@@ -127,8 +153,15 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                guard let viewModel = self.viewModel as? ReviewDetailViewModel else { return }
-                self.presentStoreDetailViewController(id: viewModel.storeId)
+                self.viewModel.presentStoreDetailViewController()
+            })
+            .store(in: &self.cancellable)
+        
+        self.reviewDetailView.storeInfoButton.mapButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] url in
+                guard let self = self else { return }
+                self.viewModel.presentShowWebViewController(url: url)
             })
             .store(in: &self.cancellable)
     }

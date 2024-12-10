@@ -1,22 +1,24 @@
 //
-//  MapCoordinator.swift
+//  ReviewDetailCoordinator.swift
 //  FoodBowl
 //
-//  Created by Coby on 12/3/24.
+//  Created by Coby on 12/10/24.
 //
 
 import UIKit
 
-protocol MapViewModelType: BaseViewModelType {
-    func presentFindViewController()
-    func presentPhotoesSelectViewController()
-    func presentUpdateReviewViewController(reviewId: Int)
-    func presentSettingViewController()
-    func presentRecommendViewController()
-    func presentMemberViewController(id: Int)
-    func presentStoreDetailViewController(id: Int)
-    func presentReviewDetailViewController(id: Int)
-    func presentBlameViewController(targetId: Int, blameTarget: String)
+protocol ReviewDetailViewModelType: BaseViewModelType {
+    func dismiss()
+    func presentMemberViewController()
+    func presentStoreDetailViewController()
+    func presentShowWebViewController(url: String)
+    func presentUpdateReviewViewController()
+    func presentBlameViewController()
+    func presentOptionAlert(
+        onBlame: @escaping () -> Void,
+        onUpdate: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    )
     func presentReviewOptionAlert(onBlame: @escaping () -> Void)
     func presentMyReviewOptionAlert(
         onUpdate: @escaping () -> Void,
@@ -24,7 +26,7 @@ protocol MapViewModelType: BaseViewModelType {
     )
 }
 
-final class MapCoordinator: NSObject {
+final class ReviewDetailCoordinator: NSObject {
     
     private weak var navigationController: UINavigationController?
     
@@ -33,56 +35,9 @@ final class MapCoordinator: NSObject {
         super.init()
     }
     
-    func presentFindViewController() {
-        guard let navigationController = self.navigationController else { return }
-        let repository = FindRepositoryImpl()
-        let usecase = FindUsecaseImpl(repository: repository)
-        let viewModel = FindViewModel(usecase: usecase)
-        let viewController = FindViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func presentPhotoesSelectViewController() {
-        guard let navigationController = self.navigationController else { return }
-        let coordinator = PhotoesSelectCoordinator(navigationController: navigationController)
-        let viewModel = PhotoesSelectViewModel(coordinator: coordinator)
-        let viewController = PhotoesSelectViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func presentUpdateReviewViewController(reviewId: Int) {
-        guard let navigationController = self.navigationController else { return }
-        let repository = UpdateReviewRepositoryImpl()
-        let usecase = UpdateReviewUsecaseImpl(repository: repository)
-        let coordinator = UpdateReviewCoordinator(navigationController: navigationController)
-        let viewModel = UpdateReviewViewModel(usecase: usecase, coordinator: coordinator, reviewId: reviewId)
-        let viewController = UpdateReviewViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func presentSettingViewController() {
-        guard let navigationController = self.navigationController else { return }
-        let repository = SettingRepositoryImpl()
-        let usecase = SettingUsecaseImpl(repository: repository)
-        let coordinator = SettingCoordinator(navigationController: navigationController)
-        let viewModel = SettingViewModel(usecase: usecase, coordinator: coordinator)
-        let viewController = SettingViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func presentRecommendViewController() {
-        guard let navigationController = self.navigationController else { return }
-        let repository = RecommendRepositoryImpl()
-        let usecase = RecommendUsecaseImpl(repository: repository)
-        let coordinator = RecommendCoordinator(navigationController: navigationController)
-        let viewModel = RecommendViewModel(usecase: usecase, coordinator: coordinator)
-        let viewController = RecommendViewController(viewModel: viewModel)
-        
-        navigationController.pushViewController(viewController, animated: true)
+    func dismiss() {
+        guard let navigationController = navigationController else { return }
+        navigationController.popViewController(animated: true)
     }
     
     func presentMemberViewController(id: Int) {
@@ -113,17 +68,20 @@ final class MapCoordinator: NSObject {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func presentReviewDetailViewController(id: Int) {
+    func presentShowWebViewController(url: String) {
         guard let navigationController = self.navigationController else { return }
-        let repository = ReviewDetailRepositoryImpl()
-        let usecase = ReviewDetailUsecaseImpl(repository: repository)
-        let coordinator = ReviewDetailCoordinator(navigationController: navigationController)
-        let viewModel = ReviewDetailViewModel(
-            usecase: usecase,
-            coordinator: coordinator,
-            reviewId: id
-        )
-        let viewController = ReviewDetailViewController(viewModel: viewModel)
+        let viewController = ShowWebViewController(url: url)
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentUpdateReviewViewController(reviewId: Int) {
+        guard let navigationController = self.navigationController else { return }
+        let repository = UpdateReviewRepositoryImpl()
+        let usecase = UpdateReviewUsecaseImpl(repository: repository)
+        let coordinator = UpdateReviewCoordinator(navigationController: navigationController)
+        let viewModel = UpdateReviewViewModel(usecase: usecase, coordinator: coordinator, reviewId: reviewId)
+        let viewController = UpdateReviewViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -184,7 +142,7 @@ final class MapCoordinator: NSObject {
     }
 }
 
-extension MapCoordinator {
+extension ReviewDetailCoordinator {
     private func makeRequestAlert(title: String, message: String, okAction: @escaping () -> Void) {
         guard let navigationController = self.navigationController else { return }
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

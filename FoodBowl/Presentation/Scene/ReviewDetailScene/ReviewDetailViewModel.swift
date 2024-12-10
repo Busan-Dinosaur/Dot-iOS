@@ -8,37 +8,43 @@
 import Combine
 import Foundation
 
-final class ReviewDetailViewModel: BaseViewModelType {
+final class ReviewDetailViewModel {
     
     // MARK: - property
     
-    let reviewId: Int
-    var memberId: Int = 0
-    var storeId: Int = 0
+    private let reviewId: Int
+    private var memberId: Int?
+    private var storeId: Int?
     
     private let usecase: ReviewDetailUsecase
+    private let coordinator: ReviewDetailCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let reviewSubject: PassthroughSubject<Result<Review, Error>, Never> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Void, Error>, Never> = PassthroughSubject()
+    private let isRemovedSubject: PassthroughSubject<Result<Void, Error>, Never> = PassthroughSubject()
     
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
         let bookmarkButtonDidTap: AnyPublisher<Bool, Never>
+        let removeButtonDidTap: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let review: AnyPublisher<Result<Review, Error>, Never>
         let isBookmarked: AnyPublisher<Result<Void, Error>, Never>
+        let isRemoved: AnyPublisher<Result<Void, Error>, Never>
     }
     
     // MARK: - init
 
     init(
         usecase: ReviewDetailUsecase,
+        coordinator: ReviewDetailCoordinator,
         reviewId: Int
     ) {
         self.usecase = usecase
+        self.coordinator = coordinator
         self.reviewId = reviewId
     }
     
@@ -59,9 +65,17 @@ final class ReviewDetailViewModel: BaseViewModelType {
             })
             .store(in: &self.cancellable)
         
+        input.removeButtonDidTap
+            .sink(receiveValue: { [weak self] in
+                guard let self = self else { return }
+                self.removeReview()
+            })
+            .store(in: &self.cancellable)
+        
         return Output(
             review: self.reviewSubject.eraseToAnyPublisher(),
-            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher()
+            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher(),
+            isRemoved: self.isRemovedSubject.eraseToAnyPublisher()
         )
     }
     
@@ -91,7 +105,8 @@ final class ReviewDetailViewModel: BaseViewModelType {
     func createBookmark() {
         Task {
             do {
-                try await self.usecase.createBookmark(storeId: self.storeId)
+                guard let id = self.storeId else { return }
+                try await self.usecase.createBookmark(storeId: id)
                 self.isBookmarkedSubject.send(.success(()))
             } catch(let error) {
                 self.isBookmarkedSubject.send(.failure(error))
@@ -102,11 +117,79 @@ final class ReviewDetailViewModel: BaseViewModelType {
     func removeBookmark() {
         Task {
             do {
-                try await self.usecase.removeBookmark(storeId: self.storeId)
+                guard let id = self.storeId else { return }
+                try await self.usecase.removeBookmark(storeId: id)
                 self.isBookmarkedSubject.send(.success(()))
             } catch(let error) {
                 self.isBookmarkedSubject.send(.failure(error))
             }
         }
+    }
+    
+    private func removeReview() {
+        Task {
+            do {
+                try await self.usecase.removeReview(id: self.reviewId)
+                self.isRemovedSubject.send(.success(()))
+            } catch(let error) {
+                self.isRemovedSubject.send(.failure(error))
+            }
+        }
+    }
+}
+
+extension ReviewDetailViewModel: ReviewDetailViewModelType {
+    
+    func dismiss() {
+        self.coordinator?.dismiss()
+    }
+    
+    func presentMemberViewController() {
+        guard let id = self.memberId else { return }
+        self.coordinator?.presentMemberViewController(id: id)
+    }
+    
+    func presentStoreDetailViewController() {
+        guard let id = self.storeId else { return }
+        self.coordinator?.presentStoreDetailViewController(id: id)
+    }
+    
+    func presentShowWebViewController(url: String) {
+        self.coordinator?.presentShowWebViewController(url: url)
+    }
+    
+    func presentUpdateReviewViewController() {
+        self.coordinator?.presentUpdateReviewViewController(reviewId:  self.reviewId)
+    }
+    
+    func presentBlameViewController() {
+        guard let id = self.storeId else { return }
+        self.coordinator?.presentBlameViewController(targetId: id, blameTarget: "REVIEW")
+    }
+    
+    func presentOptionAlert(
+        onBlame: @escaping () -> Void,
+        onUpdate: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        if self.memberId == UserDefaultStorage.id {
+            self.presentMyReviewOptionAlert(onUpdate: onUpdate, onDelete: onDelete)
+        } else {
+            self.presentReviewOptionAlert(onBlame: onBlame)
+        }
+    }
+    
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void) {
+        self.coordinator?.presentReviewOptionAlert(onBlame: onBlame)
+    }
+    
+    func presentMyReviewOptionAlert(
+        onUpdate: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    ) {
+        self.coordinator?.presentMyReviewOptionAlert(
+            onUpdate: onUpdate,
+            onDelete: onDelete
+        )
     }
 }

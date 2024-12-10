@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class SearchStoreViewController: UIViewController, Keyboardable, Helperable {
+final class SearchStoreViewController: UIViewController, Keyboardable {
     
     // MARK: - ui component
     

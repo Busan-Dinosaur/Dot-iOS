@@ -79,17 +79,20 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.makeAlert(
+                    guard let self = self else { return }
+                    self.makeAlert(
                         title: "후기",
                         message: "후기가 등록되었어요.",
                         okAction: { _ in
                             DispatchQueue.main.async { [weak self] in
-                                self?.viewModel.dismiss()
+                                guard let self = self else { return }
+                                self.viewModel.dismiss()
                             }
                         }
                     )
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    guard let self = self else { return }
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -104,14 +107,16 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
         self.createReviewView.closeButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.makeRequestAlert(
+                guard let self = self else { return }
+                self.makeRequestAlert(
                     title: "후기",
                     message: "후기를 작성하지 않으시나요?",
                     okTitle: "네",
                     cancelTitle: "아니요",
                     okAction: { _ in
                         DispatchQueue.main.async { [weak self] in
-                            self?.viewModel.dismiss()
+                            guard let self = self else { return }
+                            self.viewModel.dismiss()
                         }
                     }
                 )
@@ -121,21 +126,24 @@ final class CreateReviewViewController: UIViewController, Navigationable, Keyboa
         self.createReviewView.searchBarButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
-                self?.viewModel.presentSearchStoreViewController(location: viewModel.location)
+                guard let self = self else { return }
+                self.viewModel.presentSearchStoreViewController(location: viewModel.location)
             })
             .store(in: &self.cancellable)
         
         self.createReviewView.makeAlertPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] message in
-                self?.makeAlert(title: message)
+                guard let self = self else { return }
+                self.makeAlert(title: message)
             })
             .store(in: &self.cancellable)
         
         self.createReviewView.selectedStore().mapButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
-                self?.viewModel.presentShowWebViewController(url: url)
+                guard let self = self else { return }
+                self.viewModel.presentShowWebViewController(url: url)
             })
             .store(in: &self.cancellable)
     }

@@ -44,14 +44,12 @@ final class ReviewDetailView: UIView, BaseViewType {
     var storeInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.storeInfoButton.buttonTapPublisher
     }
-    let bookmarkButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
     
     // MARK: - init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.baseInit()
-        self.setupAction()
     }
     
     @available(*, unavailable)
@@ -79,16 +77,6 @@ final class ReviewDetailView: UIView, BaseViewType {
     
     func configureUI() {
         self.backgroundColor = .mainBackgroundColor
-    }
-    
-    // MARK: - Private - func
-
-    private func setupAction() {
-        let bookmarkAction = UIAction { [weak self] _ in
-            guard let self = self else { return }
-            self.bookmarkButtonDidTapPublisher.send(self.storeInfoButton.bookmarkButton.isSelected)
-        }
-        self.storeInfoButton.bookmarkButton.addAction(bookmarkAction, for: .touchUpInside)
     }
     
     private func setupExistImageUI() {
@@ -151,7 +139,7 @@ final class ReviewDetailView: UIView, BaseViewType {
 extension ReviewDetailView {
     func configureReview(_ review: Review) {
         self.userInfoButton.configureUser(review.member)
-//        self.userInfoButton.optionButton.isHidden = UserDefaultStorage.id == review.member.id
+        self.userInfoButton.option().isHidden = UserDefaultStorage.id == review.member.id
         self.commentLabel.text = review.comment.content
         self.storeInfoButton.configureStore(review.store)
         
