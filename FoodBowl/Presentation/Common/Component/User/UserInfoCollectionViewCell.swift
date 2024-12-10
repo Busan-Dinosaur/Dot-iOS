@@ -5,6 +5,7 @@
 //  Created by COBY_PRO on 2023/01/18.
 //
 
+import Combine
 import UIKit
 
 import Kingfisher
@@ -30,12 +31,19 @@ final class UserInfoCollectionViewCell: UICollectionViewCell, BaseViewType {
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .light)
         $0.textColor = .subTextColor
     }
-    let followButton = FollowButton()
+    private let followButton = FollowButton()
     
     // MARK: - property
     
-    var cellTapAction: ((UserInfoCollectionViewCell) -> Void)?
-    var followButtonTapAction: ((UserInfoCollectionViewCell) -> Void)?
+    var cancellable: Set<AnyCancellable> = Set()
+    
+    private let cellDidTapSubject = PassthroughSubject<Void, Never>()
+    var cellDidTapPublisher: AnyPublisher<Void, Never> {
+        return cellDidTapSubject.eraseToAnyPublisher()
+    }
+    var followButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.followButton.buttonTapPublisher
+    }
 
     // MARK: - init
 
@@ -93,14 +101,13 @@ final class UserInfoCollectionViewCell: UICollectionViewCell, BaseViewType {
     }
     
     private func setupAction() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-        self.contentView.addGestureRecognizer(tapGesture)
-        self.followButton.addAction(UIAction { _ in self.followButtonTapAction?(self) }, for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cellTapped))
+        self.addGestureRecognizer(tapGesture)
     }
     
     @objc
     private func cellTapped() {
-        self.cellTapAction?(self)
+        self.cellDidTapSubject.send(())
     }
 }
 

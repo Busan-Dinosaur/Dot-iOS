@@ -131,33 +131,35 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentFollowerViewController(id: Int, isOwn: Bool) {
-        let repository = FollowRepositoryImpl()
-        let usecase = FollowUsecaseImpl(repository: repository)
-        let viewModel = FollowerViewModel(
-            usecase: usecase,
-            memberId: id,
-            isOwn: isOwn
-        )
-        let viewController = FollowerViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = FollowRepositoryImpl()
+//        let usecase = FollowUsecaseImpl(repository: repository)
+//        let viewModel = FollowerViewModel(
+//            usecase: usecase,
+//            memberId: id,
+//            isOwn: isOwn
+//        )
+//        let viewController = FollowerViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentFollowingViewController(id: Int, isOwn: Bool) {
-        let repository = FollowRepositoryImpl()
-        let usecase = FollowUsecaseImpl(repository: repository)
-        let viewModel = FollowingViewModel(
-            usecase: usecase,
-            memberId: id,
-            isOwn: isOwn
-        )
-        let viewController = FollowingViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = FollowRepositoryImpl()
+//        let usecase = FollowUsecaseImpl(repository: repository)
+//        let coordinator = FollowCoordinator(navigationController: navigationController)
+//        let viewModel = FollowingViewModel(
+//            usecase: usecase,
+//            coordinator: coordinator
+//            memberId: id,
+//            isOwn: isOwn
+//        )
+//        let viewController = FollowingViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentShowWebViewController(url: String) {
@@ -181,13 +183,13 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentRecommendViewController() {
-        let repository = RecommendRepositoryImpl()
-        let usecase = RecommendUsecaseImpl(repository: repository)
-        let viewModel = RecommendViewModel(usecase: usecase)
-        let viewController = RecommendViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = RecommendRepositoryImpl()
+//        let usecase = RecommendUsecaseImpl(repository: repository)
+//        let viewModel = RecommendViewModel(usecase: usecase)
+//        let viewController = RecommendViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
 }

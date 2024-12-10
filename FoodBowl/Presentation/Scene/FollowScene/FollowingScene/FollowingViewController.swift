@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class FollowingViewController: UIViewController, Navigationable, Helperable {
+final class FollowingViewController: UIViewController, Navigationable {
     
     enum Section: CaseIterable {
         case main
@@ -23,7 +23,7 @@ final class FollowingViewController: UIViewController, Navigationable, Helperabl
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any FollowViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Member>!
@@ -128,9 +128,19 @@ final class FollowingViewController: UIViewController, Navigationable, Helperabl
     }
     
     private func bindCell(_ cell: UserInfoCollectionViewCell, with item: Member) {
-        cell.followButtonTapAction = { [weak self] _ in
-            self?.followButtonDidTapPublisher.send((item.id, item.isFollowing))
-        }
+        cell.cellDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.viewModel.presentMemberViewController(id: item.id)
+            }
+            .store(in: &cell.cancellable)
+        
+        cell.followButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.followButtonDidTapPublisher.send((item.id, item.isFollowing))
+            }
+            .store(in: &cell.cancellable)
     }
     
     // MARK: - func
@@ -152,9 +162,6 @@ extension FollowingViewController {
             [weak self] cell, indexPath, item in
             guard let self = self else { return }
             cell.configureCell(item)
-            cell.cellTapAction = { _ in
-                self.presentMemberViewController(id: item.id)
-            }
             self.bindCell(cell, with: item)
         }
 

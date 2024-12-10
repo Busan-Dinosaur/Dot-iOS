@@ -226,6 +226,8 @@
 		CBE61913296C68D9005295AF /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE61912296C68D9005295AF /* PlusButton.swift */; };
 		CBEB005E2ADC2F8200F6EFED /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB005D2ADC2F8200F6EFED /* Double+Extension.swift */; };
 		CBEB00602ADC30AC00F6EFED /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB005F2ADC30AC00F6EFED /* Int+Extension.swift */; };
+		CBF2FB4E2D07FE7E00B40A38 /* RecommendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2FB4D2D07FE7E00B40A38 /* RecommendCoordinator.swift */; };
+		CBF2FB502D07FEE900B40A38 /* FollowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2FB4F2D07FEE900B40A38 /* FollowCoordinator.swift */; };
 		CBF926462B3FED74005E251B /* UpdateProfileImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF926452B3FED74005E251B /* UpdateProfileImageDTO.swift */; };
 		CBF926492B411C46005E251B /* BlameUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF926482B411C46005E251B /* BlameUsecase.swift */; };
 		CBF9264D2B411F45005E251B /* BlameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9264C2B411F45005E251B /* BlameViewModel.swift */; };
@@ -448,6 +450,8 @@
 		CBE61912296C68D9005295AF /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		CBEB005D2ADC2F8200F6EFED /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		CBEB005F2ADC30AC00F6EFED /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		CBF2FB4D2D07FE7E00B40A38 /* RecommendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCoordinator.swift; sourceTree = "<group>"; };
+		CBF2FB4F2D07FEE900B40A38 /* FollowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCoordinator.swift; sourceTree = "<group>"; };
 		CBF926452B3FED74005E251B /* UpdateProfileImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileImageDTO.swift; sourceTree = "<group>"; };
 		CBF926482B411C46005E251B /* BlameUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlameUsecase.swift; sourceTree = "<group>"; };
 		CBF9264C2B411F45005E251B /* BlameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlameViewModel.swift; sourceTree = "<group>"; };
@@ -1076,6 +1080,7 @@
 			children = (
 				CB9B926A2B821540001184BE /* RecommendViewController.swift */,
 				CB9B926C2B821548001184BE /* RecommendViewModel.swift */,
+				CBF2FB4D2D07FE7E00B40A38 /* RecommendCoordinator.swift */,
 			);
 			path = RecommendScene;
 			sourceTree = "<group>";
@@ -1206,6 +1211,7 @@
 			children = (
 				CBBAFCBB2D05F4B900F6A662 /* FollowerScene */,
 				CBBAFCBC2D05F4C300F6A662 /* FollowingScene */,
+				CBF2FB4F2D07FEE900B40A38 /* FollowCoordinator.swift */,
 			);
 			path = FollowScene;
 			sourceTree = "<group>";
@@ -1852,6 +1858,7 @@
 				CBC747B52A83DBE300F171F5 /* KeychainManager.swift in Sources */,
 				CBADC28329559BC900E56C93 /* ImageLiteral.swift in Sources */,
 				CBDA47E22CFEC5F900BFB88A /* MapCoordinator.swift in Sources */,
+				CBF2FB4E2D07FE7E00B40A38 /* RecommendCoordinator.swift in Sources */,
 				CBD1B5F12982B0A300B0AD51 /* SettingViewController.swift in Sources */,
 				CBDECABE2A6B07DE00259350 /* BookmarkButton.swift in Sources */,
 				CB5BFB132B3EEA5800B35062 /* SplashRepositoryImpl.swift in Sources */,
@@ -1869,6 +1876,7 @@
 				CB07CE0A2B6BB2C1001658E2 /* SplashViewController.swift in Sources */,
 				CB617A3A2AE24836000F7FFC /* Navigationable.swift in Sources */,
 				CB07CE0C2B6BB30C001658E2 /* SplashViewModel.swift in Sources */,
+				CBF2FB502D07FEE900B40A38 /* FollowCoordinator.swift in Sources */,
 				CBADC29429559BC900E56C93 /* Notification+Extension.swift in Sources */,
 				CB8306722B5999D500632789 /* ReviewByFeedDTO.swift in Sources */,
 				CBA7F182297DB319006088A0 /* SignViewController.swift in Sources */,

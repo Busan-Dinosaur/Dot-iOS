@@ -8,11 +8,12 @@
 import Combine
 import Foundation
 
-final class FollowerViewModel: BaseViewModelType {
+final class FollowerViewModel {
 
     // MARK: - property
     
     private let usecase: FollowUsecase
+    private let coordinator: FollowCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let memberId: Int
@@ -43,10 +44,12 @@ final class FollowerViewModel: BaseViewModelType {
 
     init(
         usecase: FollowUsecase,
+        coordinator: FollowCoordinator,
         memberId: Int,
         isOwn: Bool = false
     ) {
         self.usecase = usecase
+        self.coordinator = coordinator
         self.memberId = memberId
         self.isOwn = isOwn
     }
@@ -143,5 +146,11 @@ final class FollowerViewModel: BaseViewModelType {
                 self.removeMemberSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension FollowerViewModel: FollowViewModelType {
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
     }
 }

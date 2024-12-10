@@ -42,10 +42,6 @@ final class FollowView: UIView, BaseViewType {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func collectionView() -> UICollectionView {
-        return self.listCollectionView
-    }
-    
     // MARK: - base func
     
     func setupLayout() {
@@ -59,6 +55,12 @@ final class FollowView: UIView, BaseViewType {
     func configureUI() {
         self.backgroundColor = .mainBackgroundColor
     }
+    
+    // MARK: - func
+    
+    func collectionView() -> UICollectionView {
+        return self.listCollectionView
+    }
 }
 
 // MARK: - UICollectionViewLayout
@@ -71,7 +73,6 @@ extension FollowView {
             )
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = ConstantSize.sectionContentInset
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
@@ -85,6 +86,7 @@ extension FollowView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = ConstantSize.groupInterItemSpacing
+            section.contentInsets = ConstantSize.sectionContentInset
             
             return section
         }

@@ -78,7 +78,8 @@ final class MapCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = RecommendRepositoryImpl()
         let usecase = RecommendUsecaseImpl(repository: repository)
-        let viewModel = RecommendViewModel(usecase: usecase)
+        let coordinator = RecommendCoordinator(navigationController: navigationController)
+        let viewModel = RecommendViewModel(usecase: usecase, coordinator: coordinator)
         let viewController = RecommendViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)

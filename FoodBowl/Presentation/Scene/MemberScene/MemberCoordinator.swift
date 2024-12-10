@@ -31,8 +31,10 @@ final class MemberCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = FollowRepositoryImpl()
         let usecase = FollowUsecaseImpl(repository: repository)
+        let coordinator = FollowCoordinator(navigationController: navigationController)
         let viewModel = FollowerViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             memberId: id
         )
         let viewController = FollowerViewController(viewModel: viewModel)
@@ -44,8 +46,10 @@ final class MemberCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = FollowRepositoryImpl()
         let usecase = FollowUsecaseImpl(repository: repository)
+        let coordinator = FollowCoordinator(navigationController: navigationController)
         let viewModel = FollowingViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             memberId: id
         )
         let viewController = FollowingViewController(viewModel: viewModel)

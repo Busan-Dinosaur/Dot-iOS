@@ -8,11 +8,12 @@
 import Combine
 import Foundation
 
-final class RecommendViewModel: BaseViewModelType {
+final class RecommendViewModel {
 
     // MARK: - property
     
     private let usecase: RecommendUsecase
+    private let coordinator: RecommendCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let size: Int = 20
@@ -37,8 +38,12 @@ final class RecommendViewModel: BaseViewModelType {
     
     // MARK: - init
 
-    init(usecase: RecommendUsecase) {
+    init(
+        usecase: RecommendUsecase,
+        coordinator: RecommendCoordinator
+    ) {
         self.usecase = usecase
+        self.coordinator = coordinator
     }
     
     // MARK: - Public - func
@@ -118,5 +123,11 @@ final class RecommendViewModel: BaseViewModelType {
                 self.followMemberSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension RecommendViewModel: RecommendViewModelType {
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
     }
 }
