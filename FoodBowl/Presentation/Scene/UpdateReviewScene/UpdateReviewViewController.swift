@@ -12,7 +12,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class UpdateReviewViewController: UIViewController, Keyboardable, Helperable {
+final class UpdateReviewViewController: UIViewController, Keyboardable {
     
     // MARK: - ui component
     
@@ -20,14 +20,14 @@ final class UpdateReviewViewController: UIViewController, Keyboardable, Helperab
     
     // MARK: - property
     
-    private var reviewImages = [UIImage]()
-    
-    private let viewModel: any BaseViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
+    private let viewModel: any UpdateReviewViewModelType
+    
+    private var reviewImages = [UIImage]()
 
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any UpdateReviewViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,9 +80,6 @@ final class UpdateReviewViewController: UIViewController, Keyboardable, Helperab
                 switch result {
                 case .success(let review):
                     guard let self = self else { return }
-                    self.updateReviewView.selectedStoreView.mapButtonTapAction = { _ in
-                        self.presentShowWebViewController(url: review.store.url)
-                    }
                     self.updateReviewView.configureReview(review)
                 case .failure(let error):
                     self?.makeErrorAlert(
@@ -102,7 +99,9 @@ final class UpdateReviewViewController: UIViewController, Keyboardable, Helperab
                         title: "후기",
                         message: "후기가 수정되었어요.",
                         okAction: { _ in
-                            self?.dismiss(animated: true)
+                            DispatchQueue.main.async { [weak self] in
+                                self?.viewModel.dismiss()
+                            }
                         }
                     )
                 case .failure(let error):
@@ -125,7 +124,9 @@ final class UpdateReviewViewController: UIViewController, Keyboardable, Helperab
                     okTitle: "네",
                     cancelTitle: "아니요",
                     okAction: { _ in
-                        self?.dismiss(animated: true)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.viewModel.dismiss()
+                        }
                     }
                 )
             })
@@ -138,10 +139,10 @@ final class UpdateReviewViewController: UIViewController, Keyboardable, Helperab
             })
             .store(in: &self.cancellable)
         
-        self.updateReviewView.showStorePublisher
+        self.updateReviewView.selectedStore().mapButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
-                self?.presentShowWebViewController(url: url)
+                self?.viewModel.presentShowWebViewController(url: url)
             })
             .store(in: &self.cancellable)
     }
