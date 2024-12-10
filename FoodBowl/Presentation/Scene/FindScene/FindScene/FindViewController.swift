@@ -12,7 +12,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class FindViewController: UIViewController, Navigationable, Keyboardable, Helperable {
+final class FindViewController: UIViewController, Navigationable, Keyboardable {
     
     enum Section: CaseIterable {
         case main
@@ -21,10 +21,13 @@ final class FindViewController: UIViewController, Navigationable, Keyboardable, 
     // MARK: - ui component
     
     private let findView: FindView = FindView()
+    private let emptyMemberView = EmptyListView().then {
+        $0.configureEmptyView(message: "검색된 유저가 없어요.")
+    }
     
     // MARK: - property
     
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any FindViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Review>!
@@ -39,7 +42,7 @@ final class FindViewController: UIViewController, Navigationable, Keyboardable, 
     
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any FindViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,10 +65,11 @@ final class FindViewController: UIViewController, Navigationable, Keyboardable, 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavigation()
+        self.setupKeyboardGesture()
         self.configureDataSource()
         self.configureDelegation()
         self.bindViewModel()
-        self.setupKeyboardGesture()
+        self.bindUI()
     }
     
     // MARK: - func - bind
@@ -155,6 +159,16 @@ final class FindViewController: UIViewController, Navigationable, Keyboardable, 
             .store(in: &self.cancellable)
     }
     
+    private func bindUI() {
+        self.emptyMemberView.findButtonTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.presentRecommendViewController()
+            })
+            .store(in: &self.cancellable)
+    }
+    
     // MARK: - func
     
     private func configureDelegation() {
@@ -202,7 +216,7 @@ extension FindViewController {
             )
             
             cell.cellTapAction = { [weak self] _ in
-                self?.presentReviewDetailViewController(id: item.comment.id)
+                self?.viewModel.presentReviewDetailViewController(id: item.comment.id)
             }
             cell.setupAction()
         }
@@ -235,9 +249,6 @@ extension FindViewController {
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             let emptyView = EmptyListView()
             emptyView.configureEmptyView(message: "사진이 첨부된 후기가 없어요.")
-//            emptyView.findButtonTapAction = { [weak self] _ in
-//                self?.presentRecommendViewController()
-//            }
             
             if self.snapshot.numberOfItems == 0 {
                 self.findView.collectionView().backgroundView = emptyView
@@ -294,13 +305,7 @@ extension FindViewController: UITableViewDataSource, UITableViewDelegate {
             return self.stores.count
         } else {
             if self.members.count == 0 {
-                let emptyView = EmptyListView()
-                emptyView.configureEmptyView(message: "검색된 유저가 없어요.")
-//                emptyView.findButtonTapAction = { [weak self] _ in
-//                    self?.presentRecommendViewController()
-//                }
-                
-                self.findView.findResultViewController.findResultView.listTableView.backgroundView = emptyView
+                self.findView.findResultViewController.findResultView.listTableView.backgroundView = self.emptyMemberView
             } else {
                 self.findView.findResultViewController.findResultView.listTableView.backgroundView = nil
             }
@@ -347,9 +352,9 @@ extension FindViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.scope == 0 {
-            self.presentStoreDetailViewController(id: self.stores[indexPath.item].id)
+            self.viewModel.presentStoreDetailViewController(id: self.stores[indexPath.item].id)
         } else {
-            self.presentMemberViewController(id: self.members[indexPath.item].id)
+            self.viewModel.presentMemberViewController(id: self.members[indexPath.item].id)
         }
     }
 }

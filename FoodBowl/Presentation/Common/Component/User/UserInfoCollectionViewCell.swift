@@ -60,6 +60,7 @@ final class UserInfoCollectionViewCell: UICollectionViewCell, BaseViewType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.cancellable.removeAll()
         self.userImageView.image = ImageLiteral.profile
     }
     

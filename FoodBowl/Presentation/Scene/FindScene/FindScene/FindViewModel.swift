@@ -8,11 +8,12 @@
 import Combine
 import Foundation
 
-final class FindViewModel: BaseViewModelType {
+final class FindViewModel {
     
     // MARK: - property
     
     private let usecase: FindUsecase
+    private let coordinator: FindCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let pageSize: Int = 20
@@ -44,8 +45,12 @@ final class FindViewModel: BaseViewModelType {
     
     // MARK: - init
 
-    init(usecase: FindUsecase) {
+    init(
+        usecase: FindUsecase,
+        coordinator: FindCoordinator
+    ) {
         self.usecase = usecase
+        self.coordinator = coordinator
     }
     
     // MARK: - Public - func
@@ -170,5 +175,24 @@ final class FindViewModel: BaseViewModelType {
                 self.followMemberSubject.send(.failure(error))
             }
         }
+    }
+}
+
+extension FindViewModel: FindViewModelType {
+    
+    func presentRecommendViewController() {
+        self.coordinator?.presentRecommendViewController()
+    }
+    
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
+    }
+    
+    func presentStoreDetailViewController(id: Int) {
+        self.coordinator?.presentStoreDetailViewController(id: id)
+    }
+    
+    func presentReviewDetailViewController(id: Int) {
+        self.coordinator?.presentReviewDetailViewController(id: id)
     }
 }

@@ -66,7 +66,7 @@ final class EmptyListView: UIView, BaseViewType {
         if isFind {
             self.emptyLabel.snp.remakeConstraints {
                 $0.centerX.equalToSuperview()
-                $0.centerY.equalToSuperview().offset(-60)
+                $0.centerY.equalToSuperview().offset(-50)
             }
         }
     }

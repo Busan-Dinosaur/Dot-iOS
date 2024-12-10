@@ -108,7 +108,6 @@ final class FeedCollectionViewCell: UICollectionViewCell, BaseViewType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.cancellable.removeAll()
     }
     
