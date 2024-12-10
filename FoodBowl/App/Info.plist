@@ -8,19 +8,6 @@
 	<string>$(KAKAO_TOKEN)</string>
 	<key>KakaoURL</key>
 	<string>$(KAKAO_URL)</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-            <key>place.map.kakao.com</key>
-            <dict>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-            </dict>
-		</dict>
-	</dict>
 	<key>Nonce</key>
 	<string>$(NONCE)</string>
 	<key>UIApplicationSceneManifest</key>
