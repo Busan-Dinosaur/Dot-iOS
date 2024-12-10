@@ -38,9 +38,6 @@ final class ReviewDetailView: UIView, BaseViewType {
     var userInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.userInfoButton.buttonTapPublisher
     }
-    var optionButtonDidTapPublisher: AnyPublisher<Void, Never> {
-        return self.userInfoButton.buttonTapPublisher
-    }
     var storeInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
         return self.storeInfoButton.buttonTapPublisher
     }
@@ -81,6 +78,10 @@ final class ReviewDetailView: UIView, BaseViewType {
     
     func storeInfo() -> StoreDetailInfoButton {
         self.storeInfoButton
+    }
+    
+    func userInfo() -> UserInfoButton {
+        self.userInfoButton
     }
     
     private func setupExistImageUI() {

@@ -172,7 +172,7 @@ extension ReviewDetailViewModel: ReviewDetailViewModelType {
         onUpdate: @escaping () -> Void,
         onDelete: @escaping () -> Void
     ) {
-        if self.memberId == UserDefaultStorage.id {
+        if let memberId = self.memberId, memberId == UserDefaultStorage.id {
             self.presentMyReviewOptionAlert(onUpdate: onUpdate, onDelete: onDelete)
         } else {
             self.presentReviewOptionAlert(onBlame: onBlame)
