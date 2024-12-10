@@ -15,7 +15,7 @@ final class StoreDetailView: UIView, BaseViewType {
     
     private enum ConstantSize {
         static let sectionContentInset: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(
-            top: 0,
+            top: SizeLiteral.verticalPadding,
             leading: 0,
             bottom: SizeLiteral.verticalPadding,
             trailing: 0

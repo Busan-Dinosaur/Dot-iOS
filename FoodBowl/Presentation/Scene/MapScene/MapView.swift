@@ -53,6 +53,8 @@ final class MapView: UIView, BaseViewType {
     }
     
     private var previousCenter: CLLocationCoordinate2D?
+    private var previousSpan: MKCoordinateSpan?
+    
     private let fullViewHeight: CGFloat = UIScreen.main.bounds.height
     private lazy var modalMaxHeight: CGFloat = self.fullViewHeight - SizeLiteral.topAreaPadding - 44 - 48
 
@@ -155,7 +157,7 @@ final class MapView: UIView, BaseViewType {
 }
 
 extension MapView: MKMapViewDelegate {
-    
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard view is ClusterAnnotationView else { return }
 
@@ -172,18 +174,29 @@ extension MapView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let center = mapView.centerCoordinate
 
-        // 이전 좌표와 현재 좌표를 비교하여 큰 변화가 없는 경우 return
-        if let previousCenter = self.previousCenter {
-            let threshold: CLLocationDegrees = 0.001 // 변경 감지 임계값
-            let deltaX = abs(center.latitude - previousCenter.latitude)
-            let deltaY = abs(center.longitude - previousCenter.longitude)
-            if deltaX < threshold && deltaY < threshold {
-                return
-            }
+        // 이전 좌표와 확대/축소 값을 저장할 프로퍼티
+        if self.previousCenter == nil || self.previousSpan == nil {
+            self.previousCenter = center
+            self.previousSpan = mapView.region.span
         }
 
-        // 업데이트된 좌표를 저장
+        // 확대/축소 여부 확인
+        let currentSpan = mapView.region.span
+        let isZooming = abs(currentSpan.latitudeDelta - self.previousSpan!.latitudeDelta) > 0.0001 ||
+                        abs(currentSpan.longitudeDelta - self.previousSpan!.longitudeDelta) > 0.0001
+
+        // 이전 좌표와 현재 좌표를 비교하여 큰 변화가 없는 경우, 줌 동작이 아니라면 return
+        let threshold: CLLocationDegrees = 0.001 // 변경 감지 임계값
+        let deltaX = abs(center.latitude - self.previousCenter!.latitude)
+        let deltaY = abs(center.longitude - self.previousCenter!.longitude)
+
+        if !isZooming && deltaX < threshold && deltaY < threshold {
+            return
+        }
+
+        // 업데이트된 좌표와 확대/축소 값 저장
         self.previousCenter = center
+        self.previousSpan = currentSpan
 
         // 현재 사용자 위치가 유효한 경우에만 전송
         if let currentLocation = LocationManager.shared.manager.location?.coordinate {
