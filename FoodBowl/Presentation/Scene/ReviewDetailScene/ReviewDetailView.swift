@@ -26,7 +26,7 @@ final class ReviewDetailView: UIView, BaseViewType {
         horizontalWidth: UIScreen.main.bounds.size.width,
         horizontalHeight: UIScreen.main.bounds.size.width
     )
-    let storeInfoButton: StoreDetailInfoButton = StoreDetailInfoButton()
+    private let storeInfoButton: StoreDetailInfoButton = StoreDetailInfoButton()
     private let commentLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .light)
         $0.textColor = .mainTextColor
@@ -79,6 +79,10 @@ final class ReviewDetailView: UIView, BaseViewType {
         self.backgroundColor = .mainBackgroundColor
     }
     
+    func storeInfo() -> StoreDetailInfoButton {
+        self.storeInfoButton
+    }
+    
     private func setupExistImageUI() {
         self.contentView.addSubviews(
             self.userInfoButton,
@@ -89,7 +93,6 @@ final class ReviewDetailView: UIView, BaseViewType {
         
         self.userInfoButton.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(64)
         }
         
         self.reviewImagesView.snp.makeConstraints {
@@ -100,7 +103,6 @@ final class ReviewDetailView: UIView, BaseViewType {
         self.storeInfoButton.snp.makeConstraints {
             $0.top.equalTo(self.reviewImagesView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
         }
         
         self.commentLabel.snp.makeConstraints {
@@ -139,9 +141,9 @@ final class ReviewDetailView: UIView, BaseViewType {
 extension ReviewDetailView {
     func configureReview(_ review: Review) {
         self.userInfoButton.configureUser(review.member)
-        self.userInfoButton.option().isHidden = UserDefaultStorage.id == review.member.id
-        self.commentLabel.text = review.comment.content
         self.storeInfoButton.configureStore(review.store)
+        
+        self.commentLabel.text = review.comment.content
         
         if review.comment.imagePaths.isEmpty {
             self.setupNoneImageUI()

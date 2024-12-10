@@ -11,6 +11,7 @@ protocol StoreDetailUsecase {
     func getReviewsByStore(request: GetReviewsByStoreRequestDTO) async throws -> Reviews
     func createBookmark(storeId: Int) async throws
     func removeBookmark(storeId: Int) async throws
+    func removeReview(id: Int) async throws
 }
 
 final class StoreDetailUsecaseImpl: StoreDetailUsecase {
@@ -47,6 +48,14 @@ final class StoreDetailUsecaseImpl: StoreDetailUsecase {
     func removeBookmark(storeId: Int) async throws {
         do {
             try await self.repository.removeBookmark(storeId: storeId)
+        } catch(let error) {
+            throw error
+        }
+    }
+    
+    func removeReview(id: Int) async throws {
+        do {
+            try await self.repository.removeReview(id: id)
         } catch(let error) {
             throw error
         }

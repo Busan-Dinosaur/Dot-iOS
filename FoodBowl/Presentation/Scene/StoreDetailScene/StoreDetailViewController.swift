@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StoreDetailViewController: UIViewController, Navigationable, Optionable {
+final class StoreDetailViewController: UIViewController, Navigationable {
     
     enum Section: CaseIterable {
         case main
@@ -20,20 +20,23 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
     // MARK: - ui component
     
     private let storeDetailView: StoreDetailView = StoreDetailView()
+    private let emptyReviewView = EmptyListView().then {
+        $0.configureEmptyView(message: "해당 맛집에 후기가 없어요.")
+    }
     
     // MARK: - property
     
-    private var owner: String = "친구들"
-    
-    private let viewModel: any BaseViewModelType
+    private let viewModel: any StoreDetailViewModelType
     private var cancellable: Set<AnyCancellable> = Set()
+    
+    private let removeButtonDidTapPublisher = PassthroughSubject<Int, Never>()
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Review>!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, Review>!
-
+    
     // MARK: - init
     
-    init(viewModel: any BaseViewModelType) {
+    init(viewModel: any StoreDetailViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -48,11 +51,11 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
     }
     
     // MARK: - life cycle
-
+    
     override func loadView() {
         self.view = self.storeDetailView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureDataSource()
@@ -62,7 +65,7 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
     }
     
     // MARK: - func - bind
-
+    
     private func bindViewModel() {
         let output = self.transformedOutput()
         self.bindOutputToViewModel(output)
@@ -72,8 +75,8 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         guard let viewModel = self.viewModel as? StoreDetailViewModel else { return nil }
         let input = StoreDetailViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
-            reviewToggleButtonDidTap: self.storeDetailView.reviewToggleButtonDidTapPublisher.eraseToAnyPublisher(),
-            bookmarkButtonDidTap: self.storeDetailView.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            bookmarkButtonDidTap: self.storeDetailView.storeInfo().bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            removeButtonDidTap: self.removeButtonDidTapPublisher.eraseToAnyPublisher(),
             scrolledToBottom: self.storeDetailView.collectionView().scrolledToBottomPublisher.eraseToAnyPublisher(),
             refreshControl: self.storeDetailView.refreshPublisher.eraseToAnyPublisher()
         )
@@ -86,14 +89,12 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         output.store
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let store):
-                    self?.storeDetailView.storeHeaderView.configureHeader(store)
-                    self?.storeDetailView.storeHeaderView.mapButtonTapAction = { _ in
-//                        self?.presentShowWebViewController(url: store.url)
-                    }
+                    self.storeDetailView.storeInfo().configureStore(store)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -104,12 +105,13 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         output.reviews
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let reviews):
-                    self?.loadReviews(reviews)
-                    self?.storeDetailView.refreshControl().endRefreshing()
+                    self.loadReviews(reviews)
+                    self.storeDetailView.refreshControl().endRefreshing()
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -120,11 +122,12 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         output.moreReviews
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let reviews):
-                    self?.loadMoreReviews(reviews)
+                    self.loadMoreReviews(reviews)
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
@@ -135,25 +138,32 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         output.isBookmarked
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success:
-                    self?.storeDetailView.storeHeaderView.bookmarkButton.isSelected.toggle()
+                    self.storeDetailView.storeInfo().bookmarkToggle()
                 case .failure(let error):
-                    self?.makeErrorAlert(
+                    self.makeErrorAlert(
                         title: "에러",
                         error: error
                     )
                 }
             })
-            .store(in: &self.cancellable)        
-    }
-    
-    private func bindUI() {
-        self.storeDetailView.reviewToggleButtonDidTapPublisher
+            .store(in: &self.cancellable)
+        
+        output.isRemoved
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] isFriend in
-                self?.title = isFriend ? "친구들의 후기" : "모두의 후기"
-                self?.owner = isFriend ? "친구들" : "모두"
+            .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    self.viewModel.dismiss()
+                case .failure(let error):
+                    self.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
             })
             .store(in: &self.cancellable)
     }
@@ -162,43 +172,72 @@ final class StoreDetailViewController: UIViewController, Navigationable, Optiona
         cell.cellDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-//                self?.presentReviewDetailViewController(id: item.comment.id)
+                guard let self = self else { return }
+                self.viewModel.presentReviewDetailViewController(id: item.comment.id)
             }
             .store(in: &cell.cancellable)
         
         cell.userInfoButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-//                self?.presentMemberViewController(id: item.member.id)
+                guard let self = self else { return }
+                self.viewModel.presentMemberViewController(id: item.member.id)
             }
             .store(in: &cell.cancellable)
         
         cell.userInfo().optionButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.presentReviewOptionAlert(
-                    reviewId: item.comment.id,
-                    isMyReview: item.member.isMyProfile
-                )
+                guard let self = self else { return }
+                if item.member.isMyProfile {
+                    self.viewModel.presentMyReviewOptionAlert(
+                        onUpdate: {
+                            self.viewModel.presentUpdateReviewViewController(reviewId: item.comment.id)
+                        },
+                        onDelete: {
+                            self.removeButtonDidTapPublisher.send(item.comment.id)
+                        }
+                    )
+                } else {
+                    self.viewModel.presentReviewOptionAlert(
+                        onBlame: {
+                            self.viewModel.presentBlameViewController(
+                                targetId: item.store.id,
+                                blameTarget: "REVIEW"
+                            )
+                        }
+                    )
+                }
             }
             .store(in: &cell.cancellable)
+    }
+    
+    private func bindUI() {
+        self.storeDetailView.storeInfo().mapButtonDidTapPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] url in
+                guard let self = self else { return }
+                self.viewModel.presentShowWebViewController(url: url)
+            })
+            .store(in: &self.cancellable)
     }
 }
 
 // MARK: - DataSource
 extension StoreDetailViewController {
+    
     private func configureDataSource() {
         self.dataSource = self.feedNSCollectionViewDataSource()
         self.configureSnapshot()
     }
-
+    
     private func feedNSCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Review> {
         let reviewCellRegistration = UICollectionView.CellRegistration<FeedNSCollectionViewCell, Review> {
             [weak self] cell, indexPath, item in
             cell.configureCell(item)
             self?.bindCell(cell, with: item)
         }
-
+        
         return UICollectionViewDiffableDataSource(
             collectionView: self.storeDetailView.collectionView(),
             cellProvider: { collectionView, indexPath, item in
@@ -214,24 +253,20 @@ extension StoreDetailViewController {
 
 // MARK: - Snapshot
 extension StoreDetailViewController {
+    
     private func configureSnapshot() {
         self.snapshot = NSDiffableDataSourceSnapshot<Section, Review>()
         self.snapshot.appendSections([.main])
         self.dataSource.apply(self.snapshot, animatingDifferences: true)
     }
-
+    
     private func loadReviews(_ items: [Review]) {
         let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
         self.snapshot.deleteItems(previousReviewsData)
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot) {
             if self.snapshot.numberOfItems == 0 {
-//                let emptyView = EmptyListView(message: "\(self.owner)의 후기가 없어요.")
-//                emptyView.findButtonTapAction = { [weak self] _ in
-//                    self?.presentRecommendViewController()
-//                }
-//                
-//                self.storeDetailView.collectionView().backgroundView = emptyView
+                self.storeDetailView.collectionView().backgroundView = self.emptyReviewView
             } else {
                 self.storeDetailView.collectionView().backgroundView = nil
             }
@@ -241,5 +276,30 @@ extension StoreDetailViewController {
     private func loadMoreReviews(_ items: [Review]) {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot)
+    }
+    
+    private func updateBookmark(_ storeId: Int) {
+        let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
+        let items = previousReviewsData
+            .map { customItem in
+                var updatedItem = customItem
+                if customItem.store.id == storeId {
+                    updatedItem.store.isBookmarked.toggle()
+                }
+                return updatedItem
+            }
+        self.snapshot.deleteItems(previousReviewsData)
+        self.snapshot.appendItems(items)
+        self.dataSource.applySnapshotUsingReloadData(self.snapshot)
+    }
+    
+    private func deleteReview(_ reviewId: Int) {
+        for item in snapshot.itemIdentifiers {
+            if item.comment.id == reviewId {
+                self.snapshot.deleteItems([item])
+                self.dataSource.apply(self.snapshot)
+                return
+            }
+        }
     }
 }

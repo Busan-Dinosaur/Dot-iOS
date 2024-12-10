@@ -50,17 +50,17 @@ extension Helperable where Self: UIViewController {
     }
     
     func presentStoreDetailViewController(id: Int) {
-        let repository = StoreDetailRepositoryImpl()
-        let usecase = StoreDetailUsecaseImpl(repository: repository)
-        let viewModel = StoreDetailViewModel(
-            usecase: usecase,
-            storeId: id
-        )
-        let viewController = StoreDetailViewController(viewModel: viewModel)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        let repository = StoreDetailRepositoryImpl()
+//        let usecase = StoreDetailUsecaseImpl(repository: repository)
+//        let viewModel = StoreDetailViewModel(
+//            usecase: usecase,
+//            storeId: id
+//        )
+//        let viewController = StoreDetailViewController(viewModel: viewModel)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     func presentReviewDetailViewController(id: Int) {

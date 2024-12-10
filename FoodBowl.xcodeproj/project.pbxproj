@@ -48,6 +48,7 @@
 		CB40C6F82A83E812003E3F06 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40C6F72A83E812003E3F06 /* SignViewModel.swift */; };
 		CB40C6FA2A83E916003E3F06 /* MoyaProvider+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40C6F92A83E916003E3F06 /* MoyaProvider+Extension.swift */; };
 		CB40C6FE2A83EEF8003E3F06 /* SignRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40C6FD2A83EEF8003E3F06 /* SignRequestDTO.swift */; };
+		CB40EBB32D082E3F00F13BDF /* StoreDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40EBB22D082E3F00F13BDF /* StoreDetailCoordinator.swift */; };
 		CB4A789D2B581F8B0002136F /* CreateReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4A789C2B581F8B0002136F /* CreateReviewView.swift */; };
 		CB4A78A12B5830000002136F /* CreateReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4A78A02B5830000002136F /* CreateReviewRepository.swift */; };
 		CB4A78A42B58301A0002136F /* CreateReviewUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4A78A32B58301A0002136F /* CreateReviewUsecase.swift */; };
@@ -205,7 +206,6 @@
 		CBDA47EB2CFEC7A600BFB88A /* MapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47EA2CFEC7A600BFB88A /* MapRepositoryImpl.swift */; };
 		CBDA47EE2CFEC90200BFB88A /* MKMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA47ED2CFEC90200BFB88A /* MKMapView+Extension.swift */; };
 		CBDDF1402A6ADA3800AE3C50 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */; };
-		CBDDF1422A6AF70500AE3C50 /* StoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */; };
 		CBDDF1452A6AFB5800AE3C50 /* PhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */; };
 		CBDE38FD29715C5F00DDE49A /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDE38FC29715C5F00DDE49A /* SearchBarButton.swift */; };
 		CBDE39022971947B00DDE49A /* StoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDE39012971947B00DDE49A /* StoreTableViewCell.swift */; };
@@ -279,6 +279,7 @@
 		CB40C6F72A83E812003E3F06 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		CB40C6F92A83E916003E3F06 /* MoyaProvider+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Extension.swift"; sourceTree = "<group>"; };
 		CB40C6FD2A83EEF8003E3F06 /* SignRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignRequestDTO.swift; sourceTree = "<group>"; };
+		CB40EBB22D082E3F00F13BDF /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
 		CB4A789C2B581F8B0002136F /* CreateReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewView.swift; sourceTree = "<group>"; };
 		CB4A78A02B5830000002136F /* CreateReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewRepository.swift; sourceTree = "<group>"; };
 		CB4A78A32B58301A0002136F /* CreateReviewUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewUsecase.swift; sourceTree = "<group>"; };
@@ -431,7 +432,6 @@
 		CBDA47EA2CFEC7A600BFB88A /* MapRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepositoryImpl.swift; sourceTree = "<group>"; };
 		CBDA47ED2CFEC90200BFB88A /* MKMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extension.swift"; sourceTree = "<group>"; };
 		CBDDF13F2A6ADA3800AE3C50 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
-		CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHeaderView.swift; sourceTree = "<group>"; };
 		CBDDF1442A6AFB5800AE3C50 /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
 		CBDE38FC29715C5F00DDE49A /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
 		CBDE39012971947B00DDE49A /* StoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -546,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				CBDE39012971947B00DDE49A /* StoreTableViewCell.swift */,
+				CB84CB092B60411500F4591A /* StoreDetailInfoButton.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -923,20 +924,12 @@
 		CB73E0102AB5FEB4005B6BF1 /* StoreDetailScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB73E0112AB5FEDF005B6BF1 /* Component */,
 				CB617A5B2AE29FBA000F7FFC /* StoreDetailView.swift */,
 				CBFB52542977B9240049E8BA /* StoreDetailViewController.swift */,
 				CBB94BF52ADD0A4D00F44245 /* StoreDetailViewModel.swift */,
+				CB40EBB22D082E3F00F13BDF /* StoreDetailCoordinator.swift */,
 			);
 			path = StoreDetailScene;
-			sourceTree = "<group>";
-		};
-		CB73E0112AB5FEDF005B6BF1 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				CBDDF1412A6AF70500AE3C50 /* StoreHeaderView.swift */,
-			);
-			path = Component;
 			sourceTree = "<group>";
 		};
 		CB73E0122AB5FF1E005B6BF1 /* Feed */ = {
@@ -980,7 +973,6 @@
 		CB84CAF12B602F8600F4591A /* ReviewDetailScene */ = {
 			isa = PBXGroup;
 			children = (
-				CB84CB042B60356900F4591A /* Component */,
 				CB84CAF52B602FAC00F4591A /* ReviewDetailView.swift */,
 				CB84CAF72B602FB400F4591A /* ReviewDetailViewController.swift */,
 				CB84CAF92B602FBE00F4591A /* ReviewDetailViewModel.swift */,
@@ -1011,14 +1003,6 @@
 				CB84CB022B60300C00F4591A /* ReviewDetailRepositoryImpl.swift */,
 			);
 			path = ReviewDetailScene;
-			sourceTree = "<group>";
-		};
-		CB84CB042B60356900F4591A /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				CB84CB092B60411500F4591A /* StoreDetailInfoButton.swift */,
-			);
-			path = Component;
 			sourceTree = "<group>";
 		};
 		CB91E2A22B56D797008A0E8E /* StoreDetailScene */ = {
@@ -1747,7 +1731,6 @@
 				CB617A462AE25B1C000F7FFC /* SignView.swift in Sources */,
 				CB1BCAF72958B15B0021617D /* StoreInfoButton.swift in Sources */,
 				CB2E4F7F297702A800FD2566 /* StoreInfoTableViewCell.swift in Sources */,
-				CBDDF1422A6AF70500AE3C50 /* StoreHeaderView.swift in Sources */,
 				CB07CE1B2B6BBB1D001658E2 /* SettingUsecase.swift in Sources */,
 				CB84CAEE2B602E9100F4591A /* UpdateReviewRepositoryImpl.swift in Sources */,
 				CB20B9FD2D05D58A00BC06F9 /* MemberUsecase.swift in Sources */,
@@ -1795,6 +1778,7 @@
 				CB6301E42B6165070037B7FA /* Helperable.swift in Sources */,
 				CB8306752B599CE800632789 /* FindUsecase.swift in Sources */,
 				CB93326F2AFCCCEA00B7F87A /* SignUsecase.swift in Sources */,
+				CB40EBB32D082E3F00F13BDF /* StoreDetailCoordinator.swift in Sources */,
 				CB5BFB1B2B3EFF8700B35062 /* Result.swift in Sources */,
 				CBB12B142985845900AC0EF2 /* String+Extension.swift in Sources */,
 				CB84CAFA2B602FBE00F4591A /* ReviewDetailViewModel.swift in Sources */,

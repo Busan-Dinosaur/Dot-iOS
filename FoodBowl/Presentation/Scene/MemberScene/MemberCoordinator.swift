@@ -76,8 +76,10 @@ final class MemberCoordinator: NSObject {
         guard let navigationController = self.navigationController else { return }
         let repository = StoreDetailRepositoryImpl()
         let usecase = StoreDetailUsecaseImpl(repository: repository)
+        let coordinator = StoreDetailCoordinator(navigationController: navigationController)
         let viewModel = StoreDetailViewModel(
             usecase: usecase,
+            coordinator: coordinator,
             storeId: id
         )
         let viewController = StoreDetailViewController(viewModel: viewModel)

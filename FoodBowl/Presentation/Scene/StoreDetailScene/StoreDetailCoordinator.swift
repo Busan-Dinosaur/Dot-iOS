@@ -1,5 +1,5 @@
 //
-//  ReviewDetailCoordinator.swift
+//  StoreDetailCoordinator.swift
 //  FoodBowl
 //
 //  Created by Coby on 12/10/24.
@@ -7,18 +7,14 @@
 
 import UIKit
 
-protocol ReviewDetailViewModelType: BaseViewModelType {
+protocol StoreDetailViewModelType: BaseViewModelType {
     func dismiss()
-    func presentMemberViewController()
+    func presentMemberViewController(id: Int)
     func presentStoreDetailViewController()
+    func presentReviewDetailViewController(id: Int)
     func presentShowWebViewController(url: String)
-    func presentUpdateReviewViewController()
-    func presentBlameViewController()
-    func presentOptionAlert(
-        onBlame: @escaping () -> Void,
-        onUpdate: @escaping () -> Void,
-        onDelete: @escaping () -> Void
-    )
+    func presentUpdateReviewViewController(reviewId: Int)
+    func presentBlameViewController(targetId: Int, blameTarget: String)
     func presentReviewOptionAlert(onBlame: @escaping () -> Void)
     func presentMyReviewOptionAlert(
         onUpdate: @escaping () -> Void,
@@ -26,7 +22,7 @@ protocol ReviewDetailViewModelType: BaseViewModelType {
     )
 }
 
-final class ReviewDetailCoordinator: NSObject {
+final class StoreDetailCoordinator: NSObject {
     
     private weak var navigationController: UINavigationController?
     
@@ -66,6 +62,21 @@ final class ReviewDetailCoordinator: NSObject {
             storeId: id
         )
         let viewController = StoreDetailViewController(viewModel: viewModel)
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func presentReviewDetailViewController(id: Int) {
+        guard let navigationController = self.navigationController else { return }
+        let repository = ReviewDetailRepositoryImpl()
+        let usecase = ReviewDetailUsecaseImpl(repository: repository)
+        let coordinator = ReviewDetailCoordinator(navigationController: navigationController)
+        let viewModel = ReviewDetailViewModel(
+            usecase: usecase,
+            coordinator: coordinator,
+            reviewId: id
+        )
+        let viewController = ReviewDetailViewController(viewModel: viewModel)
         
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -144,7 +155,7 @@ final class ReviewDetailCoordinator: NSObject {
     }
 }
 
-extension ReviewDetailCoordinator {
+extension StoreDetailCoordinator {
     private func makeRequestAlert(title: String, message: String, okAction: @escaping () -> Void) {
         guard let navigationController = self.navigationController else { return }
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -353,7 +353,7 @@ extension MapViewController {
         self.dataSource.apply(self.snapshot, animatingDifferences: true)
     }
 
-    func loadReviews(_ items: [Review]) {
+    private func loadReviews(_ items: [Review]) {
         let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
         self.snapshot.deleteItems(previousReviewsData)
         self.snapshot.appendItems(items, toSection: .main)
@@ -366,12 +366,12 @@ extension MapViewController {
         }
     }
     
-    func loadMoreReviews(_ items: [Review]) {
+    private func loadMoreReviews(_ items: [Review]) {
         self.snapshot.appendItems(items, toSection: .main)
         self.dataSource.applySnapshotUsingReloadData(self.snapshot)
     }
     
-    func updateBookmark(_ storeId: Int) {
+    private func updateBookmark(_ storeId: Int) {
         let previousReviewsData = self.snapshot.itemIdentifiers(inSection: .main)
         let items = previousReviewsData
             .map { customItem in
@@ -386,7 +386,7 @@ extension MapViewController {
         self.dataSource.applySnapshotUsingReloadData(self.snapshot)
     }
     
-    func deleteReview(_ reviewId: Int) {
+    private func deleteReview(_ reviewId: Int) {
         for item in snapshot.itemIdentifiers {
             if item.comment.id == reviewId {
                 self.snapshot.deleteItems([item])

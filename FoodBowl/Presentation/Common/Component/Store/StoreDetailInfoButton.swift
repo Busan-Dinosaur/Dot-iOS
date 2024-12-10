@@ -1,16 +1,17 @@
 //
-//  StoreHeaderView.swift
+//  StoreDetailInfoButton.swift
 //  FoodBowl
 //
-//  Created by COBY_PRO on 2023/07/22.
+//  Created by Coby on 1/24/24.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 import Then
 
-final class StoreHeaderView: UIView, BaseViewType {
+final class StoreDetailInfoButton: UIButton, BaseViewType {
     
     // MARK: - ui component
     
@@ -27,18 +28,20 @@ final class StoreHeaderView: UIView, BaseViewType {
         $0.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .light)
         $0.textColor = .subTextColor
     }
-    let bookmarkButton = BookmarkButton()
+    private let bookmarkButton = BookmarkButton()
     
     // MARK: - property
     
-    var mapButtonTapAction: ((StoreHeaderView) -> Void)?
+    private var cancellable: Set<AnyCancellable> = Set()
+    
+    let mapButtonDidTapPublisher = PassthroughSubject<String, Never>()
+    let bookmarkButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
 
     // MARK: - init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.baseInit()
-        self.setupAction()
     }
 
     @available(*, unavailable)
@@ -85,23 +88,45 @@ final class StoreHeaderView: UIView, BaseViewType {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(SizeLiteral.horizantalPadding)
         }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(60)
+        }
     }
     
     func configureUI() {
         self.backgroundColor = .subBackgroundColor
     }
     
-    func setupAction() {
-        self.mapButton.addAction(UIAction { _ in self.mapButtonTapAction?(self) }, for: .touchUpInside)
+    func bookmarkToggle() {
+        self.bookmarkButton.isSelected.toggle()
+        self.updateBookmarkButton(isBookmarked: self.bookmarkButton.isSelected)
     }
 }
 
 // MARK: - Public - func
-extension StoreHeaderView {
-    func configureHeader(_ store: Store) {
+extension StoreDetailInfoButton {
+    func configureStore(_ store: Store) {
         self.storeNameLabel.text = store.name
         self.storeCategoryLabel.text = store.category
         self.storeAddressLabel.text = "\(store.address), \(store.distance)"
-        self.bookmarkButton.isSelected = store.isBookmarked
+        self.mapButton.tapPublisher
+            .sink { [weak self] in
+                self?.mapButtonDidTapPublisher.send(store.url)
+            }
+            .store(in: &self.cancellable)
+        
+        self.updateBookmarkButton(isBookmarked: store.isBookmarked)
+    }
+    
+    func updateBookmarkButton(isBookmarked: Bool) {
+        self.cancellable.removeAll()
+        
+        self.bookmarkButton.isSelected = isBookmarked
+        self.bookmarkButton.tapPublisher
+            .sink { [weak self] in
+                self?.bookmarkButtonDidTapPublisher.send(isBookmarked)
+            }
+            .store(in: &self.cancellable)
     }
 }

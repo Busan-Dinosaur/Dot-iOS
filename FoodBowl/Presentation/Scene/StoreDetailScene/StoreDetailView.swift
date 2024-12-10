@@ -25,7 +25,7 @@ final class StoreDetailView: UIView, BaseViewType {
     
     // MARK: - ui component
     
-    let storeHeaderView = StoreHeaderView()
+    private let storeInfoButton: StoreDetailInfoButton = StoreDetailInfoButton()
     private lazy var listCollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout()).then {
         $0.showsVerticalScrollIndicator = false
         $0.register(FeedNSCollectionViewCell.self, forCellWithReuseIdentifier: FeedNSCollectionViewCell.className)
@@ -34,10 +34,12 @@ final class StoreDetailView: UIView, BaseViewType {
     private var refresh = UIRefreshControl()
     
     // MARK: - property
-    
-    let reviewToggleButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
-    let bookmarkButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
+   
     let refreshPublisher = PassthroughSubject<Void, Never>()
+    
+    var storeInfoButtonDidTapPublisher: AnyPublisher<Void, Never> {
+        return self.storeInfoButton.buttonTapPublisher
+    }
     
     // MARK: - init
     
@@ -62,22 +64,25 @@ final class StoreDetailView: UIView, BaseViewType {
         return self.refresh
     }
     
+    func storeInfo() -> StoreDetailInfoButton {
+        self.storeInfoButton
+    }
+    
     // MARK: - base func
     
     func setupLayout() {
         self.addSubviews(
-            self.storeHeaderView,
+            self.storeInfoButton,
             self.listCollectionView
         )
 
-        self.storeHeaderView.snp.makeConstraints {
+        self.storeInfoButton.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
         }
 
         self.listCollectionView.snp.makeConstraints {
-            $0.top.equalTo(self.storeHeaderView.snp.bottom)
+            $0.top.equalTo(self.storeInfoButton.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -89,12 +94,6 @@ final class StoreDetailView: UIView, BaseViewType {
     // MARK: - Private - func
 
     private func setupAction() {
-        let bookmarkAction = UIAction { [weak self] _ in
-            guard let self = self else { return }
-            self.bookmarkButtonDidTapPublisher.send(self.storeHeaderView.bookmarkButton.isSelected)
-        }
-        self.storeHeaderView.bookmarkButton.addAction(bookmarkAction, for: .touchUpInside)
-        
         let refreshAction = UIAction { [weak self] _ in
             self?.refreshPublisher.send()
         }

@@ -88,6 +88,10 @@ final class UserInfoButton: UIButton, BaseViewType {
             $0.centerY.equalToSuperview()
             $0.width.height.equalTo(50)
         }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(64)
+        }
     }
     
     func configureUI() {

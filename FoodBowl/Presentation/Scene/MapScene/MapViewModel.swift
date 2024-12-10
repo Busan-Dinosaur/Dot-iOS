@@ -49,6 +49,18 @@ final class MapViewModel: NSObject {
         let isRemoved: AnyPublisher<Result<Int, Error>, Never>
     }
     
+    // MARK: - init
+    
+    init(
+        usecase: MapUsecase,
+        coordinator: MapCoordinator?
+    ) {
+        self.usecase = usecase
+        self.coordinator = coordinator
+    }
+    
+    // MARK: - Public - func
+    
     func transform(from input: Input) -> Output {
         input.viewDidLoad
             .sink(receiveValue: { [weak self] _ in
@@ -118,16 +130,6 @@ final class MapViewModel: NSObject {
             isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher(),
             isRemoved: self.isRemovedSubject.eraseToAnyPublisher()
         )
-    }
-    
-    // MARK: - init
-    
-    init(
-        usecase: MapUsecase,
-        coordinator: MapCoordinator?
-    ) {
-        self.usecase = usecase
-        self.coordinator = coordinator
     }
     
     // MARK: - func

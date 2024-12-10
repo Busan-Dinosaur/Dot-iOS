@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ReviewDetailViewController: UIViewController, Navigationable, Optionable {
+final class ReviewDetailViewController: UIViewController, Navigationable {
     
     // MARK: - ui component
     
@@ -23,7 +23,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
     private var cancellable: Set<AnyCancellable> = Set()
     
     private let removeButtonDidTapPublisher = PassthroughSubject<Void, Never>()
-
+    
     // MARK: - init
     
     init(viewModel: any ReviewDetailViewModelType) {
@@ -41,11 +41,11 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
     }
     
     // MARK: - life cycle
-
+    
     override func loadView() {
         self.view = self.reviewDetailView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel()
@@ -54,7 +54,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
     }
     
     // MARK: - func - bind
-
+    
     private func bindViewModel() {
         let output = self.transformedOutput()
         self.bindOutputToViewModel(output)
@@ -64,7 +64,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
         guard let viewModel = self.viewModel as? ReviewDetailViewModel else { return nil }
         let input = ReviewDetailViewModel.Input(
             viewDidLoad: self.viewDidLoadPublisher,
-            bookmarkButtonDidTap: self.reviewDetailView.storeInfoButton.bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
+            bookmarkButtonDidTap: self.reviewDetailView.storeInfo().bookmarkButtonDidTapPublisher.eraseToAnyPublisher(),
             removeButtonDidTap: self.removeButtonDidTapPublisher.eraseToAnyPublisher()
         )
         return viewModel.transform(from: input)
@@ -95,7 +95,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
                 guard let self = self else { return }
                 switch result {
                 case .success:
-                    self.reviewDetailView.storeInfoButton.bookmarkToggle()
+                    self.reviewDetailView.storeInfo().bookmarkToggle()
                 case .failure(let error):
                     self.makeErrorAlert(
                         title: "에러",
@@ -106,20 +106,20 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
             .store(in: &self.cancellable)
         
         output.isRemoved
-              .receive(on: DispatchQueue.main)
-              .sink(receiveValue: { [weak self] result in
-                  guard let self = self else { return }
-                  switch result {
-                  case .success:
-                      self.viewModel.dismiss()
-                  case .failure(let error):
-                      self.makeErrorAlert(
-                          title: "에러",
-                          error: error
-                      )
-                  }
-              })
-              .store(in: &self.cancellable)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    self.viewModel.dismiss()
+                case .failure(let error):
+                    self.makeErrorAlert(
+                        title: "에러",
+                        error: error
+                    )
+                }
+            })
+            .store(in: &self.cancellable)
     }
     
     private func bindUI() {
@@ -157,7 +157,7 @@ final class ReviewDetailViewController: UIViewController, Navigationable, Option
             })
             .store(in: &self.cancellable)
         
-        self.reviewDetailView.storeInfoButton.mapButtonDidTapPublisher
+        self.reviewDetailView.storeInfo().mapButtonDidTapPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] url in
                 guard let self = self else { return }

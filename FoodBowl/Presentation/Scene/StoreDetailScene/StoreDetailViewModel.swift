@@ -8,15 +8,15 @@
 import Combine
 import Foundation
 
-final class StoreDetailViewModel: BaseViewModelType {
+final class StoreDetailViewModel {
     
     // MARK: - property
     
     private let usecase: StoreDetailUsecase
+    private let coordinator: StoreDetailCoordinator?
     private var cancellable = Set<AnyCancellable>()
     
     private let storeId: Int
-    var isFriend: Bool
     private let pageSize: Int = 20
     private var currentpageSize: Int = 20
     private var lastReviewId: Int?
@@ -26,11 +26,12 @@ final class StoreDetailViewModel: BaseViewModelType {
     private let moreReviewsSubject: PassthroughSubject<Result<[Review], Error>, Never> = PassthroughSubject()
     private let refreshControlSubject: PassthroughSubject<Void, Error> = PassthroughSubject()
     private let isBookmarkedSubject: PassthroughSubject<Result<Void, Error>, Never> = PassthroughSubject()
+    private let isRemovedSubject: PassthroughSubject<Result<Int, Error>, Never> = PassthroughSubject()
     
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
-        let reviewToggleButtonDidTap: AnyPublisher<Bool, Never>
         let bookmarkButtonDidTap: AnyPublisher<Bool, Never>
+        let removeButtonDidTap: AnyPublisher<Int, Never>
         let scrolledToBottom: AnyPublisher<Void, Never>
         let refreshControl: AnyPublisher<Void, Never>
     }
@@ -40,18 +41,19 @@ final class StoreDetailViewModel: BaseViewModelType {
         let reviews: AnyPublisher<Result<[Review], Error>, Never>
         let moreReviews: AnyPublisher<Result<[Review], Error>, Never>
         let isBookmarked: AnyPublisher<Result<Void, Error>, Never>
+        let isRemoved: AnyPublisher<Result<Int, Error>, Never>
     }
     
     // MARK: - init
 
     init(
         usecase: StoreDetailUsecase,
-        storeId: Int,
-        isFriend: Bool = true
+        coordinator: StoreDetailCoordinator,
+        storeId: Int
     ) {
         self.usecase = usecase
+        self.coordinator = coordinator
         self.storeId = storeId
-        self.isFriend = isFriend
     }
     
     // MARK: - Public - func
@@ -64,22 +66,18 @@ final class StoreDetailViewModel: BaseViewModelType {
             })
             .store(in: &self.cancellable)
         
-        input.reviewToggleButtonDidTap
-            .removeDuplicates()
-            .sink(receiveValue: { [weak self] isFriend in
-                guard let self = self else { return }
-                self.currentpageSize = self.pageSize
-                self.lastReviewId = nil
-                self.isFriend = isFriend
-                self.getReviews()
-            })
-            .store(in: &self.cancellable)
-        
         input.bookmarkButtonDidTap
             .removeDuplicates()
             .sink(receiveValue: { [weak self] isBookmark in
                 guard let self = self else { return }
                 isBookmark ? self.removeBookmark() : self.createBookmark()
+            })
+            .store(in: &self.cancellable)
+        
+        input.removeButtonDidTap
+            .sink(receiveValue: { [weak self] reviewId in
+                guard let self = self else { return }
+                self.removeReview(id: reviewId)
             })
             .store(in: &self.cancellable)
         
@@ -103,7 +101,8 @@ final class StoreDetailViewModel: BaseViewModelType {
             store: self.storeSubject.eraseToAnyPublisher(),
             reviews: self.reviewsSubject.eraseToAnyPublisher(),
             moreReviews: self.moreReviewsSubject.eraseToAnyPublisher(),
-            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher()
+            isBookmarked: self.isBookmarkedSubject.eraseToAnyPublisher(),
+            isRemoved: self.isRemovedSubject.eraseToAnyPublisher()
         )
     }
     
@@ -112,16 +111,18 @@ final class StoreDetailViewModel: BaseViewModelType {
     private func getReviews(lastReviewId: Int? = nil) {
         Task {
             do {
-                if currentpageSize < pageSize { return }
-                let filter = self.isFriend ? "FRIEND" : "ALL"
-                let deviceX = LocationManager.shared.manager.location?.coordinate.longitude ?? 0.0
-                let deviceY = LocationManager.shared.manager.location?.coordinate.latitude ?? 0.0
+                if self.currentpageSize < self.pageSize { return }
+                guard let deviceX = LocationManager.shared.manager.location?.coordinate.longitude,
+                      let deviceY = LocationManager.shared.manager.location?.coordinate.latitude
+                else {
+                    return
+                }
                 
                 let reviews = try await self.usecase.getReviewsByStore(request: GetReviewsByStoreRequestDTO(
                     lastReviewId: lastReviewId,
                     pageSize: self.pageSize,
                     storeId: self.storeId,
-                    filter: filter,
+                    filter: "ALL",
                     deviceX: deviceX,
                     deviceY: deviceY
                 ))
@@ -139,7 +140,7 @@ final class StoreDetailViewModel: BaseViewModelType {
         }
     }
     
-    func createBookmark() {
+    private func createBookmark() {
         Task {
             do {
                 try await self.usecase.createBookmark(storeId: self.storeId)
@@ -150,7 +151,7 @@ final class StoreDetailViewModel: BaseViewModelType {
         }
     }
     
-    func removeBookmark() {
+    private func removeBookmark() {
         Task {
             do {
                 try await self.usecase.removeBookmark(storeId: self.storeId)
@@ -159,5 +160,55 @@ final class StoreDetailViewModel: BaseViewModelType {
                 self.isBookmarkedSubject.send(.failure(error))
             }
         }
+    }
+    
+    private func removeReview(id: Int) {
+        Task {
+            do {
+                try await self.usecase.removeReview(id: id)
+                self.isRemovedSubject.send(.success(id))
+            } catch(let error) {
+                self.isRemovedSubject.send(.failure(error))
+            }
+        }
+    }
+}
+
+extension StoreDetailViewModel: StoreDetailViewModelType {
+    
+    func dismiss() {
+        self.coordinator?.dismiss()
+    }
+    
+    func presentMemberViewController(id: Int) {
+        self.coordinator?.presentMemberViewController(id: id)
+    }
+    
+    func presentStoreDetailViewController() {
+        self.coordinator?.presentStoreDetailViewController(id: self.storeId)
+    }
+    
+    func presentReviewDetailViewController(id: Int) {
+        self.coordinator?.presentReviewDetailViewController(id: id)
+    }
+    
+    func presentShowWebViewController(url: String) {
+        self.coordinator?.presentShowWebViewController(url: url)
+    }
+    
+    func presentUpdateReviewViewController(reviewId: Int) {
+        self.coordinator?.presentUpdateReviewViewController(reviewId: reviewId)
+    }
+    
+    func presentBlameViewController(targetId: Int, blameTarget: String) {
+        self.coordinator?.presentBlameViewController(targetId: targetId, blameTarget: blameTarget)
+    }
+    
+    func presentReviewOptionAlert(onBlame: @escaping () -> Void) {
+        self.coordinator?.presentReviewOptionAlert(onBlame: onBlame)
+    }
+    
+    func presentMyReviewOptionAlert(onUpdate: @escaping () -> Void, onDelete: @escaping () -> Void) {
+        self.coordinator?.presentMyReviewOptionAlert(onUpdate: onUpdate, onDelete: onDelete)
     }
 }
