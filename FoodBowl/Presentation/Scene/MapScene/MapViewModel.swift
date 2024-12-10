@@ -219,7 +219,7 @@ final class MapViewModel: NSObject {
                 guard let location = self.location else { return }
                 if self.currentpageSize < self.pageSize { return }
                 
-                let reviews = try await self.usecase.getReviewsByFollowing(request: GetReviewsRequestDTO(
+                let reviews = try await self.usecase.getReviewsByBookmark(request: GetReviewsRequestDTO(
                     location: location,
                     lastReviewId: lastReviewId,
                     pageSize: self.pageSize,
