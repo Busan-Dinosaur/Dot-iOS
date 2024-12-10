@@ -293,9 +293,6 @@ extension FindViewController: UITableViewDataSource, UITableViewDelegate {
                     message: "검색된 맛집이 없어요.",
                     isFind: false
                 )
-//                emptyView.findButtonTapAction = { [weak self] _ in
-//                    self?.presentRecommendViewController()
-//                }
                 
                 self.findView.findResultViewController.findResultView.listTableView.backgroundView = emptyView
             } else {

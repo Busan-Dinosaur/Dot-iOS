@@ -31,7 +31,8 @@ final class SettingCoordinator: NSObject {
         let viewModel = FollowerViewModel(
             usecase: usecase,
             coordinator: coordinator,
-            memberId: id
+            memberId: id,
+            isOwn: true
         )
         let viewController = FollowerViewController(viewModel: viewModel)
         
