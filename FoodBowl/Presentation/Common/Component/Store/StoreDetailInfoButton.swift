@@ -33,6 +33,7 @@ final class StoreDetailInfoButton: UIButton, BaseViewType {
     // MARK: - property
     
     private var cancellable: Set<AnyCancellable> = Set()
+    private var bookmarkCancellable: AnyCancellable?
     
     let mapButtonDidTapPublisher = PassthroughSubject<String, Never>()
     let bookmarkButtonDidTapPublisher = PassthroughSubject<Bool, Never>()
@@ -120,13 +121,11 @@ extension StoreDetailInfoButton {
     }
     
     func updateBookmarkButton(isBookmarked: Bool) {
-        self.cancellable.removeAll()
-        
+        self.bookmarkCancellable?.cancel()
         self.bookmarkButton.isSelected = isBookmarked
-        self.bookmarkButton.tapPublisher
+        self.bookmarkCancellable = self.bookmarkButton.tapPublisher
             .sink { [weak self] in
                 self?.bookmarkButtonDidTapPublisher.send(isBookmarked)
             }
-            .store(in: &self.cancellable)
     }
 }

@@ -22,7 +22,7 @@ final class FeedButton: UIButton {
     }
 
     private func configureUI() {
-        self.setImage(ImageLiteral.btnFeed.resize(to: CGSize(width: 16, height: 16)).withRenderingMode(.alwaysTemplate), for: .normal)
+        self.setImage(ImageLiteral.btnFeed.resize(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysTemplate), for: .normal)
         self.tintColor = .mainTextColor
     }
 }
