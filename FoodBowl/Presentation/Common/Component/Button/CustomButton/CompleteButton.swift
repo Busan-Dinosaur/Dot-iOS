@@ -23,7 +23,7 @@ final class CompleteButton: UIButton, BaseViewType {
     let label = UILabel().then {
         let label = UILabel()
         $0.textColor = .white
-        $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .medium)
+        $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .semibold)
         $0.text = "완료"
     }
 
@@ -47,12 +47,16 @@ final class CompleteButton: UIButton, BaseViewType {
         self.label.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
         }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(48)
+        }
     }
 
     func configureUI() {
         self.isEnabled = false
-        self.backgroundColor = .mainPink
-        self.layer.cornerRadius = 30
+        self.backgroundColor = .mainColor
+        self.layer.cornerRadius = 8
         self.layer.masksToBounds = false
     }
 }

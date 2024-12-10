@@ -105,6 +105,7 @@ struct StoreByReviewDTO: Codable {
     let categoryName, name, addressName: String
     let distance: Double
     var isBookmarked: Bool
+    let storeUrl: String
     
     func toStore() -> Store {
         Store(
@@ -114,7 +115,7 @@ struct StoreByReviewDTO: Codable {
             address: self.addressName,
             isBookmarked: self.isBookmarked,
             distance: self.distance.prettyDistance,
-            url: "",
+            url: self.storeUrl,
             x: 0.0,
             y: 0.0,
             reviewCount: ""

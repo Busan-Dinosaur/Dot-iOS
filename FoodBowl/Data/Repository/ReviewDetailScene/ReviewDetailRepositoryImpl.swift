@@ -25,4 +25,8 @@ final class ReviewDetailRepositoryImpl: ReviewDetailRepository {
     func removeBookmark(storeId: Int) async throws {
         let _ = await provider.request(.removeBookmark(storeId: storeId))
     }
+    
+    func removeReview(id: Int) async throws {
+        let _ = await provider.request(.removeReview(id: id))
+    }
 }

@@ -12,7 +12,7 @@ final class BackButton: UIButton {
     // MARK: - init
     
     override init(frame _: CGRect) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 44, height: 44)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 40, height: 40)))
         self.configureUI()
     }
 
@@ -22,7 +22,7 @@ final class BackButton: UIButton {
     }
 
     private func configureUI() {
-        self.setImage(ImageLiteral.btnBack, for: .normal)
+        self.setImage(ImageLiteral.btnBack.resize(to: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate), for: .normal)
         self.tintColor = .mainTextColor
     }
 }
