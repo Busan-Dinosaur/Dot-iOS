@@ -4,14 +4,14 @@
 
 <div align="leading"> 
   
-<h1>FoodBowl</h1>
+<h1>Dot</h1>
 
 </div>
 
 <br/>
 
 ### 📱 Screenshots
-![banner](https://github.com/user-attachments/assets/63a0453c-d010-481d-9e9a-8cf76a12ae72)
+![banner](https://github.com/user-attachments/assets/5b2f380e-74db-4017-9c7c-749cc640b24b)
 <br/>
 
 ### 🛠 Development Environment
@@ -39,9 +39,9 @@
 ### 🗂 Folder Structure
 
 ```
-FoodBowl
+Dot
   |
-  └── FoodBowl
+  └── Dot
           |── 🗂 App
           │  
           |── 🗂 Presentation
