@@ -2094,7 +2094,7 @@
 				);
 				MARKETING_VERSION = 2.0.1;
 				NONCE = wH_pSu5wSUHzoFPBUE9Q9ZRs3fcKzGSn;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coby.Dot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coby.FoodBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2137,7 +2137,7 @@
 				);
 				MARKETING_VERSION = 2.0.1;
 				NONCE = wH_pSu5wSUHzoFPBUE9Q9ZRs3fcKzGSn;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coby.Dot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coby.FoodBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
