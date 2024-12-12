@@ -330,7 +330,7 @@
 		CB78A80F2B5D0CBD007EC9C1 /* FollowUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowUsecase.swift; sourceTree = "<group>"; };
 		CB78A8112B5D0F07007EC9C1 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		CB78A8152B5D5511007EC9C1 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		CB7F3321298A4F1E0000A6B4 /* FoodBowl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodBowl.entitlements; sourceTree = "<group>"; };
+		CB7F3321298A4F1E0000A6B4 /* Dot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dot.entitlements; sourceTree = "<group>"; };
 		CB7F3324298A51560000A6B4 /* UserDefaultStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultStorage.swift; sourceTree = "<group>"; };
 		CB7F3326298A51610000A6B4 /* UserDefaultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultHandler.swift; sourceTree = "<group>"; };
 		CB811AA52B66DE7200DCCA49 /* SignAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAPI.swift; sourceTree = "<group>"; };
@@ -400,7 +400,7 @@
 		CBC158652AD80BB600FD263B /* MemberDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDTO.swift; sourceTree = "<group>"; };
 		CBC158672AD80C3300FD263B /* CreateBlameRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBlameRequestDTO.swift; sourceTree = "<group>"; };
 		CBC19D492B6FA2FB009CB3AB /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
-		CBC73100295550A100C7F198 /* FoodBowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodBowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBC73100295550A100C7F198 /* Dot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBC73103295550A100C7F198 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBC73105295550A100C7F198 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CBC7310C295550A200C7F198 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1293,7 +1293,7 @@
 		CBC730F7295550A100C7F198 = {
 			isa = PBXGroup;
 			children = (
-				CBC73102295550A100C7F198 /* FoodBowl */,
+				CBC73102295550A100C7F198 /* Dot */,
 				CBC73101295550A100C7F198 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1301,15 +1301,15 @@
 		CBC73101295550A100C7F198 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CBC73100295550A100C7F198 /* FoodBowl.app */,
+				CBC73100295550A100C7F198 /* Dot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CBC73102295550A100C7F198 /* FoodBowl */ = {
+		CBC73102295550A100C7F198 /* Dot */ = {
 			isa = PBXGroup;
 			children = (
-				CB7F3321298A4F1E0000A6B4 /* FoodBowl.entitlements */,
+				CB7F3321298A4F1E0000A6B4 /* Dot.entitlements */,
 				CB617A1E2AE2387C000F7FFC /* App */,
 				CB617A1F2AE238AB000F7FFC /* Presentation */,
 				CB617A2A2AE23B01000F7FFC /* Domain */,
@@ -1318,7 +1318,7 @@
 				CB617A2B2AE23B89000F7FFC /* Utils */,
 				CBADC26F29559BC900E56C93 /* Resource */,
 			);
-			path = FoodBowl;
+			path = Dot;
 			sourceTree = "<group>";
 		};
 		CBC747AD2A83D9BC00F171F5 /* Request */ = {
@@ -1622,9 +1622,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CBC730FF295550A100C7F198 /* FoodBowl */ = {
+		CBC730FF295550A100C7F198 /* Dot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBC73114295550A200C7F198 /* Build configuration list for PBXNativeTarget "FoodBowl" */;
+			buildConfigurationList = CBC73114295550A200C7F198 /* Build configuration list for PBXNativeTarget "Dot" */;
 			buildPhases = (
 				CBC730FC295550A100C7F198 /* Sources */,
 				CBC730FD295550A100C7F198 /* Frameworks */,
@@ -1634,7 +1634,7 @@
 			);
 			dependencies = (
 			);
-			name = FoodBowl;
+			name = Dot;
 			packageProductDependencies = (
 				CBADC2412955989400E56C93 /* SnapKit */,
 				CBADC244295598A200E56C93 /* Then */,
@@ -1647,7 +1647,7 @@
 				CBDF0D052AE8E6B600177D38 /* YPImagePicker */,
 			);
 			productName = FoodBowl;
-			productReference = CBC73100295550A100C7F198 /* FoodBowl.app */;
+			productReference = CBC73100295550A100C7F198 /* Dot.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1665,7 +1665,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CBC730FB295550A100C7F198 /* Build configuration list for PBXProject "FoodBowl" */;
+			buildConfigurationList = CBC730FB295550A100C7F198 /* Build configuration list for PBXProject "Dot" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1687,7 +1687,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CBC730FF295550A100C7F198 /* FoodBowl */,
+				CBC730FF295550A100C7F198 /* Dot */,
 			);
 		};
 /* End PBXProject section */
@@ -1994,7 +1994,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "풋볼";
+				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2051,7 +2051,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "풋볼";
+				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2067,13 +2067,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				BASE_URL = "http://cobyserver.iptime.org";
-				CODE_SIGN_ENTITLEMENTS = FoodBowl/FoodBowl.entitlements;
+				BASE_URL = "https://justdoeat.co.kr";
+				CODE_SIGN_ENTITLEMENTS = Dot/Dot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FoodBowl/App/Info.plist;
+				INFOPLIST_FILE = Dot/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "음식 사진을 찍기 위해, 권한이 필요합니다.";
@@ -2092,7 +2092,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				NONCE = wH_pSu5wSUHzoFPBUE9Q9ZRs3fcKzGSn;
 				PRODUCT_BUNDLE_IDENTIFIER = com.coby.FoodBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2110,13 +2110,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				BASE_URL = "http://cobyserver.iptime.org";
-				CODE_SIGN_ENTITLEMENTS = FoodBowl/FoodBowl.entitlements;
+				BASE_URL = "https://justdoeat.co.kr";
+				CODE_SIGN_ENTITLEMENTS = Dot/Dot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FoodBowl/App/Info.plist;
+				INFOPLIST_FILE = Dot/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "음식 사진을 찍기 위해, 권한이 필요합니다.";
@@ -2135,7 +2135,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				NONCE = wH_pSu5wSUHzoFPBUE9Q9ZRs3fcKzGSn;
 				PRODUCT_BUNDLE_IDENTIFIER = com.coby.FoodBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2151,7 +2151,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CBC730FB295550A100C7F198 /* Build configuration list for PBXProject "FoodBowl" */ = {
+		CBC730FB295550A100C7F198 /* Build configuration list for PBXProject "Dot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBC73112295550A200C7F198 /* Debug */,
@@ -2160,7 +2160,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBC73114295550A200C7F198 /* Build configuration list for PBXNativeTarget "FoodBowl" */ = {
+		CBC73114295550A200C7F198 /* Build configuration list for PBXNativeTarget "Dot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CBC73115295550A200C7F198 /* Debug */,
